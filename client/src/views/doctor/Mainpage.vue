@@ -1,25 +1,44 @@
 <template>
-    <AppLayout>
-        <div class="w-full container mx-auto">
-            <Docnav />
-            <div>
-                <Search />
-            </div>
-            
+  <AppLayout>
+    <div class="w-full mx-auto">
+      <Docnav />
+      <div class="flex flex-col">
+        <!-- search -->
+        <div class="text-center mt-[5em] mb-[10px] text-2xl font-bold uppercase tracking-wide">Search patient</div>
+        <div class="flex justify-center">
+          <div class="flex text-gray-600 rounded-full border-2 border-gray-200 w-fit transition-all duration-500 items-center px-2">
+            <input
+              type="search"
+              name="serch"
+              class="bg-white h-30 p-5 pr-10 rounded-full text-sm text-[1.4em] outline-none flex w-[300px] transition-all duration-700 focus:w-[600px]"
+            />
+            <button type="submit" class="bg-black py-2 rounded-full text-white px-5">Search</button>
+          </div>
         </div>
 
-    </AppLayout>
+        <!-- body -->
+        <div class="mt-10" :class="{ 'hidden': isActive }">
+          <p>2222</p>
+        </div>
+      </div>
+    </div>
+  </AppLayout>
 </template>
-  
+
 <script>
-import AppLayout from '../../components/AppLayout.vue';
-import Docnav from '../../components/doctor/Docnav.vue';
-import Search from '../../components/doctor/Search.vue'
+import AppLayout from "../../components/AppLayout.vue";
+import Docnav from "../../components/doctor/Docnav.vue";
 export default {
-    components: {
-        AppLayout, Docnav, Search
-    }
-}
+  components: {
+    AppLayout,
+    Docnav,
+  },
+  data() {
+    return {
+      isActive: true,
+    };
+  },
+};
 </script>
-  
+
 <style></style>

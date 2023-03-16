@@ -12,7 +12,7 @@
         <p class="text-[#70737D] text-xs mt-3">Login, W&N Hospital is ready to serve you.</p>
       </div>
       <div class="flex flex-col w-2/3 mt-10 gap-y-5">
-        <input type="text" class="border border-black rounded-full p-2 px-4" placeholder="phone number" />
+        <input type="text" class="border border-black rounded-full p-2 px-4" placeholder="id number" />
         <input type="text" class="border border-black rounded-full p-2 px-4" placeholder="password" />
         <button class="w-full bg-primary text-white font-semibold py-2 rounded-md mt-10">Login</button>
         <p class="text-sm text-gray-300 text-center">Don’t have an account? <a href="/login" class="text-black/60">Sign up free ✨</a></p>
