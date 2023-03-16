@@ -15,7 +15,7 @@ router.post("/login", async (req, res) => {
     });
     if (user) {
       if (bcrypt.compare(user.password, req.body.password)) {
-        user.password = undefined
+        user.password = undefined;
         res.json(user);
       } else {
         res.status(401).send("Wrong password");
