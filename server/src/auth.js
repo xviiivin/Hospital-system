@@ -10,7 +10,7 @@ router.post("/login", async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        phone: req.body.phone,
+        idCard: req.body.idCard,
       },
     });
     if (user) {
