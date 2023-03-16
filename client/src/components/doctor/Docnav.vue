@@ -1,5 +1,5 @@
 <template>
-    <Nav>
+    <Nav class="w-full">
         <div class="h-[80px] flex justify-between p-2">
             <div class="flex">
                 <img class="w-[35px] h-[35px] mr-3" src="../../assets/Navbar/Logo.png" alt="" />
