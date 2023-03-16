@@ -3,16 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 const router = express.Router();
-
-function exeptionError(err, res) {
-  if (err instanceof Prisma.PrismaClientKnownRequestError) {
-    if (err.code === "P2002") {
-      return res.status(409).send("data already in use");
-    }
-  } else {
-    return res.status(500).send("Something broke!");
-  }
-}
+import exeptionError from "./Error.js";
 
 //get all medicine
 router.get("/", async (req, res) => {
@@ -21,6 +12,20 @@ router.get("/", async (req, res) => {
     res.json(medicine);
   } catch (error) {
     exeptionError(error);
+  }
+});
+
+// get medicine by id
+router.get("/:id", async (req, res) => {
+  try {
+    const medicine = await prisma.medicine.findUnique({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.json(medicine);
+  } catch (error) {
+    exeptionError(error, res);
   }
 });
 

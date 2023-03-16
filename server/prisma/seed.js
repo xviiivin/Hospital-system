@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+import  bcrypt from "bcryptjs";
+
 async function main() {
   for (let i = 0; i < 10; i++) {
     await prisma.medicine.upsert({
@@ -23,13 +25,13 @@ async function main() {
     },
     update: {
       phone: "0892452669",
-      password: "3114",
+      password: bcrypt.hashSync("3114", 10),
       idCard: "1234567890123",
       name: "pateint",
     },
     create: {
       phone: "0892452669",
-      password: "3114",
+      password: bcrypt.hashSync("3114", 10),
       idCard: "1234567890123",
       name: "pateint",
     },
@@ -41,14 +43,14 @@ async function main() {
     },
     update: {
       phone: "0892332669",
-      password: "3114",
+      password: bcrypt.hashSync("3114", 10),
       idCard: "1234567890333",
       name: "doctor",
       role: "DOCTOR",
     },
     create: {
       phone: "0892332669",
-      password: "3114",
+      password: bcrypt.hashSync("3114", 10),
       idCard: "1234567890333",
       name: "doctor",
       role: "DOCTOR",
@@ -66,7 +68,6 @@ async function main() {
       name: "โรงพยาบาลเชียงใหม่",
     },
   });
-
 }
 
 main()

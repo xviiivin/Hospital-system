@@ -1,0 +1,11 @@
+function exeptionError(err, res) {
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    if (err.code === "P2002") {
+      return res.status(409).send("data already in use");
+    }
+  } else {
+    return res.status(500).send("Something broke!");
+  }
+}
+
+export default exeptionError;

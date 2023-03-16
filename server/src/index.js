@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import medicine from "./medicine.js";
+import auth from "./auth.js";
 
 const router = express.Router();
 const app = express();
@@ -14,9 +15,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
 app.use(
-  "/api",
-  router.use("/medicine", medicine)
-  // router.use("/user", user),
+  "/api", 
+router.use("/medicine", medicine), 
+router.use("/auth", auth)
 );
 
 app.listen(process.env.PORT_SERVER, () => {
