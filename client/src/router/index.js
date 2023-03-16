@@ -6,11 +6,16 @@ const routes = [
     name: "home",
     component: home,
   },
-//   {
-//     path: "/pay1",
-//     name: "pay1",
-//     component: () => import("../views/Prescription.vue"),
-//   },
+  {
+    path: "/docmain",
+    name: "doc",
+    component: () => import("../views/doctor/Mainpage.vue"),
+  },
+  {
+    path: "/usermain",
+    name: "user",
+    component: () => import("../views/user/Mainpage.vue"),
+  },
 ];
 
 const router = createRouter({
