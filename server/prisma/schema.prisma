@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  phone    String @unique
+  idCard   String @unique
+  name     String
+  password String
+  role     Role   @default(USER)
+
+  hospitalId String?
+  userInfo   UserInfo?
+  treatment  Treatment[]
+  payment    Payment[]
+  Hospital   Hospital?   @relation(fields: [hospitalId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  DOCTOR
+  USER
+}
+
+model UserInfo {
+  id          String  @id @default(uuid())
+  userId      String  @unique
+  age         Int?
+  sex         String?
+  weight      Float?
+  height      Float?
+  bloodType   String?
+  nationality String?
+  occupation  String?
+  address     String?
+  religion    String?
+
+  description String?
+  department  String?
+  metadata    Json?
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_info")
+}
+
+model Payment {
+  id        String        @id @default(uuid())
+  treatment Treatment?
+  userId    String?
+  status    PaymentStatus @default(PENDING)
+
+  User User? @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model Treatment {
+  id          String  @id @default(uuid())
+  amount      Float
+  userId      String
+  description String?
+  paymentId   String? @unique
+
+  medicine MedicinePayment[]
+  Payment  Payment?          @relation(fields: [paymentId], references: [id])
+  user     User              @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MedicinePayment {
+  id          String  @id @default(uuid())
+  amount      Float
+  medicineId  String?
+  treatmentId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  medicine Medicine?  @relation(fields: [medicineId], references: [id])
+  Payment  Treatment? @relation(fields: [treatmentId], references: [id])
+
+  @@map("medicine_payment")
+}
+
+model Medicine {
+  id    String @id @default(uuid())
+  name  String @unique
+  price Float
+
+  MedicinePayment MedicinePayment[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Hospital {
+  id   String @id @default(uuid())
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  doctor User[]
+}
