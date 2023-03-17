@@ -4,6 +4,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import medicine from "./medicine.js";
 import auth from "./auth.js";
+import doctor from "./doctor.js";
 
 const router = express.Router();
 const app = express();
@@ -17,7 +18,8 @@ app.use(bodyParser.raw());
 app.use(
   "/api", 
 router.use("/medicine", medicine), 
-router.use("/auth", auth)
+router.use("/auth", auth),
+router.use("/doctor", doctor)
 );
 
 app.listen(process.env.PORT_SERVER, () => {

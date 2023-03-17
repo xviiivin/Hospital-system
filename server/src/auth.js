@@ -34,10 +34,11 @@ router.post("/register", async (req, res) => {
       data: {
         name: req.body.name,
         phone: req.body.phone,
-        password: req.body.password,
+        password: await bcrypt.hash(req.body.password, 10),
         idCard: req.body.idCard,
       },
     });
+    user.password = undefined;
     res.json(user);
   } catch (error) {
     exeptionError(error, res);
