@@ -1,7 +1,6 @@
 <template>
     <AppLayout>
-       
-        <div class="w-full md:w-2/3  xl:1/3">
+        <div class="w-full items-center">
             <Nav />
             <p>adasdasd</p>
         </div>
@@ -11,7 +10,7 @@
   
 <script>
 import AppLayout from '../../components/AppLayout.vue';
-import Nav from '../../components/users/Usernav.vue'
+import Nav from '../../components/users/MainNav.vue'
 export default {
     components: {
         AppLayout, Nav

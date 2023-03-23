@@ -27,7 +27,7 @@
 
 <script>
 import AppLayout from "../components/AppLayout.vue";
-import Nav from "../components/users/Usernav.vue";
+import Nav from "../components/users/MainNav.vue";
 export default {
   components: {
     AppLayout,

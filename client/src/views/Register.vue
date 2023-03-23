@@ -16,7 +16,7 @@
                 <input type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="Name" />
                 <input type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="Id-card" />
                 <input type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="password" />
-                <input type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="phone number" />
+                <input type="number" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="phone number" />
 
                 <button class="w-full bg-primary text-white  text-lg font-semibold py-2 rounded-md mt-10">Register</button>
 
@@ -27,7 +27,7 @@
   
 <script>
 import AppLayout from "../components/AppLayout.vue";
-import Nav from "../components/users/Usernav.vue";
+import Nav from "../components/users/MainNav.vue";
 export default {
     components: {
         AppLayout,

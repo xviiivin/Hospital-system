@@ -5,7 +5,10 @@
             <p class="text-xl font-normal curcer mt-[3px]">{{ LogoName }}</p>
         </div>
         <div class="flex">
-            <img class="w-10 h-10 mr-3" src="../../assets/Navbar/Logo.png" alt="" />
+           <div>
+                <a href="">Logout</a>
+                <img src="" alt="">
+           </div>
         </div>
     </Nav>
 </template>

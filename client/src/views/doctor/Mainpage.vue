@@ -1,10 +1,12 @@
 <template>
   <AppLayout>
     <div class="w-full mx-auto">
-      <Docnav />
-      <div class="flex flex-col">
+      <DocNav1 />
+      <div class="mx-auto container">
         <!-- search -->
-        <div class="text-center mt-[5em] mb-[10px] text-2xl font-bold uppercase tracking-wide">Search patient</div>
+
+
+        <!-- <div class="text-center mt-[5em] mb-[10px] text-2xl font-bold uppercase tracking-wide">Search patient</div>
         <div class="flex justify-center">
           <div class="flex text-gray-600 rounded-full border-2 border-gray-200 w-fit transition-all duration-500 items-center px-2">
             <input
@@ -14,12 +16,16 @@
             />
             <button type="submit" class="bg-black py-2 rounded-full text-white px-5">Search</button>
           </div>
-        </div>
+        </div> -->
 
         <!-- body -->
-        <div class="mt-10" :class="{ 'hidden': isActive }">
+
+
+        <!-- <div class="mt-10" :class="{ 'hidden': isActive }">
           <p>2222</p>
-        </div>
+        </div> -->
+       
+        <search/>
       </div>
     </div>
   </AppLayout>
@@ -27,11 +33,14 @@
 
 <script>
 import AppLayout from "../../components/AppLayout.vue";
+import search from "../../components/doctor/Search.vue"
 import Docnav from "../../components/doctor/Docnav.vue";
+import DocNav1 from "../../components/doctor/Navbarch1.vue"
 export default {
   components: {
     AppLayout,
     Docnav,
+    search,DocNav1
   },
   data() {
     return {
