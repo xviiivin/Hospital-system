@@ -29,17 +29,24 @@ const routes = [{
         component: () =>
             import ("../views/Register.vue"),
     },
+    
     {
-        path: "/whatza01",
-        name: "whatza01",
+        path: "/payment1",
+        name: "payment1",
         component: () =>
-            import ("../views/whatza.vue"),
+            import ("../views/user/Payment1.vue"),
     },
     {
-        path: "/payment",
-        name: "payment",
+        path: "/payment2",
+        name: "payment2",
         component: () =>
-            import ("../views/user/Payment.vue"),
+            import ("../views/user/Payment2.vue"),
+    },
+    {
+        path: "/docinfo",
+        name: "docinfo",
+        component: () =>
+            import ("../views/doctor/Docinfo.vue"),
     },
 ];
 
