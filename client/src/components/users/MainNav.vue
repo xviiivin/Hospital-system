@@ -12,7 +12,7 @@ onMounted(() => {
 <template>
   <nav class="bg-[#111727] border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-gray-900">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
-      <a href="https://flowbite.com/" class="flex items-center">
+      <a href="/" class="flex items-center">
         <img src="../../assets/Navbar/Logo.png" class="h-6 mr-3 sm:h-9" />
         <span class="self-center text-xl font-semibold whitespace-nowrap text-white">W&N</span>
       </a>

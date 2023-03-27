@@ -29,7 +29,7 @@ const routes = [{
         component: () =>
             import ("../views/Register.vue"),
     },
-    
+
     {
         path: "/payment1",
         name: "payment1",
@@ -47,6 +47,18 @@ const routes = [{
         name: "docinfo",
         component: () =>
             import ("../views/doctor/Docinfo.vue"),
+    },
+    {
+        path: "/alldoctor",
+        name: "alldoctor",
+        component: () =>
+            import ("../views/user/AllDoctor.vue"),
+    },
+    {
+        path: "/docinfo1",
+        name: "docinfo1",
+        component: () =>
+            import ("../views/user/DocInfo1.vue"),
     },
 ];
 
