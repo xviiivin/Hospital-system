@@ -27,8 +27,8 @@
                                                 </div>
                                                 <div class="col-start-1 col-end-7 mt-5">
                                                       <p class="ml-8 font-bold text-lg">ประวัติ</p>
-                                                      <div class=" text-[#111727] ml-20">
-                                                            <ul class=" list-disc">
+                                                      <div class=" text-[#111727] ml-[40%]">
+                                                            <ul class="list-disc">
                                                                   <li>{{ val.docname }}</li>
                                                                   <li>{{ val.specialist }}</li>
                                                                   <li>{{ val.age }}</li>
