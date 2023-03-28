@@ -66,6 +66,12 @@ const routes = [{
         component: () =>
             import ("../views/user/HospitalRecord.vue"),
     },
+    {
+        path: "/userinfo",
+        name: "userinfo",
+        component: () =>
+            import ("../views/user/UserInfo.vue"),
+    },
 ];
 
 const router = createRouter({
