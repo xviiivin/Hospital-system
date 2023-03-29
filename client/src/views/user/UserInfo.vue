@@ -12,14 +12,12 @@
 
                   <!-- body -->
                   <div class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white">
-                        <div class="w-full h-full p-3">
-                              <div class="mt-3">
-                                    <div class="grid grid-cols-8 mb-8 " v-for="(val, index) in userInfo" :key="index">
-                                          <div
-                                                class="col-start-1 col-end-7 ml-5 lg:col-start-2 lg:ml-0 md:col-start-2 md:ml-0">
-                                                <div
-                                                      class="rounded-xl w-[350px] h-[300px] bg-white group drop-shadow-xl overflow-hidden cursor-pointer ">
-                                                      <div class="h-full w-full">
+                        <div class="w-full h-full p-8 m-5">
+                              <div class="mt-3 justify-center">
+                                    <div class="w-full " v-for="(val, index) in userInfo" :key="index">
+                                          <div class="">
+                                                <div class="rounded-xl h-full w-full group drop-shadow-xl overflow-hidden cursor-pointer ">
+                                                      <div class="">
                                                             <img class="h-full w-full group-hover:scale-110 ease-in duration-300"
                                                                   :src="val.image">
                                                       </div>
@@ -38,11 +36,9 @@
                                                       <span>BloodType <span class="font-light ml-5">{{ val.bloodType }}</span>
                                                       </span> <br>
                                                 </div>
-                                                <div class="space-x-5 mt-10">
-                                                      <button class="rounded-lg bg-slate-800 p-2 w-18 text-white"> Save
-                                                      </button>
-                                                      <button
-                                                            class="rounded-lg bg-slate-800 p-2 w-18 bg-rose-900">Cancel</button>
+                                                <div class="space-x-5 mt-10 text-white right-5 bottom-5 absolute">
+                                                      <button class="rounded-lg bg-slate-800 p-2 w-18 "> Save </button>
+                                                      <button class="rounded-lg p-2 w-18 bg-rose-900 ">Cancel</button>
                                                 </div>
                                           </div>
                                     </div>
@@ -56,7 +52,7 @@
 <script>
 import AppLayout from "../../components/AppLayout.vue";
 import Nav from "../../components/users/MainNav.vue";
-import pic2 from "../../assets/hos2.png";
+import pic2 from "../../assets/doctorPic1.png";
 
 export default {
       components: {
@@ -77,11 +73,12 @@ export default {
                         occupation: "student",
                         address: "888/88 chonburi, Thailand",
                         religion: "Buddhist",
-                        userImage: ""
+                        userImage: "",
+                        image: pic2
                   }
 
             ],
-           
+
       }),
 };
 </script>
