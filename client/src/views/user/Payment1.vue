@@ -33,8 +33,12 @@
 
           <div class="">
             <p class="text-lg underline mb-4">Paid</p>
+            <div>
+              <paid/>
+            </div>
           </div>
         </div>
+        
         <!-- <div class="w-fit flex flex-col items-center">
           <p class="text-center text-4xl">Register</p>
           <div
@@ -70,6 +74,7 @@
           </button>
         </div>-->
       </div>
+      
     </div>
   </AppLayout>
 </template>
@@ -78,11 +83,14 @@
 import AppLayout from "../../components/AppLayout.vue";
 import Nav from "../../components/users/MainNav.vue";
 import nextpayment from "../../components/users/Gopayment.vue";
+import paid from "../../components/users/Paid.vue"
+
 export default {
   components: {
     AppLayout,
     Nav,
     nextpayment,
+    paid
   },
 };
 </script>
