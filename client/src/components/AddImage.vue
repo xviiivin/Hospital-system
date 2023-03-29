@@ -1,8 +1,9 @@
 <template>
   <div>
     <!-- @change="FileSelect" -->
+    <!-- @change="onfilechange" -->
     <div v-if="!image">
-      <input type="file" @change="onfilechange">
+      <input type="file" >
     </div>
     <div v-else>
       <img :src="image" />
