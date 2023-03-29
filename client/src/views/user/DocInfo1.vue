@@ -17,7 +17,7 @@
                                     <p class="text-md text-[#B6B6B6] ml-8">ประวัติคุณหมอ</p>
                                     <div v-for="(val, index) in DocInfo" :key="index">
                                           <p class="text-lg font-bold mb-8 ml-8 underline">{{ val.docname }}</p>
-                                          <div class="grid grid-cols-9 mb-3 gap-x-10">
+                                          <div class="">
                                                 <div class="col-start-2 col-end-7 md:col-start-3">
                                                       <div
                                                             class="rounded-xl w-[250px] h-[250px] group shadow-lg overflow-hidden ">
