@@ -10,7 +10,7 @@ onMounted(() => {
 
 
 <template>
-  <nav class="bg-[#111727] border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-gray-900">
+  <nav class="bg-[#111727] border-gray-200 px-2 sm:px-4 py-2.5 ">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
       <a href="/" class="flex items-center">
         <img src="../../assets/Navbar/Logo.png" class="h-6 mr-3 sm:h-9" />
@@ -18,7 +18,7 @@ onMounted(() => {
       </a>
       <div class="flex items-center md:order-2">
         <button type="button"
-          class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300"
           id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdownuser1"
           data-dropdown-placement="bottom">
           <span class="sr-only">Open user menu</span>

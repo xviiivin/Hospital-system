@@ -21,8 +21,6 @@ onMounted(() => {
 
 * {
   font-family: 'Space Mono', monospace;
-
-
 }
 
 body {

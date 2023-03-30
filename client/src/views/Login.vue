@@ -14,12 +14,12 @@
         <p class="text-[#70737D] text-md mt-3">Login, W&N Hospital is ready to serve you.</p>
       </div>
       <div class="flex flex-col w-2/3 xl:w-1/3 mt-10 gap-y-5">
-        <input type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="Id-card" />
-        <input type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="password" />
-        <router-link style="cursor: pointer; text-decoration: none" to="/">
-          <button class="w-full bg-primary text-white  text-lg font-semibold py-2 rounded-md mt-10"
-            @click="showAlert">Login</button>
-        </router-link>
+        <input v-model="idcard" type="text" class="border border-black rounded-full p-2 px-4 text-lg"
+          placeholder="Id-card" />
+        <input v-model='password' type="text" class="border border-black rounded-full p-2 px-4 text-lg"
+          placeholder="password" />
+        <button class="w-full bg-primary text-white  text-lg font-semibold py-2 rounded-md mt-10 "
+          @click="login()">Login</button>
         <p class="text-sm xl:text-md text-gray-400 text-center">Don’t have an account? <a
             @click="this.$router.push('/Register')" class="text-black/70 cursor-pointer">Sign up
             free ✨</a></p>
@@ -31,24 +31,31 @@
 <script>
 import AppLayout from "../components/AppLayout.vue";
 import Nav from "../components/users/MainNav.vue";
+import axios from 'axios';
 export default {
+  data() {
+    return {
+      idcard: '',
+      password: ''
+    }
+  },
   components: {
     AppLayout,
     Nav,
   },
   methods: {
     // ifelse condition
-    showAlert() {
+    async showAlert() {
       // Use sweetalert2
-      const Toast = this.$swal.mixin({
+      const Toast = await this.$swal.mixin({
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+          toast.addEventListener('mouseenter', this.$swal.stopTimer)
+          toast.addEventListener('mouseleave', this.$swal.resumeTimer)
         }
       })
 
@@ -57,6 +64,36 @@ export default {
         title: 'Signed in successfully'
       })
     },
+
+
+    async login() {
+      try {
+        const data = {
+          idCard: this.idcard, password: this.password
+        }
+        console.log(data);
+        const res = await axios.post('http://localhost:8080/api/auth/login', data)
+        console.table(res.data)
+        await this.showAlert();
+        await this.$router.push('/');
+      } catch (error) {
+        console.log(error.response.data.message)
+        if (error.response.data.message == 'Wrong password') {
+          this.$swal.fire(
+            'Wrong password!',
+            'You clicked the button!',
+            'error')
+        }
+        else {
+          this.$swal.fire(
+            'User not found!',
+            'You clicked the button!',
+            'error'
+          )
+        }
+      }
+
+    }
   },
 };
 </script>

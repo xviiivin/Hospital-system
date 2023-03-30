@@ -62,15 +62,16 @@ const routes = [
     name: "userinfo",
     component: () => import("../views/user/UserInfo.vue"),
   },
-  {
-    path: "/admin",
-    name: "admin",
-    component: () => import("../views/admin/Alluser.vue"),
-  },
+
   {
     path: "/adminrole",
     name: "admin",
     component: () => import("../views/admin/Addrole.vue"),
+  },
+  {
+    path: "/alluser",
+    name: "alluser",
+    component: () => import("../views/admin/Alluser.vue"),
   },
 ];
 
