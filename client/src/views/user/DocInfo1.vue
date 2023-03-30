@@ -9,40 +9,38 @@
                   </div>
             </div>
             <div class="w-full h-full flex flex-col items-center flex-grow bg-[#111727]">
-
                   <!-- body -->
                   <div class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white">
-                        <div class="w-full h-full p-7">
+                        <div class="w-full h-full p-8">
                               <div class="mt-3">
                                     <p class="text-md text-[#B6B6B6] ml-8">ประวัติคุณหมอ</p>
-                                    <div v-for="(val, index) in DocInfo" :key="index">
-                                          <p class="text-lg font-bold mb-8 ml-8 underline">{{ val.docname }}</p>
-                                          <div class="">
-                                                <div class="col-start-2 col-end-7 md:col-start-3">
-                                                      <div
-                                                            class="rounded-xl w-[250px] h-[250px] group shadow-lg overflow-hidden ">
-                                                            <img class=" h-full w-full group-hover:scale-110 ease-in duration-300"
-                                                                  :src="val.image">
-                                                      </div>
-                                                </div>
-                                                <div class="col-start-1 col-end-7 mt-5">
-                                                      <p class="ml-8 font-bold text-lg">ประวัติ</p>
-                                                      <div class=" text-[#111727] ml-[40%]">
-                                                            <ul class="list-disc">
-                                                                  <li>{{ val.docname }}</li>
-                                                                  <li>{{ val.specialist }}</li>
-                                                                  <li>{{ val.age }}</li>
-                                                                  <li>{{ val.gender }}</li>
-                                                                  <li>{{ val.description }}</li>
-                                                            </ul>
-                                                      </div>
-                                                </div>
+                              </div>
+                              <div v-for="(val, index) in DocInfo" :key="index">
+                                    <div class="mb-3">
+                                          <p class="text-xl font-bold mb-8 underline ml-8">{{ val.docname }}</p>
+                                    </div>
+                                    <div class="mx-5 lg:mx-10 mb-3">
+                                          <div class="rounded-xl w-full h-[calc(100%+2rem)] group shadow-lg overflow-hidden ">
+                                                <img class=" h-full w-full group-hover:scale-110 ease-in duration-300"
+                                                      :src="val.image">
+                                          </div>
+                                    </div>
+                                    <div class="mt-5">
+                                          <p class="ml-8 mb-3 font-bold text-lg ">Record</p>
+                                          <div class="text-[#111727] ml-[20%]">
+                                                <ul class="list-disc marker:text-sky-800 break-words font-semibold">
+                                                      <li>Name  <span class="font-light text-[#111727] opacity-[60%] ml-10"> {{ val.docname }} </span></li>
+                                                      <li>Expert  <span class="font-light text-[#111727] opacity-[60%] ml-5"> {{ val.specialist }} </span></li>
+                                                      <li>Age   <span class="font-light text-[#111727] opacity-[60%] ml-12">{{ val.age }}</span></li>
+                                                      <li>Gender   <span class="font-light text-[#111727] opacity-[60%] ml-5">{{ val.gender }}</span></li>
+                                                      <li>Description   <span class="font-light text-[#111727] opacity-[60%] ml-5 "> {{ val.description }}</span></li>
+                                                </ul>
                                           </div>
                                     </div>
                               </div>
                         </div>
-                  </div>
-            </div>
+                   </div>
+            </div>  
       </AppLayout>
 </template>
       

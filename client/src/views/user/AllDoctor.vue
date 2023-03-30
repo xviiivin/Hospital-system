@@ -11,24 +11,21 @@
             <div class="w-full h-full flex flex-col items-center flex-grow bg-[#111727]">
 
                   <!-- body -->
-                  <div class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white">
-                        <div class="w-full h-full p-3">
-                              <div class="mt-3">
-                                    <p class="text-xl font-bold mb-8 ml-8">{{ hosName }}</p>
-                                    <div class="grid grid-cols-9 mb-3 gap-x-10" v-for="(val, index) in DocInfo" :key="index">
-                                          <div class="col-start-2 col-end-4">
-                                                <div class="rounded-xl w-[150px] h-[150px] group shadow-lg overflow-hidden ">
-                                                      <img class=" h-full w-full group-hover:scale-110 ease-in duration-300"
+                  <div class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white overflow-hidden">
+                        <div class="w-full h-full p-8 mx-2 md:mx-8 ">
+                        <p class="text-xl font-bold mb-8">{{ hosName }}</p>
+                              
+                         <div class="mt-3 flex justify-between" v-for="(val, index) in DocInfo" :key="index">
+                        
+                                          <div class="rounded-xl w-[180px] h-[calc(100%+2rem)] mr-5 group shadow-lg overflow-hidden cursor-pointer">
+                                                <img class="h-full w-full group-hover:scale-110 ease-in duration-300"
                                                             :src="val.image">
-                                                </div>
                                           </div>
-                                          <div class="col-start-6 col-end-8">
-                                                <div class="text-center ">
-                                                      <p class="text-sm font-bold md:text-md lg:text-md">{{ val.docname }}</p>
-                                                      <p class="text-[#B6B6B6] text-xs mt-2">{{ val.specialist }}</p>
-                                                </div>
+                                                
+                                          <div class="justify-items-end self-center cursor-pointer">
+                                                <p class="text-sm font-bold md:text-md lg:text-md">{{ val.docname }}</p>
+                                                <p class="text-[#B6B6B6] text-xs mt-2">{{ val.specialist }}</p>
                                           </div>
-                                    </div>
                               </div>
                         </div>
                   </div>
