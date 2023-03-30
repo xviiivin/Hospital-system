@@ -18,10 +18,10 @@ router.post("/login", async (req, res) => {
         user.password = undefined;
         res.json(user);
       } else {
-        res.status(401).json({message:"Wrong password"});
+        res.status(401).json({ message: "Wrong password" });
       }
     } else {
-      res.status(404).json({message:"User not found"});
+      res.status(404).json({ message: "User not found" });
     }
   } catch (error) {
     exeptionError(error, res);
@@ -30,36 +30,23 @@ router.post("/login", async (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
-
     const checkidcard = await prisma.user.findFirst({
       where: {
-        OR: [
-         
-          { idCard: req.body.idCard },
-        ],
+        OR: [{ idCard: req.body.idCard }],
       },
-    })
+    });
 
     const checkphone = await prisma.user.findFirst({
       where: {
-        OR: [
-          { phone: req.body.phone },
-          
-        ],
+        OR: [{ phone: req.body.phone }],
       },
-    })
+    });
 
-    
-
-    if (checkidcard) { 
-      res.json({ status: "errorid", message: "accounterror" })
-    } 
-
-    else if (checkphone){
-      res.json({ status: "errorphone", message: "phoneerror" })
-    }
-    
-    else { 
+    if (checkidcard) {
+      res.json({ status: "errorid", message: "accounterror" });
+    } else if (checkphone) {
+      res.json({ status: "errorphone", message: "phoneerror" });
+    } else {
       const user = await prisma.user.create({
         data: {
           name: req.body.name,
@@ -71,8 +58,6 @@ router.post("/register", async (req, res) => {
       user.password = undefined;
       res.json(user);
     }
-
-
   } catch (error) {
     console.log(error);
     exeptionError(error, res);

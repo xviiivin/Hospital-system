@@ -17,8 +17,7 @@ onMounted(() => {
         <span class="self-center text-xl font-semibold whitespace-nowrap text-white">W&N</span>
       </a>
       <div class="flex items-center md:order-2">
-        <button type="button"
-          class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300"
+        <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300"
           id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdownuser1"
           data-dropdown-placement="bottom">
           <span class="sr-only">Open user menu</span>

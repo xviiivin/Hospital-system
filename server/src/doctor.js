@@ -39,7 +39,8 @@ router.get("/:id", async (req, res) => {
 //update doctor
 router.patch("/:id", async (req, res) => {
   try {
-    if (req.body.password) req.body.password = await bcrypt.hash(req.body.password, 10);
+    if (req.body.password)
+      req.body.password = await bcrypt.hash(req.body.password, 10);
     const doctor = await prisma.user.update({
       where: {
         id: req.params.id,
@@ -55,17 +56,17 @@ router.patch("/:id", async (req, res) => {
 
 //delete doctor
 router.delete("/:id", async (req, res) => {
-    try {
-        const doctor = await prisma.user.delete({
-            where: {
-                id: req.params.id,
-            },
-        });
-        doctor.password = undefined;
-        res.json(doctor);
-    } catch (error) {
-        exeptionError(error, res);
-    }
+  try {
+    const doctor = await prisma.user.delete({
+      where: {
+        id: req.params.id,
+      },
+    });
+    doctor.password = undefined;
+    res.json(doctor);
+  } catch (error) {
+    exeptionError(error, res);
+  }
 });
 
 export default router;

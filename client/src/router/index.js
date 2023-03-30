@@ -73,6 +73,11 @@ const routes = [
     name: "alluser",
     component: () => import("../views/admin/Alluser.vue"),
   },
+  {
+    path: "/symtom",
+    name: "symtom",
+    component: () => import("../views/user/Symtom.vue"),
+  },
 ];
 
 const router = createRouter({

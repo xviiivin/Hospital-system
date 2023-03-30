@@ -24,8 +24,8 @@
         <!-- <div class="mt-10" :class="{ 'hidden': isActive }">
           <p>2222</p>
         </div> -->
-       
-        <search/>
+
+        <search />
       </div>
     </div>
   </AppLayout>
@@ -40,7 +40,7 @@ export default {
   components: {
     AppLayout,
     Docnav,
-    search,DocNav1
+    search, DocNav1
   },
   data() {
     return {
