@@ -2,9 +2,6 @@
     <AppLayout>
         <div class="w-full mx-auto">
             <adminnav />
-
-
-
         </div>
     </AppLayout>
 </template>
@@ -22,6 +19,14 @@ export default {
 
         };
     },
+    // methods:{
+    //     fetchAlldates: function(){
+    //         axios.post()
+    //     }
+    // },
+    // created: function () {
+
+    // },
 };
 </script>
   

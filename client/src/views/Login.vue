@@ -16,7 +16,10 @@
       <div class="flex flex-col w-2/3 xl:w-1/3 mt-10 gap-y-5">
         <input type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="Id-card" />
         <input type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="password" />
-        <button class="w-full bg-primary text-white  text-lg font-semibold py-2 rounded-md mt-10">Login</button>
+        <router-link style="cursor: pointer; text-decoration: none" to="/">
+          <button class="w-full bg-primary text-white  text-lg font-semibold py-2 rounded-md mt-10"
+            @click="showAlert">Login</button>
+        </router-link>
         <p class="text-sm xl:text-md text-gray-400 text-center">Don’t have an account? <a
             @click="this.$router.push('/Register')" class="text-black/70 cursor-pointer">Sign up
             free ✨</a></p>
@@ -32,6 +35,28 @@ export default {
   components: {
     AppLayout,
     Nav,
+  },
+  methods: {
+    // ifelse condition
+    showAlert() {
+      // Use sweetalert2
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Signed in successfully'
+      })
+    },
   },
 };
 </script>

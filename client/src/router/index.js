@@ -67,6 +67,11 @@ const routes = [
     name: "admin",
     component: () => import("../views/admin/Alluser.vue"),
   },
+  {
+    path: "/adminrole",
+    name: "admin",
+    component: () => import("../views/admin/Addrole.vue"),
+  },
 ];
 
 const router = createRouter({
