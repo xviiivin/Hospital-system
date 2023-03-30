@@ -67,6 +67,7 @@ export default {
                         description: "Lorem ipsum dolor sit amet, consectetur adipisicing .",
                         image: pic1
                   },
+                  
 
 
             ],

@@ -24,7 +24,7 @@
                                                       <div
                                                             class="bg-black opacity-[65%] h-full absolute w-full bottom-0 group-hover:bg-black group-hover:opacity-[30%] ease-out duration-300">
                                                       </div>
-                                                      <div class="bottom-3 absolute ml-5 ">
+                                                      <div class="bottom-3 absolute ml-5">
                                                             <p class="text-md text-bold text-white group-hover:text-white font-semibold">{{
                                                                   val.hosName }}
                                                             </p>
@@ -68,6 +68,8 @@ export default {
                         hosName: "Hallaluya Hospital",
                         image: pic2
                   },
+
+                  
 
             ],
 

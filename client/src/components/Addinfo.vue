@@ -27,7 +27,7 @@
                     </select>
                 </div>
                 <div>
-                    <textarea name="" class='w-full' id="" cols="30" rows="10"></textarea>
+                    <textarea name="" class='w-full' id="" cols="30" rows="3"></textarea>
                 </div>
             </div>
         </div>
