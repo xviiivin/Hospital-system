@@ -16,7 +16,7 @@
                                     <p class="text-2xl font-extrabold my-8 text-[#111727]">Hospital records</p>
                                     <div class="w-full mb-5 cursor-pointer" v-for="(val, index) in hosRecord" :key="index">
                                                 <div
-                                                      class="rounded-xl group drop-shadow-xl overflow-hidden ">
+                                                      class="rounded-xl group drop-shadow-xl overflow-hidden">
                                                       <div class="">
                                                             <img class="h-full w-full group-hover:scale-110 ease-in duration-300 group-hover:opacity-[80%]"
                                                                   :src="val.image">
