@@ -44,6 +44,7 @@ export default {
     Nav,
   },
   methods: {
+    
     // ifelse condition
     async showAlert() {
       // Use sweetalert2
@@ -74,6 +75,8 @@ export default {
         console.log(data);
         const res = await axios.post('http://localhost:8080/api/auth/login', data)
         console.table(res.data)
+        const user = res.data
+        localStorage.setItem('user', JSON.stringify(user))
         await this.showAlert();
         await this.$router.push('/');
       } catch (error) {
@@ -95,6 +98,13 @@ export default {
 
     }
   },
+  mounted() {
+       const data = JSON.parse(localStorage.getItem("user"))
+       console.log(data);
+       if (data){
+            this.$router.push('/')
+       }
+    },
 };
 </script>
 

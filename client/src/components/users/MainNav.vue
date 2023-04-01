@@ -31,11 +31,11 @@ onMounted(() => {
             <span class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
           </div>
           <ul class="py-2" aria-labelledby="user-menu-button">
-
             <li>
-              <a href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">Sign
-                out</a>
+              <button
+                class="block px-4 py-2 text-sm w-full text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200"
+                @click="logout">Sign
+                out</button>
             </li>
           </ul>
         </div>
@@ -80,7 +80,14 @@ onMounted(() => {
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logout() {
+      localStorage.removeItem("user")
+      this.$router.push("/login")
+    },
+  }
+};
 </script>
 
 <style></style>
