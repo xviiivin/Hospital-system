@@ -18,14 +18,19 @@
       <!-- body -->
       <div
         class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white ">
-        <div class="w-full h-full p-6 m-5 mt-3 justify-center">
-          
-            <div class="w-full h-full" v-for="(val, index) in userInfo" :key="index">
-              <div class="">
-                <div class="rounded-xl h-full w-full group drop-shadow-xl overflow-hidden cursor-pointer">
-                  <div class="">
-                    <img class="h-full w-full group-hover:scale-110 ease-in duration-300"
-                      :src="val.image"
+        <div class="w-full h-full p-6 m-5">
+            <div class="w-full h-full space-y-10 " v-for="(val, index) in userInfo" :key="index">
+                <div class=" flex justify-center  ">
+                  <!-- <div v-if="!image">
+                    <input type="file" name="" id="" @change="onFileChange">
+                  </div>
+
+                  <div v-else>
+                    <img  :src="image" width="400px">
+                  </div> -->
+                  
+                  <div class="h-[calc(100%+2rem)] w-[calc(100%-1rem)] rounded-xl  overflow-hidden cursor-pointer bg-[#111727]">
+                    <img class="h-full w-full" :src="val.image"
                     />
                   </div>
                 </div>
@@ -34,13 +39,13 @@
                   
                 </div>
 
-                <div class="space-x-5 mt-10 text-white right-5 bottom-2 absolute ">
-                  <button class="rounded-lg bg-slate-800 p-2 w-18">Save</button>
-                  <button class="rounded-lg p-2 w-18 bg-rose-900">
+                <div class="space-x-5 text-white flex justify-end">
+                  <button class="rounded-lg bg-slate-800 p-2 px-5 ">Save</button>
+                  <button class="rounded-lg p-2  bg-rose-900">
                     Cancel
                   </button>
                 </div>
-              </div>
+              <!-- </div> -->
             
           </div>
         </div>
@@ -62,6 +67,7 @@ export default {
     Info
   },
   data: () => ({
+    image: '',
     userInfo: [
       {
         userId: "1234",
@@ -79,6 +85,33 @@ export default {
         image: pic2,
       },
     ],
+
+    methods: {
+      onFileChange(e){
+        var files = e.target.files || e.dataTransfer.files;
+        if (!files.length){
+          return;
+        }
+        this.createImage(files[0]);
+        console.log('เลือกไฟล์แล้ว');
+
+      },
+
+      createImage(file){
+        var image = new Image();
+        var reader = new FileReader();
+        var vm = this;
+        reader.onload=(e)=>{
+          vm.image = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      },
+
+
+
+
+    }
+
   }),
 };
 </script>

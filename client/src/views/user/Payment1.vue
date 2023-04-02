@@ -15,7 +15,6 @@
     <div
       class="w-full h-full flex flex-col items-center flex-grow bg-[#111727]"
     >
-      <!-- top -->
 
       <!-- body -->
       <div
