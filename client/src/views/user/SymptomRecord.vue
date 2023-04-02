@@ -62,6 +62,13 @@ export default {
                         
 
                   },
+                  {
+                        date: "10/04/2566",
+                        symptom: " Lorem ipsum dolor sit amet consectetur,  Similique id dolores blanditiis, voluptates cupiditate illum sit soluta ipsum, qui autem! Minima deserunt illo quia nostrum veniam velit!"
+
+                        
+
+                  },
 
 
                   

@@ -9,7 +9,7 @@
             </div>
 
         </div>
-        <div class="w-full h-full flex flex-col items-center flex-grow bg-[#111727]">
+        <div class="h-screen flex flex-col items-center flex-grow bg-[#111727]">
             <!-- body -->
             <div class="relative h-full w-full md:w-2/3 xl:w-1/3 flex rounded-t-3xl bg-white">
                 <div class="w-full h-2/3 mt-0">

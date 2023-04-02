@@ -1,14 +1,12 @@
 <template>
   <AppLayout>
-    <div class="w-full h-full flex flex-col items-center flex-grow">
+    <div class=" flex flex-col items-center flex-grow">
       <!-- top -->
-      <div class="h-2/5 relative w-full">
-        <div class="bg-primary h-2/3 flex justify-center rounded-b-3xl">
-          <img class="absolute top-1/3" src="../assets/Navbar/Logo.png" alt="" />
-        </div>
+      <div class="bg-primary h-[30%] w-full rounded-b-3xl">
+        <img class="-mb-12 mx-auto" src="../assets/Navbar/Logo.png" alt="" />
       </div>
       <!-- body -->
-      <div class="w-fit flex flex-col items-center">
+      <div class="mt-[5%] w-fit flex flex-col items-center">
         <p class="text-center text-4xl">Welcome</p>
         <div class="bg-gradient-to-r w-full from-[#111727] to-[#FF5757] h-1 rounded-full mt-2"></div>
         <p class="text-[#70737D] text-md mt-3">Login, W&N Hospital is ready to serve you.</p>
@@ -44,7 +42,7 @@ export default {
     Nav,
   },
   methods: {
-    
+
     // ifelse condition
     async showAlert() {
       // Use sweetalert2
@@ -99,12 +97,12 @@ export default {
     }
   },
   mounted() {
-       const data = JSON.parse(localStorage.getItem("user"))
-       console.log(data);
-       if (data){
-            this.$router.push('/')
-       }
-    },
+    const data = JSON.parse(localStorage.getItem("user"))
+    console.log(data);
+    if (data) {
+      this.$router.push('/')
+    }
+  },
 };
 </script>
 
