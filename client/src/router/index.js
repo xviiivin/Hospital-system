@@ -82,6 +82,11 @@ const routes = [
     name: "symptom",
     component: () => import("../views/user/SymptomRecord.vue"),
   },
+  {
+    path: "/slip",
+    name: "slip",
+    component: () => import("../views/admin/slip.vue"),
+  },
 ];
 
 const router = createRouter({

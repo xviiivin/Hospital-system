@@ -1,6 +1,8 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import { Prisma } from "@prisma/client";
+import jwt from "jsonwebtoken";
+
 const prisma = new PrismaClient();
 const router = express.Router();
 import exeptionError from "./Error.js";
@@ -16,6 +18,10 @@ router.post("/login", async (req, res) => {
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
         user.password = undefined;
+        // เพิ่ม
+        // const accessToken = jwt.sign({ id: user.id }, "mySecretKey");
+        // res.json(accessToken, user.id, user);
+        // จบ
         res.json(user);
       } else {
         res.status(401).json({ message: "Wrong password" });
@@ -28,6 +34,25 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// เพิ่ม
+// const verify = (req, res, next) => {
+//   const authHeader = req.headers.authorization;
+//   if (authHeader) {
+//     const token = authHeader.split(" ")[1];
+//     jwt.verify(token, "mySecretKey", (err, user) => {
+//       if (err) {
+//         res.status(403).json("Token is not valid!");
+//       }
+//       req.user = user;
+//       next();
+//     });
+//   } else {
+//     res.status(404).json("You are not authenticated!");
+//   }
+//   console.log(verify)
+
+// };
+// จบ
 router.post("/register", async (req, res) => {
   try {
     const checkidcard = await prisma.user.findFirst({
@@ -64,4 +89,12 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// export async function getAllData() {
+//   const allData = await prisma.User.findMany();
+//   return allData;
+// }
+
+// module.exports = {
+//   router,
+// };
 export default router;

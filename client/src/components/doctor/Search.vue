@@ -5,14 +5,14 @@
         <div class="flex justify-center">
             <div
                 class="flex text-gray-600 rounded-full border-2 border-gray-200 w-fit transition-all duration-500 items-center px-2">
-                <input name="serch"
+                <input name="serch" v-model="data"
                     class="bg-white h-30 p-5 pr-10 rounded-full text-sm text-[1.4em] outline-none flex w-[300px] transition-all duration-700 focus:w-[600px]" />
                 <button type="submit" class="bg-black py-2 rounded-full text-white px-5">Search</button>
             </div>
         </div>
 
         <!-- body -->
-        <div class="mt-16 container mx-auto">
+        <div class="mt-16 container mx-auto transition-all" v-if="data != ''">
             <div class=" w-full flex px-4">
                 <div class="w-1/3">
                     <div class="flex justify-between pb-4">
@@ -132,15 +132,24 @@
 </template>
 
 <script>
+// import { getAllData } from '../../../../server/src/auth.js'
 export default {
     data() {
         return {
-
+            data: '',
+            allData: []
         }
     },
+    // async created() {
+    //     this.allData = await getAllData()
+    // },
     methods: {
-
-    },
+        filteredList() {
+            return fruits.filter((data) =>
+                fruit.toLowerCase().includes(input.value.toLowerCase())
+            );
+        },
+    }
 }
 </script>
 
