@@ -22,30 +22,31 @@
           <div class="w-full h-full space-y-10" v-for="(val, index) in userInfo" :key="index">
             <div class="flex justify-center">
               <div v-if="!image">
-                <input type="file" name="" id="" lass="w-[250px] h-[250px] block" @change="onFileChange">
-              </div>
-              <div v-else >
-                <div class="rounded-lg w-[250px] h-[250px]">
-                  <img :src="image" class="w-[250px] h-[250px] block object-cover">
+                 <div class="rounded-lg w-[250px] h-[250px] flex items-center ">
+                    <input type="file" name="" id=""  @change="onFileChange">
                 </div>
-                  
+              </div>
+
+              <div v-else >
+                <div class="w-[350px] h-[350px]">
+                    <img :src="image" class="w-full h-full block object-cover rounded-lg">
+                  <div class="flex justify-end p-2 ">
+                    <img src="../../assets/cancel.png" @click="removeImage" class="block absolute top-[50px] w-[30px] h-[30px]">
+                  </div>
+                </div>
               </div>
 
 
-              <!-- <div class="h-[calc(100%+2rem)] w-[calc(100%-1rem)] rounded-xl  overflow-hidden cursor-pointer bg-[#111727]">
-                    <img class="h-full w-full" :src="val.image"
-                    />
-                  </div> -->
             </div>
             <div class="text-black font-semibold text-md mt-5 space-y-10">
               <Info />
             </div>
 
+
             <div class="space-x-5 text-white flex justify-end">
               <button class="rounded-lg bg-slate-800 p-2 px-5">Save</button>
               <button class="rounded-lg p-2 bg-rose-900">Cancel</button>
             </div>
-            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -56,7 +57,6 @@
 <script>
 import AppLayout from "../../components/AppLayout.vue";
 import Nav from "../../components/users/MainNav.vue";
-import pic2 from "../../assets/doctorPic1.png";
 import Info from "../../components/Addinfo.vue";
 
 export default {
@@ -81,29 +81,9 @@ export default {
         address: "888/88 chonburi, Thailand",
         religion: "Buddhist",
         userImage: "",
-        image: pic2,
       }
     ]
   }) ,
-
-
-//  methods: {
-//       selectImage () {
-//           this.$refs.fileInput.click()
-//       },
-//       pickFile () {
-//         let input = this.$refs.fileInput
-//         let file = input.files
-//         if (file && file[0]) {
-//           let reader = new FileReader
-//           reader.onload = e => {
-//             this.image = e.target.result
-//           }
-//           reader.readAsDataURL(file[0])
-//           this.$emit('input', file[0])
-//         }
-//       }
-//   }
 
 
   methods: {
@@ -126,22 +106,9 @@ export default {
       reader.readAsDataURL(file);
     },
 
-    selectImage() {
-      this.$refs.fileInput.click();
-    },
-
-    pickFile() {
-      let input = this.$refs.fileInput;
-      let file = input.files;
-      if (file && file[0]) {
-        let reader = new FileReader();
-        reader.onload = (e) => {
-          this.image = e.target.result;
-        };
-        reader.readAsDataURL(file[0]);
-        this.$emit("input", file[0]);
-      }
-    },
+    removeImage:function(e){
+      this.image = '';
+    }
   },
 };
 </script>
