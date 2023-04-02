@@ -40,28 +40,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b  hover:bg-gray-50 ">
+                    <tr v-for="(value, index) in data" :key="index" class="bg-white border-b  hover:bg-gray-50 ">
                         <td class="w-4 p-4">
                             <div class="flex items-center">
 
                             </div>
                         </td>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            asdasd
+                            {{ index + 1 }}
                         </th>
                         <td class="px-6 py-4">
-                            Silver
+                            {{ value.name }}
                         </td>
                         <td class="px-6 py-4">
-                            Laptop
+                            {{ value.idCard }}
                         </td>
                         <td class="px-6 py-4">
-                            $2999
+                            {{ value.phone }}
                         </td>
+
                         <td class="px-6 py-4">
-                            <router-link style="cursor: pointer; text-decoration: none" to="/slip">
-                                <button class="font-medium text-blue-600  hover:underline">check</button>
-                            </router-link>
+                            {{ value.role }}
                         </td>
                     </tr>
                 </tbody>
@@ -71,20 +70,29 @@
     </div>
 </template>
 <script>
-// import { getAllData } from '../../../../server/src/auth.js'
+import axios from 'axios';
 export default {
     data() {
         return {
-            allData: []
+            data: [],
         }
     },
-    // async created() {
-    //     // this.allData = await 
-    //     // console.log(getAllData());
-    // }
+
+    mounted() {
+        this.load()
+    },
+
+    methods: {
+        async load() {
+            const result = await axios.get("http://localhost:8080/api/user");
+            this.data = result.data
+
+            console.log(result.data)
+
+        }
+    }
 
 
-
-}
+};
 </script>
 <style></style>

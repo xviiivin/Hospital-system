@@ -4,6 +4,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import medicine from "./medicine.js";
 import auth from "./auth.js";
+import user from "./user.js";
 import doctor from "./doctor.js";
 
 const router = express.Router();
@@ -19,6 +20,7 @@ app.use(
   "/api", 
 router.use("/medicine", medicine), 
 router.use("/auth", auth),
+router.use("/user", user),
 router.use("/doctor", doctor)
 );
 
