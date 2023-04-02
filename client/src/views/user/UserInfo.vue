@@ -17,36 +17,35 @@
     >
       <!-- body -->
       <div
-        class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white ">
-        <div class="w-full h-full p-6 m-5">
-            <div class="w-full h-full space-y-10 " v-for="(val, index) in userInfo" :key="index">
-                <div class=" flex justify-center  ">
-                  <!-- <div v-if="!image">
-                    <input type="file" name="" id="" @change="onFileChange">
-                  </div>
-
-                  <div v-else>
-                    <img  :src="image" width="400px">
-                  </div> -->
+        class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white" >
+        <div class="w-full h-full p-6 m-5 ">
+          <div class="w-full h-full space-y-10" v-for="(val, index) in userInfo" :key="index">
+            <div class="flex justify-center">
+              <div v-if="!image">
+                <input type="file" name="" id="" lass="w-[250px] h-[250px] block" @change="onFileChange">
+              </div>
+              <div v-else >
+                <div class="rounded-lg w-[250px] h-[250px]">
+                  <img :src="image" class="w-[250px] h-[250px] block object-cover">
+                </div>
                   
-                  <div class="h-[calc(100%+2rem)] w-[calc(100%-1rem)] rounded-xl  overflow-hidden cursor-pointer bg-[#111727]">
+              </div>
+
+
+              <!-- <div class="h-[calc(100%+2rem)] w-[calc(100%-1rem)] rounded-xl  overflow-hidden cursor-pointer bg-[#111727]">
                     <img class="h-full w-full" :src="val.image"
                     />
-                  </div>
-                </div>
-                <div class="text-black font-semibold text-md mt-5 space-y-10">
-                       <Info />
-                  
-                </div>
+                  </div> -->
+            </div>
+            <div class="text-black font-semibold text-md mt-5 space-y-10">
+              <Info />
+            </div>
 
-                <div class="space-x-5 text-white flex justify-end">
-                  <button class="rounded-lg bg-slate-800 p-2 px-5 ">Save</button>
-                  <button class="rounded-lg p-2  bg-rose-900">
-                    Cancel
-                  </button>
-                </div>
-              <!-- </div> -->
-            
+            <div class="space-x-5 text-white flex justify-end">
+              <button class="rounded-lg bg-slate-800 p-2 px-5">Save</button>
+              <button class="rounded-lg p-2 bg-rose-900">Cancel</button>
+            </div>
+            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -58,16 +57,16 @@
 import AppLayout from "../../components/AppLayout.vue";
 import Nav from "../../components/users/MainNav.vue";
 import pic2 from "../../assets/doctorPic1.png";
-import Info from "../../components/Addinfo.vue"
+import Info from "../../components/Addinfo.vue";
 
 export default {
   components: {
     AppLayout,
     Nav,
-    Info
+    Info,
   },
   data: () => ({
-    image: '',
+    image: null,
     userInfo: [
       {
         userId: "1234",
@@ -83,36 +82,67 @@ export default {
         religion: "Buddhist",
         userImage: "",
         image: pic2,
-      },
-    ],
+      }
+    ]
+  }) ,
 
-    methods: {
-      onFileChange(e){
-        var files = e.target.files || e.dataTransfer.files;
-        if (!files.length){
-          return;
-        }
-        this.createImage(files[0]);
-        console.log('เลือกไฟล์แล้ว');
 
-      },
+//  methods: {
+//       selectImage () {
+//           this.$refs.fileInput.click()
+//       },
+//       pickFile () {
+//         let input = this.$refs.fileInput
+//         let file = input.files
+//         if (file && file[0]) {
+//           let reader = new FileReader
+//           reader.onload = e => {
+//             this.image = e.target.result
+//           }
+//           reader.readAsDataURL(file[0])
+//           this.$emit('input', file[0])
+//         }
+//       }
+//   }
 
-      createImage(file){
-        var image = new Image();
-        var reader = new FileReader();
-        var vm = this;
-        reader.onload=(e)=>{
-          vm.image = e.target.result;
+
+  methods: {
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) {
+        return;
+      }
+      this.createImage(files[0]);
+      console.log("เลือกไฟล์แล้ว");
+    },
+
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+
+    selectImage() {
+      this.$refs.fileInput.click();
+    },
+
+    pickFile() {
+      let input = this.$refs.fileInput;
+      let file = input.files;
+      if (file && file[0]) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.image = e.target.result;
         };
-        reader.readAsDataURL(file);
-      },
-
-
-
-
-    }
-
-  }),
+        reader.readAsDataURL(file[0]);
+        this.$emit("input", file[0]);
+      }
+    },
+  },
 };
 </script>
       

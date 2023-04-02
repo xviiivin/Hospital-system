@@ -14,17 +14,17 @@
                     <input class='w-full' type="text">
                 </div>
                 <div class="pb-4">
-                    <input class='w-full' type="text">
-                </div>
-                
-                <div class="pb-4">
-                    <select id="underline_select"
+                        <select id="underline_select"
                         class="block py-2.5 px-2 w-full text-sm text-black bg-white  border-0 border-b-2   focus:outline-none focus:ring-0 focus:border-black peer">
                         <option selected>Choose your gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Others">Others</option>
                     </select>
+                </div>
+                
+                <div class="pb-4">
+                    <input class='w-full' type="text">
                 </div>
                 <div>
                     <textarea name="" class='w-full' id="" cols="30" rows="3"></textarea>
