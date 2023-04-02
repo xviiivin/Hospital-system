@@ -19,8 +19,8 @@ router.post("/login", async (req, res) => {
       if (await bcrypt.compare(req.body.password, user.password)) {
         user.password = undefined;
         // เพิ่ม
-        // const accessToken = jwt.sign({ id: user.id }, "mySecretKey");
-        // res.json(accessToken, user.id, user);
+        const accessToken = jwt.sign({ sub: user.id }, "mySecretKey");
+        res.json(accessToken, user.id, user);
         // จบ
         res.json(user);
       } else {
@@ -35,23 +35,23 @@ router.post("/login", async (req, res) => {
 });
 
 // เพิ่ม
-// const verify = (req, res, next) => {
-//   const authHeader = req.headers.authorization;
-//   if (authHeader) {
-//     const token = authHeader.split(" ")[1];
-//     jwt.verify(token, "mySecretKey", (err, user) => {
-//       if (err) {
-//         res.status(403).json("Token is not valid!");
-//       }
-//       req.user = user;
-//       next();
-//     });
-//   } else {
-//     res.status(404).json("You are not authenticated!");
-//   }
-//   console.log(verify)
+const verify = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, "mySecretKey", (err, user) => {
+      if (err) {
+        res.status(403).json("Token is not valid!");
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.status(404).json("You are not authenticated!");
+  }
+  console.log(verify);
+};
 
-// };
 // จบ
 router.post("/register", async (req, res) => {
   try {
@@ -88,7 +88,6 @@ router.post("/register", async (req, res) => {
     exeptionError(error, res);
   }
 });
-
 // export async function getAllData() {
 //   const allData = await prisma.User.findMany();
 //   return allData;

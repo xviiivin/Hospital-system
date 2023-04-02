@@ -1,6 +1,5 @@
 <template >
     <div>
-
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <div class="pb-4 bg-white ">
                 <label for="table-search" class="sr-only">Search</label>
@@ -12,7 +11,7 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <input type="text" id="table-search"
+                    <input type="text" id="table-search" v-model="input"
                         class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-black focus:border-black "
                         placeholder="Search for items">
                 </div>
@@ -26,21 +25,22 @@
                             id
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Idcard
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             name
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Category
+                            Phone number
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Price
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Action
+                            Role
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(value, index) in data" :key="index" class="bg-white border-b  hover:bg-gray-50 ">
+                    <!-- v-for="(value, index) in data" :key="index" -->
+                    <tr v-for="(value, index) in filteredUsers" :key="index" class="bg-white border-b  hover:bg-gray-50 ">
                         <td class="w-4 p-4">
                             <div class="flex items-center">
 
@@ -50,15 +50,14 @@
                             {{ index + 1 }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ value.name }}
+                            {{ value.idCard }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ value.idCard }}
+                            {{ value.name }}
                         </td>
                         <td class="px-6 py-4">
                             {{ value.phone }}
                         </td>
-
                         <td class="px-6 py-4">
                             {{ value.role }}
                         </td>
@@ -75,6 +74,8 @@ export default {
     data() {
         return {
             data: [],
+            filteredUsers: [],
+            input: ''
         }
     },
 
@@ -86,13 +87,18 @@ export default {
         async load() {
             const result = await axios.get("http://localhost:8080/api/user");
             this.data = result.data
+            this.filteredUsers = result.data
+        },
 
-            console.log(result.data)
-
+    },
+    computed: {
+        filteredUsers() {
+            return this.data.filter(user => user.name.toLowerCase().includes(this.input.toLowerCase())
+                || user.idCard.toLowerCase().includes(this.input.toLowerCase())
+                || user.phone.toLowerCase().includes(this.input.toLowerCase()))
         }
     }
 
-
-};
+}
 </script>
 <style></style>

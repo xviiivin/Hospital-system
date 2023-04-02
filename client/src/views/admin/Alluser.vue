@@ -1,10 +1,8 @@
 <template>
-    <AppLayout>
-        <div class="w-full mx-auto">
-            <adminnav />
-            <Table />
-        </div>
-    </AppLayout>
+    <div class="w-full mx-auto">
+        <adminnav />
+        <Table />
+    </div>
 </template>
   
 <script>
@@ -14,7 +12,7 @@ import Table from '../../components/admin/Table.vue'
 export default {
     components: {
         AppLayout,
-        adminnav, 
+        adminnav,
         Table
     },
     data() {
