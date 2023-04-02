@@ -17,15 +17,9 @@
                 <p class="font-normal text-[#202C4B]">Here are the biggest enterprise technology
                     acquisitions of 2021 so far, in reverse chronological order.</p>
             </div>
-
         </div>
-
-
         <div>
-
             <div class="relative overflow-x-auto pt-12 rounded-lg">
-
-                
                 <table class="w-full text-sm text-left text-gray-500 rounded-lg">
                     <thead class="text-sm text-gray-700 uppercase bg-[#DEDEDE] ">
                         <tr>

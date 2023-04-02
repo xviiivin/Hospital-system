@@ -61,15 +61,15 @@ onMounted(() => {
               </router-link></a>
           </li>
           <li>
-            <a href="#"
-              class="block py-2 pl-3 pr-4  rounded   font-bold  md:p-0 md:hover:bg-transparent hover:underline ease-linear duration-[10000]"><router-link
-                style="cursor: pointer; text-decoration: none" to="/payment1">
+            <p
+              class="block py-2 pl-3 pr-4  rounded   font-bold  md:p-0 md:hover:bg-transparent hover:underline ease-linear duration-[10000]">
+              <router-link style="cursor: pointer; text-decoration: none" to="/payment1">
                 Payment
-              </router-link></a>
+              </router-link></p>
           </li>
           <li>
-            <a href="#"
-              class="block py-2 pl-3 pr-4  rounded  font-bold  md:p-0  md:hover:bg-transparent hover:underline">Account</a>
+            <p class="block py-2 pl-3 pr-4  rounded  font-bold  md:p-0  md:hover:bg-transparent hover:underline">
+              <router-link style="cursor: pointer; text-decoration: none" to="/userinfo">Account</router-link></p>
           </li>
 
 

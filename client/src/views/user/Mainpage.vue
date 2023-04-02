@@ -1,14 +1,6 @@
 <template>
     <AppLayout>
         <Nav />
-        <div class="bg-[#111727]">
-            <div class="h-24 p-4 container mx-auto">
-                <router-link style="cursor: pointer; text-decoration: none" to="/">
-                    <img src="../../assets/back 1@2x.png" alt="" class="w-8 cursor-pointer" />
-                </router-link>
-            </div>
-
-        </div>
         <div class="h-screen flex flex-col items-center flex-grow bg-[#111727]">
             <!-- body -->
             <div class="relative h-full w-full md:w-2/3 xl:w-1/3 flex rounded-t-3xl bg-white">
@@ -24,7 +16,7 @@
                         <p class="font-medium">Justin</p>
                     </div>
 
-                    <div class="absolute flex justify-center top-[140px] w-full space-x-10">
+                    <div class="absolute flex justify-center top-[13em] w-full space-x-10">
                         <router-link style="cursor: pointer; text-decoration: none" to="/payment1">
                             <div class="flex bg-[#202C4B] w-[100px] h-[100px] rounded-full shadow-lg ">
                                 <img class="w-15 h-15 mx-7 self-center" src="../../assets/wallet.png">

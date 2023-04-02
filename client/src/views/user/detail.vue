@@ -4,7 +4,7 @@
         <div class="w-full h-screen">
             <div class="bg-[#111727]">
                 <div class="h-24 p-4 container mx-auto">
-                    <router-link style="cursor: pointer; text-decoration: none" to="/">
+                    <router-link style="cursor: pointer; text-decoration: none" to="/symptomrecord">
                         <img src="../../assets/back 1@2x.png" alt="" class="w-8 cursor-pointer" />
                     </router-link>
                 </div>

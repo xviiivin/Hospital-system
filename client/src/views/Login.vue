@@ -3,13 +3,13 @@
     <div class=" flex flex-col items-center flex-grow">
       <!-- top -->
       <div class="bg-primary h-[30%] w-full rounded-b-3xl">
-        <img class="-mb-12 mx-auto" src="../assets/Navbar/Logo.png" alt="" />
+        <img class="mt-36 mx-auto" src="../assets/Navbar/Logo.png" alt="" />
       </div>
       <!-- body -->
-      <div class="mt-[5%] w-fit flex flex-col items-center">
+      <div class="xl:mt-[5%] lg:mt-[10%] mt-[20%] w-fit flex flex-col items-center">
         <p class="text-center text-4xl">Welcome</p>
         <div class="bg-gradient-to-r w-full from-[#111727] to-[#FF5757] h-1 rounded-full mt-2"></div>
-        <p class="text-[#70737D] text-md mt-3">Login, W&N Hospital is ready to serve you.</p>
+        <p class="text-[#70737D] xl:text-md lg:text-md text-sm mt-3">Login, W&N Hospital is ready to serve you.</p>
       </div>
       <div class="flex flex-col w-2/3 xl:w-1/3 mt-10 gap-y-5">
         <input v-model="idcard" type="text" class="border border-black rounded-full p-2 px-4 text-lg"

@@ -15,6 +15,7 @@
                               <div class="mt-5">
                                     <p class="text-2xl font-extrabold my-8 text-[#111727]">Hospital records</p>
                                     <div class="w-full mb-5 cursor-pointer" v-for="(val, index) in hosRecord" :key="index">
+                                          <router-link style="cursor: pointer; text-decoration: none" to="/symptomrecord">
                                                 <div
                                                       class="rounded-xl group drop-shadow-xl overflow-hidden">
                                                       <div class="">
@@ -30,6 +31,7 @@
                                                             </p>
                                                       </div>
                                                 </div>
+                                          </router-link>
                                     </div>
                               </div>
                         </div>

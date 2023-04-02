@@ -73,9 +73,9 @@ const routes = [
     component: () => import("../views/admin/Alluser.vue"),
   },
   {
-    path: "/symptom",
-    name: "symptom",
-    component: () => import("../views/user/Symptom.vue"),
+    path: "/detail",
+    name: "detail",
+    component: () => import("../views/user/detail.vue"),
   },
   {
     path: "/symptomrecord",

@@ -1,20 +1,11 @@
 <template>
   <div class="mb-8">
-    <div
-      class="w-full border-2 rounded-lg mb-2"
-      v-for="(value, index) in fakeinfo"
-      :key="index"
-    >
+    <div class="w-full border-2 rounded-lg mb-2" v-for="(value, index) in fakeinfo" :key="index">
       <div class="flex justify-between p-3">
         <div>
           {{ value.data }}
         </div>
-        <router-link
-          style="cursor: pointer; text-decoration: none"
-          to="/payment2"
-        >
-          <button class="underline-offset-2">Details</button>
-        </router-link>
+      
       </div>
     </div>
   </div>
@@ -35,5 +26,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
