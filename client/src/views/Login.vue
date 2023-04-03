@@ -1,26 +1,26 @@
 <template>
   <AppLayout>
-    <div class=" flex flex-col items-center flex-grow">
+    <div class="flex flex-col items-center flex-grow h-[80vh]">
       <!-- top -->
-      <div class="bg-primary h-[30%] w-full rounded-b-3xl">
-        <img class="mt-36 mx-auto" src="../assets/Navbar/Logo.png" alt="" />
+      <div class="w-full h-1/3">
+        <div class="bg-primary w-full h-3/5 rounded-b-3xl relative flex flex-col items-center">
+          <img class="absolute top-[30%] mx-auto" src="../assets/Navbar/Logo.png" alt="" />
+        </div>
       </div>
+
       <!-- body -->
-      <div class="xl:mt-[5%] lg:mt-[10%] mt-[20%] w-fit flex flex-col items-center">
+      <div class="mt-5 w-fit flex flex-col items-center">
         <p class="text-center text-4xl">Welcome</p>
         <div class="bg-gradient-to-r w-full from-[#111727] to-[#FF5757] h-1 rounded-full mt-2"></div>
-        <p class="text-[#70737D] xl:text-md lg:text-md text-sm mt-3">Login, W&N Hospital is ready to serve you.</p>
+        <p class="text-[#70737D] xl:text-md lg:text-md text-xs mt-3">Login, W&N Hospital is ready to serve you.</p>
       </div>
-      <div class="flex flex-col w-2/3 xl:w-1/3 mt-10 gap-y-5">
-        <input v-model="idcard" type="text" class="border border-black rounded-full p-2 px-4 text-lg"
-          placeholder="Id-card" />
-        <input v-model='password' type="text" class="border border-black rounded-full p-2 px-4 text-lg"
-          placeholder="password" />
-        <button class="w-full bg-primary text-white  text-lg font-semibold py-2 rounded-md mt-10 "
-          @click="login()">Login</button>
-        <p class="text-sm xl:text-md text-gray-400 text-center">Don’t have an account? <a
-            @click="this.$router.push('/Register')" class="text-black/70 cursor-pointer">Sign up
-            free ✨</a></p>
+      <div class="flex flex-col w-3/4 xl:w-1/3 mt-10 gap-y-5">
+        <input v-model="idcard" type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="Id-card" />
+        <input v-model="password" type="password" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="password" />
+        <button class="w-full bg-primary text-white text-lg font-semibold py-2 rounded-md mt-10" @click="login()">Login</button>
+        <p class="text-sm xl:text-md text-gray-400 text-center">
+          Don’t have an account? <a @click="this.$router.push('/Register')" class="text-black/70 cursor-pointer">Sign up free ✨</a>
+        </p>
       </div>
     </div>
   </AppLayout>
@@ -29,78 +29,78 @@
 <script>
 import AppLayout from "../components/AppLayout.vue";
 import Nav from "../components/users/MainNav.vue";
-import axios from 'axios';
+import axios from "axios";
 export default {
   data() {
     return {
-      idcard: '',
-      password: ''
-    }
+      idcard: "",
+      password: "",
+    };
   },
   components: {
     AppLayout,
     Nav,
   },
   methods: {
-
     // ifelse condition
     async showAlert() {
       // Use sweetalert2
       const Toast = await this.$swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: "top-end",
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', this.$swal.stopTimer)
-          toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-        }
-      })
+          toast.addEventListener("mouseenter", this.$swal.stopTimer);
+          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
+        },
+      });
 
       Toast.fire({
-        icon: 'success',
-        title: 'Signed in successfully'
-      })
+        icon: "success",
+        title: "Signed in successfully",
+      });
     },
-
 
     async login() {
       try {
-        const data = {
-          idCard: this.idcard, password: this.password
+        if (this.idcard === "" && this.password === "") {
+          throw new Error("Please fill in all fields");
         }
-        console.log(data);
-        const res = await axios.post('http://localhost:8080/api/auth/login', data)
-        console.table(res.data)
-        const user = res.data
-        localStorage.setItem('user', JSON.stringify(user))
+        const res = await axios.post("http://localhost:8080/api/auth/login", {
+          idCard: this.idcard,
+          password: this.password,
+        });
+        localStorage.setItem("user", JSON.stringify(res.data));
         await this.showAlert();
-        await this.$router.push('/');
+        await this.$router.push("/");
       } catch (error) {
-        console.log(error.response.data.message)
-        if (error.response.data.message == 'Wrong password') {
-          this.$swal.fire(
-            'Wrong password!',
-            'You clicked the button!',
-            'error')
-        }
-        else {
-          this.$swal.fire(
-            'User not found!',
-            'You clicked the button!',
-            'error'
-          )
+        console.log(error?.response?.data?.message);
+        if (error.message === "Please fill in all fields") {
+          this.$swal.fire({
+            icon: "error",
+            text: "โปรดกรอกข้อมูลให้ครบถ้วน",
+          });
+        } else if (error?.response?.data?.message === "Wrong password") {
+          this.$swal.fire({
+            icon: "error",
+            text: "รหัสผ่านผิดพลาด",
+          });
+        } else {
+          this.$swal.fire({
+            icon: "error",
+            text: "คุณยังไม่ได้ทำการสมัครโปรดลองอีกครั้ง",
+          });
         }
       }
-
-    }
+    },
   },
   mounted() {
-    const data = JSON.parse(localStorage.getItem("user"))
+    const data = JSON.parse(localStorage.getItem("user"));
     console.log(data);
     if (data) {
-      this.$router.push('/')
+      this.$router.push("/");
     }
   },
 };
