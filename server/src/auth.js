@@ -21,8 +21,6 @@ router.post("/login", async (req, res) => {
         // เพิ่ม
         const accessToken = jwt.sign({ sub: user.id }, "mySecretKey");
         res.json(accessToken, user.id, user);
-        // จบ
-        res.json(user);
       } else {
         res.status(401).json({ message: "Wrong password" });
       }

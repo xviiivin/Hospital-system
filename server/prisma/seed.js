@@ -1,23 +1,25 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-import  bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
+import medicine from "./medicine.js";
+
 
 async function main() {
-  for (let i = 0; i < 10; i++) {
+  medicine.map(async (item) => {
     await prisma.medicine.upsert({
       where: {
-        name: `medicine${i}`,
+        name: item.name,
       },
       update: {
-        name: `medicine${i}`,
-        price: i * 100,
+        name: item.name,
+        price: item.price,
       },
       create: {
-        name: `medicine${i}`,
-        price: i * 100,
+        name: item.name,
+        price: item.price,
       },
     });
-  }
+  });
 
   await prisma.user.upsert({
     where: {

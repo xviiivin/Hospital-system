@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Ampelacine",
+    "price": 12.99
+  },
+  {
+    "name": "Cardiomax",
+    "price": 9.49
+  },
+  {
+    "name": "Dermacton",
+    "price": 7.99
+  },
+  {
+    "name": "Enerzest",
+    "price": 15.99
+  },
+  {
+    "name": "Flexalite",
+    "price": 11.49
+  },
+  {
+    "name": "Gastroflux",
+    "price": 8.99
+  },
+  {
+    "name": "Hepatovit",
+    "price": 14.49
+  },
+  {
+    "name": "Immunovax",
+    "price": 10.99
+  },
+  {
+    "name": "Neurolynx",
+    "price": 18.99
+  }
+]
