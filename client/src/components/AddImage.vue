@@ -6,11 +6,11 @@
       </div>
     </div>
 
-    <div v-else>
+    <div v-else class="mb-12">
       <div class="w-[350px] h-[350px]">
         <img :src="image" class="w-full h-full block object-cover rounded-lg">
         <div class="flex justify-end p-2 ">
-          <img src="../../assets/cancel.png" @click="removeImage" class="block absolute top-[50px] w-[30px] h-[30px]">
+          <button src="../../assets/cancel.png" @click="removeImage" class='border boder-black bg-[#FF5757] text-white p-2 rounded-lg'>Remove</button>
         </div>
       </div>
     </div>

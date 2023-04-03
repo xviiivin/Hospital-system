@@ -21,17 +21,17 @@
                     <div class="flex justify-between pb-4">
                         <p class="text-lg font-bold">Name</p>
                         <input type="text" disabled :value="filteredUsers.name"
-                            class="p-2 w-1/2 text-white bg-black rounded-md">
+                            class="p-2 w-1/2 text-black text-end rounded-md">
                     </div>
 
                     <div class="flex justify-between py-4">
                         <p class="text-lg font-bold">Age</p>
-                        <input type="number" disabled class="p-2 w-1/2 bg-black rounded-md">
+                        <input type="number" disabled :value="filteredUsers.age" class="p-2 w-1/2 text-black text-end rounded-md">
                     </div>
 
                     <div class="flex justify-between py-4">
                         <p class="text-lg font-bold">Gender</p>
-                        <input type="number" disabled class="p-2 w-1/2 bg-black rounded-md">
+                        <input type="number" disabled :value="filteredUsers.gender" class="p-2 w-1/2 text-black text-end rounded-md">
                     </div>
 
                     <div class="flex justify-between py-4">

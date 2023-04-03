@@ -14,7 +14,7 @@
         <div class="w-full h-full p-6 m-5 ">
           <div class="w-full h-full space-y-10">
             <Image />
-            <div class="text-black font-semibold text-md mt-5 space-y-10">
+            <div class="text-black font-semibold text-md  space-y-10">
               <Info />
             </div>
 
