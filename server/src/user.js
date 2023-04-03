@@ -20,7 +20,7 @@ router.get("/:id", async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        id: req.params.id,
+        idCard: req.params.id,
       },
     });
     res.json(user);
@@ -29,5 +29,13 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// router.get("/", async (req, res) => {
+//   try {
+//     const user = await prisma.user.findUnique
+//     console;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 export default router;

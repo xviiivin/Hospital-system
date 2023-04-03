@@ -1,70 +1,54 @@
-<template>
-  <div>
-    <!-- @change="FileSelect" -->
-    <!-- @change="onfilechange" -->
+<template >
+  <div class="flex justify-center">
     <div v-if="!image">
-      <input type="file" >
-    </div>
-    <div v-else>
-      <img :src="image" />
+      <div class="rounded-lg w-[250px] h-[250px] flex items-center ">
+        <input type="file" name="" id="" @change="onFileChange">
+      </div>
     </div>
 
-    <!-- <button @click="uploadpic">Upload</button> -->
+    <div v-else class="mb-12">
+      <div class="w-[350px] h-[350px]">
+        <img :src="image" class="w-full h-full block object-cover rounded-lg">
+        <div class="flex justify-end p-2 ">
+          <button src="../../assets/cancel.png" @click="removeImage" class='border boder-black bg-[#FF5757] text-white p-2 rounded-lg'>Remove</button>
+        </div>
+      </div>
+    </div>
+  
+
   </div>
 </template>
-
 <script>
-// import axios from "axios";
 export default {
-
   data() {
-    return
-    {
-      image: '';
-      selectthefile: null
+    return {
+      image: null,
     }
   },
   methods: {
-    // เชคว่ามีไม่มีfile
-    onfilechange(e) {
+    onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
+      if (!files.length) {
         return;
+      }
       this.createImage(files[0]);
-      console.log("u already choose file");
-      console.log(files[0])
-
+      console.log("เลือกไฟล์แล้ว");
     },
-    // สร้างรูปภาพเอามาโชว์
+
     createImage(file) {
       var image = new Image();
       var reader = new FileReader();
-      var check = this
+      var vm = this;
       reader.onload = (e) => {
-        check.image = e.target.result;
+        vm.image = e.target.result;
       };
-      console.log(reader.readAsDataURL(image));
-      reader.readAsDataURL(image);
+      reader.readAsDataURL(file);
+    },
+
+    removeImage: function (e) {
+      this.image = '';
     }
-    // FileSelect(event) {
-    //   console.log(event);
-    //   this.selectthefile = event.target.files[0]
-    // },
-    // uploadpic() {
-    //   const file = new FormData();
-    //   file.append('image', this.selectthefile, this.selectthefile.name)
-    //   axios.post('url', file,
-    //     {
-    //       onUploadProgress: uploadEvent => {
-    //         console.log("upload%:" + Math.round(uploadEvent.loaded / uploadEvent.total) * 100 + "%")
-    //       }
-    //     }
-    //   ).then(res => {
-    //     console.log(res)
-    //   })
-    // }
-  }
+  },
 }
 </script>
-
-<style></style>
+<style ></style>
