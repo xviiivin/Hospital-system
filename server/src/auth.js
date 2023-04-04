@@ -66,9 +66,9 @@ router.post("/register", async (req, res) => {
     });
 
     if (checkidcard) {
-      res.json({ status: "errorid", message: "accounterror" });
+      res.status(500).json({ status: "errorid", message: "accounterror" });
     } else if (checkphone) {
-      res.json({ status: "errorphone", message: "phoneerror" });
+      res.status(500).json({ status: "errorphone", message: "phoneerror" });
     } else {
       const user = await prisma.user.create({
         data: {
@@ -86,12 +86,4 @@ router.post("/register", async (req, res) => {
     exeptionError(error, res);
   }
 });
-// export async function getAllData() {
-//   const allData = await prisma.User.findMany();
-//   return allData;
-// }
-
-// module.exports = {
-//   router,
-// };
 export default router;

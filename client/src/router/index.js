@@ -42,7 +42,7 @@ const routes = [
     component: () => import("../views/doctor/Docinfo.vue"),
   },
   {
-    path: "/alldoctor",
+    path: "/alldoctor/:id",
     name: "alldoctor",
     component: () => import("../views/user/AllDoctor.vue"),
   },

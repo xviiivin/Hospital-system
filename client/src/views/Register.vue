@@ -1,24 +1,24 @@
 <template>
   <AppLayout>
-    <div class="flex flex-col items-center flex-grow h-[80vh]">
+    <div class="flex flex-col items-center flex-grow h-full">
       <!-- top -->
-      <div class="w-full h-1/3">
+      <div class="w-full h-64">
         <div class="bg-primary w-full h-3/5 rounded-b-3xl relative flex flex-col items-center">
-          <img class="absolute top-[30%] mx-auto" src="../assets/Navbar/Logo.png" alt="" />
+          <img class="absolute top-[20%] mx-auto" src="../assets/Navbar/Logo.png" alt="" />
         </div>
       </div>
       <!-- body -->
-      <div class="mt-[2%] w-fit flex flex-col items-center">
+      <div class="w-2/3 flex flex-col items-center">
         <p class="text-center text-4xl">Register</p>
         <div class="bg-gradient-to-r w-full from-[#111727] to-[#FF5757] h-1 rounded-full mt-2"></div>
-        <p class="text-[#70737D] text-md mt-3">Login, W&N Hospital is ready to serve you.</p>
+        <p class="text-[#70737D] text-xs mt-3">W&N Hospital is ready to serve you.</p>
       </div>
-      <div class="flex flex-col w-2/3 xl:w-1/3 mt-10 gap-y-5">
+      <div class="flex flex-col w-3/4 xl:w-1/3 mt-10 gap-y-5">
         <input v-model="name" type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="Name" />
-        <input v-model="idcard" type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="Id-card" />
+        <input v-model="idcard" type="text" max="13" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="Id-card" />
         <input v-model="password" type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="password" />
-        <input v-model="phone" type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="phone number" />
-        <button class="w-full bg-primary text-white text-lg font-semibold py-2 rounded-md mt-10" @click="register()">Register</button>
+        <input v-model="phone" type="text" max="10" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="phone number" />
+        <button class="w-full bg-primary text-white text-lg font-semibold py-2 rounded-md mt-5" @click="register()">Register</button>
         <p class="text-sm xl:text-md text-gray-400 text-center">
           Have an account? <a @click="this.$router.push('/login')" class="text-black/70 cursor-pointer">Back to login ✨</a>
         </p>
@@ -67,26 +67,60 @@ export default {
       });
     },
     async register() {
-      const data = {
-        name: this.name,
-        idCard: this.idcard,
-        password: this.password,
-        phone: this.phone,
-      };
-      console.log(data);
-      if (this.name !== "" && this.idCard !== "" && this.password !== "" && this.phone !== "") {
-        const result = await axios.post("http://localhost:8080/api/auth/register", data);
-        console.log(result.data);
-        if (result.data.status === "errorid") {
-          this.$swal.fire("Idcard already use!", "You clicked the button!", "error");
-        } else if (result.data.status === "errorphone") {
-          this.$swal.fire("Phonenumber already use!", "You clicked the button!", "error");
-        } else {
-          await this.showAlert();
-          await this.$router.push("/login");
+      try {
+        if (this.name === "" || this.idcard === "" || this.password === "" || this.phone === "") {
+          throw new Error("Please fill in all fields");
         }
-      } else {
-        this.$swal.fire("Please enter all inputs !", "You clicked the button!", "error");
+
+        if (this.idcard.length !== 13) {
+          throw new Error("id card is not correct");
+        }
+
+        if (this.phone.length !== 10) {
+          throw new Error("phone number is not correct");
+        }
+
+        const result = await axios.post("http://localhost:8080/api/auth/register", {
+          name: this.name,
+          idCard: this.idcard,
+          password: this.password,
+          phone: this.phone,
+        });
+
+        await this.showAlert();
+        await this.$router.push("/login");
+      } catch (error) {
+        if (error.message === "Please fill in all fields") {
+          this.$swal.fire({
+            icon: "error",
+            text: "โปรดกรอกข้อมูลให้ครบถ้วน",
+          });
+        } else if (error.message === "id card is not correct") {
+          this.$swal.fire({
+            icon: "error",
+            text: "เลขบัตรประชาชนไม่ครบ 13 หลัก",
+          });
+        } else if (error.message === "phone number is not correct") {
+          this.$swal.fire({
+            icon: "error",
+            text: "เบอร์โทรศัพท์ไม่ครบ 10 หลัก",
+          });
+        } else if (error?.response?.data?.status === "errorid") {
+          this.$swal.fire({
+            icon: "error",
+            text: "เลขบัตรประชาชนนี้ถูกใช้งานแล้ว",
+          });
+        } else if (error?.response?.data?.status === "errorphone") {
+          this.$swal.fire({
+            icon: "error",
+            text: "เบอร์โทรศัพท์นี้ถูกใช้งานแล้ว",
+          });
+        } else if (error?.response?.data?.message === "Wrong password") {
+          this.$swal.fire({
+            icon: "error",
+            text: "รหัสผ่านผิดพลาด",
+          });
+        }
       }
     },
   },

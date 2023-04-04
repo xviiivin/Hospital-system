@@ -1,14 +1,12 @@
 <template>
   <AppLayout>
-    <div class="flex flex-col items-center flex-grow h-[80vh]">
-      <!-- top -->
-      <div class="w-full h-1/3">
+    <div class="flex flex-col items-center flex-grow h-full">
+      <div class="w-full h-64">
         <div class="bg-primary w-full h-3/5 rounded-b-3xl relative flex flex-col items-center">
-          <img class="absolute top-[30%] mx-auto" src="../assets/Navbar/Logo.png" alt="" />
+          <img class="absolute top-[20%] mx-auto" src="../assets/Navbar/Logo.png" alt="" />
         </div>
       </div>
 
-      <!-- body -->
       <div class="mt-5 w-fit flex flex-col items-center">
         <p class="text-center text-4xl">Welcome</p>
         <div class="bg-gradient-to-r w-full from-[#111727] to-[#FF5757] h-1 rounded-full mt-2"></div>
@@ -17,7 +15,7 @@
       <div class="flex flex-col w-3/4 xl:w-1/3 mt-10 gap-y-5">
         <input v-model="idcard" type="text" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="Id-card" />
         <input v-model="password" type="password" class="border border-black rounded-full p-2 px-4 text-lg" placeholder="password" />
-        <button class="w-full bg-primary text-white text-lg font-semibold py-2 rounded-md mt-10" @click="login()">Login</button>
+        <button class="w-full bg-primary text-white text-lg font-semibold py-2 rounded-md mt-5" @click="login()">Login</button>
         <p class="text-sm xl:text-md text-gray-400 text-center">
           Don’t have an account? <a @click="this.$router.push('/Register')" class="text-black/70 cursor-pointer">Sign up free ✨</a>
         </p>
@@ -76,7 +74,6 @@ export default {
         await this.showAlert();
         await this.$router.push("/");
       } catch (error) {
-        console.log(error?.response?.data?.message);
         if (error.message === "Please fill in all fields") {
           this.$swal.fire({
             icon: "error",
@@ -98,7 +95,6 @@ export default {
   },
   mounted() {
     const data = JSON.parse(localStorage.getItem("user"));
-    console.log(data);
     if (data) {
       this.$router.push("/");
     }

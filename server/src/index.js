@@ -6,6 +6,7 @@ import medicine from "./medicine.js";
 import auth from "./auth.js";
 import user from "./user.js";
 import doctor from "./doctor.js";
+import hospital from "./hospital.js";
 
 const router = express.Router();
 const app = express();
@@ -21,7 +22,8 @@ app.use(
 router.use("/medicine", medicine), 
 router.use("/auth", auth),
 router.use("/user", user),
-router.use("/doctor", doctor)
+router.use("/doctor", doctor),
+router.use("/hospital", hospital),
 );
 
 app.listen(process.env.PORT_SERVER, () => {
