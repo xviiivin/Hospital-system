@@ -8,62 +8,62 @@ const router = express.Router();
 import exeptionError from "./Error.js";
 import bcrypt from "bcryptjs";
 
-router.post("/login", async(req, res) => {
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                idCard: req.body.idCard,
-            },
-        });
-        if (user) {
-            if (await bcrypt.compare(req.body.password, user.password)) {
-                user.password = undefined;
-                // เพิ่ม
-                const accessToken = jwt.sign({ sub: user.id }, "mySecretKey");
-                res.json(accessToken, user.id, user);
-            } else {
-                res.status(401).json({ message: "Wrong password" });
-            }
-        } else {
-            res.status(404).json({ message: "User not found" });
-        }
-    } catch (error) {
-        exeptionError(error, res);
+router.post("/login", async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        idCard: req.body.idCard,
+      },
+    });
+    if (user) {
+      if (await bcrypt.compare(req.body.password, user.password)) {
+        user.password = undefined;
+        // เพิ่ม
+        const accessToken = jwt.sign({ sub: user.id }, "mySecretKey");
+        res.json(accessToken, user.id, user);
+      } else {
+        res.status(401).json({ message: "Wrong password" });
+      }
+    } else {
+      res.status(404).json({ message: "User not found" });
     }
+  } catch (error) {
+    exeptionError(error, res);
+  }
 });
 
 // เพิ่ม
 const verify = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    if (authHeader) {
-        const token = authHeader.split(" ")[1];
-        jwt.verify(token, "mySecretKey", (err, user) => {
-            if (err) {
-                res.status(403).json("Token is not valid!");
-            }
-            req.user = user;
-            next();
-        });
-    } else {
-        res.status(404).json("You are not authenticated!");
-    }
-    console.log(verify);
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, "mySecretKey", (err, user) => {
+      if (err) {
+        res.status(403).json("Token is not valid!");
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.status(404).json("You are not authenticated!");
+  }
+  console.log(verify);
 };
 
 // จบ
-router.post("/register", async(req, res) => {
-    try {
-        const checkidcard = await prisma.user.findFirst({
-            where: {
-                OR: [{ idCard: req.body.idCard }],
-            },
-        });
+router.post("/register", async (req, res) => {
+  try {
+    const checkidcard = await prisma.user.findFirst({
+      where: {
+        OR: [{ idCard: req.body.idCard }],
+      },
+    });
 
-        const checkphone = await prisma.user.findFirst({
-            where: {
-                OR: [{ phone: req.body.phone }],
-            },
-        });
+    const checkphone = await prisma.user.findFirst({
+      where: {
+        OR: [{ phone: req.body.phone }],
+      },
+    });
 
     if (checkidcard) {
       res.status(500).json({ status: "errorid", message: "accounterror" });
@@ -81,5 +81,8 @@ router.post("/register", async(req, res) => {
       user.password = undefined;
       res.json(user);
     }
+  } catch (error) {
+    exeptionError(error, res);
+  }
 });
 export default router;
