@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
     <div v-if="!image" @submit.prevent="uploadFile">
-      <div class="rounded-lg w-[250px] h-[250px] flex items-center">
+      <div class="rounded-lg w-[200px] h-[200px] flex items-center">
         <input
           type="file"
           @change="
@@ -14,10 +14,10 @@
     </div>
 
     <div v-else class="mb-12">
-      <div class="w-[350px] h-[350px]">
+      <div class="w-[250px] h-[250px]">
         <img :src="image" class="w-full h-full block object-cover rounded-lg" />
         <div class="flex justify-end p-2">
-          <button src="../../assets/cancel.png" @click="removeFile(userId)" class="border boder-black bg-[#FF5757] text-white p-2 rounded-lg">
+          <button src="../../assets/cancel.png" @click="removeFile(userId)" class=" bg-[#FF5757] text-white p-2 rounded-lg">
             Remove
           </button>
         </div>

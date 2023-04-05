@@ -24,7 +24,10 @@
         </div>
 
         <div class="flex-grow flex flex-col items-start w-full p-5 rounded-t-xl bg-white z-10">
-          <p>โรงพยาลที่เข้าร่วมแอพนี้</p>
+          <div class="xl:w-2/3 xl:mx-auto xl:justify-center">
+            
+            <p>โรงพยาลที่เข้าร่วมแอพนี้</p>
+          </div>
           <div class="grid grid-cols-2 gap-y-5 mt-5 w-full">
             <router-link
               v-for="(data, index) in datas"
