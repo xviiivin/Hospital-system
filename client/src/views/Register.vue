@@ -80,7 +80,7 @@ export default {
           throw new Error("phone number is not correct");
         }
 
-        const result = await axios.post("http://localhost:8080/api/auth/register", {
+        await axios.post("http://localhost:8080/api/auth/register", {
           name: this.name,
           idCard: this.idcard,
           password: this.password,

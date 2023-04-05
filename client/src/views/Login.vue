@@ -70,9 +70,17 @@ export default {
           idCard: this.idcard,
           password: this.password,
         });
+        
         localStorage.setItem("user", JSON.stringify(res.data));
+
+        if (res.data.role == "admin") {
+          this.$router.push("/admin");
+        } else if (res.data.role == "doctor") {
+          this.$router.push("/doctor");
+        } else if (res.data.role == "patient") {
+          this.$router.push("/patient");
+        }
         await this.showAlert();
-        await this.$router.push("/");
       } catch (error) {
         if (error.message === "Please fill in all fields") {
           this.$swal.fire({

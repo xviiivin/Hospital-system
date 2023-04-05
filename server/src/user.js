@@ -29,13 +29,34 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// router.get("/", async (req, res) => {
-//   try {
-//     const user = await prisma.user.findUnique
-//     console;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
+//get all user by role
+router.get("/role/:role", async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        role: req.params.role.toUpperCase(),
+      },
+    });
+    res.json(users);
+  } catch (error) {
+    exeptionError(error, res);
+  }
+});
 
+//update user
+router.patch("/role/:id", async (req, res) => {
+  try {
+    const user = await prisma.user.update({
+      where: {
+        idCard: req.params.id,
+      },
+      data: {
+        role: req.body.role,
+      },
+    });
+    res.json(user);
+  } catch (error) {
+    exeptionError(error, res);
+  }
+});
 export default router;

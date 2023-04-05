@@ -1,8 +1,46 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 import bcrypt from "bcryptjs";
-import medicine from "./medicine.js";
+// import medicine from "./medicine.js";
 
+const medicine = [
+  {
+    name: "Ampelacine",
+    price: 12.99,
+  },
+  {
+    name: "Cardiomax",
+    price: 9.49,
+  },
+  {
+    name: "Dermacton",
+    price: 7.99,
+  },
+  {
+    name: "Enerzest",
+    price: 15.99,
+  },
+  {
+    name: "Flexalite",
+    price: 11.49,
+  },
+  {
+    name: "Gastroflux",
+    price: 8.99,
+  },
+  {
+    name: "Hepatovit",
+    price: 14.49,
+  },
+  {
+    name: "Immunovax",
+    price: 10.99,
+  },
+  {
+    name: "Neurolynx",
+    price: 18.99,
+  },
+];
 
 async function main() {
   medicine.map(async (item) => {
@@ -36,6 +74,24 @@ async function main() {
       password: bcrypt.hashSync("3114", 10),
       idCard: "1234567890123",
       name: "pateint",
+    },
+  });
+
+  await prisma.user.upsert({
+    where: {
+      phone: "0892452669",
+    },
+    update: {
+      phone: "0892452369",
+      password: bcrypt.hashSync("3114", 10),
+      idCard: "1234567890124",
+      name: "admin",
+    },
+    create: {
+      phone: "0892452369",
+      password: bcrypt.hashSync("3114", 10),
+      idCard: "1234567890124",
+      name: "admin",
     },
   });
 
