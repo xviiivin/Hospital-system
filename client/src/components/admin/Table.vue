@@ -36,6 +36,9 @@
                         <th scope="col" class="px-6 py-3">
                             Role
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Slip
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +64,13 @@
                         <td class="px-6 py-4">
                             {{ value.role }}
                         </td>
+                        <!-- :to="{{  }}" -->
+                        <router-link style="cursor: pointer; text-decoration: none" to="/">
+                            <td v-if='value.role !== "DOCTOR"'
+                                class="px-6 py-4 underline underline-offset-2 hover:cursor-pointer">
+                                click
+                            </td>
+                        </router-link>
                     </tr>
                 </tbody>
             </table>
