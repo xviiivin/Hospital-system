@@ -50,7 +50,6 @@ model UserInfo {
 
   description String?
   department  String?
-  metadata    Json?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

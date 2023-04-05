@@ -32,6 +32,7 @@ import AppLayout from "../../components/AppLayout.vue";
 import Image from "../../components/AddImage.vue";
 import DocNav1 from "../../components/doctor/Navbarch1.vue";
 import Info from "../../components/Addinfo.vue";
+import axios from "axios";
 export default {
   components: {
     AppLayout,
@@ -42,7 +43,19 @@ export default {
   data() {
     return {
       isActive: true,
+      doctorInfo: {},
     };
+  },
+  mounted() {
+    this.getDotorInfo();
+  },
+  methods: {
+    async getDotorInfo() {
+      const doctorId = JSON.parse(localStorage.getItem("user")).id;
+      const doctor = await axios.get(`http://localhost:8080/api/doctor/${doctorId}`);
+      console.log(doctor.data);
+      this.doctorInfo = doctor.data;
+    },
   },
 };
 </script>

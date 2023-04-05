@@ -78,6 +78,11 @@ router.post("/register", async (req, res) => {
           idCard: req.body.idCard,
         },
       });
+      await prisma.userInfo.create({
+        data: {
+          userId: user.id,
+        },
+      });
       user.password = undefined;
       res.json(user);
     }
