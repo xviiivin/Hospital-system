@@ -61,7 +61,7 @@ export default {
       this.DocInfo = res.data;
       this.DocInfo.map(async (val) => {
         const storage = useFirebaseStorage();
-        const starsRef = storageRef(storage, "doctors/" + val.id);
+        const starsRef = storageRef(storage, "users/" + val.id);
         const search = await listAll(starsRef);
         const download = (await getDownloadURL(search.items[0])).toString();
         val.image = download;
