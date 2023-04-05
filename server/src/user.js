@@ -53,7 +53,9 @@ router.patch("/role/:id", async (req, res) => {
   try {
     const findUser = await findUserById(req.params.id);
     if (findUser == null) {
-      throw new Error("user id not found");
+      return res.status(404).json({
+        message: "User not found",
+      });
     }
     const user = await prisma.user.update({
       where: {

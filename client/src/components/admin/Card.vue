@@ -51,18 +51,16 @@ export default {
           throw new Error("please fill all data");
         }
 
-
         await axios.patch(`http://localhost:8080/api/user/role/${this.idCard}`, {
           role: "DOCTOR",
         });
-
 
         this.getDoctor();
         this.setOpen(false);
         this.$swal.fire("Add role done!", "You clicked the button!", "success");
       } catch (error) {
-        console.log(error)
-        this.$swal.fire("Error!", error.message, "error");
+        console.log(error.response.data.message)
+        this.$swal.fire("Error!", error.response.data.message, "error");
       }
     },
   },
