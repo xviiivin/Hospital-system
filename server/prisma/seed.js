@@ -59,23 +59,136 @@ async function main() {
     });
   });
 
-  await prisma.user.upsert({
-    where: {
-      phone: "0892452669",
+  const user = [
+    {
+      phone_number: "0812345678",
+      id_card: "1234567890123",
+      password: "password",
     },
-    update: {
-      phone: "0892452669",
-      password: bcrypt.hashSync("3114", 10),
-      idCard: "1234567890123",
-      name: "pateint",
+    {
+      phone_number: "0865432190",
+      id_card: "4567890123456",
+      password: "password",
     },
-    create: {
-      phone: "0892452669",
-      password: bcrypt.hashSync("3114", 10),
-      idCard: "1234567890123",
-      name: "pateint",
+    {
+      phone_number: "0898765432",
+      id_card: "7890123456789",
+      password: "password",
     },
+    {
+      phone_number: "0845678901",
+      id_card: "2345678901234",
+      password: "password",
+    },
+    {
+      phone_number: "0812345678",
+      id_card: "5678901234567",
+      password: "password",
+    },
+    {
+      phone_number: "0861234567",
+      id_card: "3456789012345",
+      password: "password",
+    },
+    {
+      phone_number: "0834567890",
+      id_card: "6789012345678",
+      password: "password",
+    },
+    {
+      phone_number: "0889012345",
+      id_card: "0123456789012",
+      password: "password",
+    },
+    {
+      phone_number: "0823456789",
+      id_card: "9012345678901",
+      password: "password",
+    },
+    {
+      phone_number: "0845678901",
+      id_card: "2345678901234",
+      password: "password",
+    },
+    {
+      phone_number: "0812345678",
+      id_card: "4567890123456",
+      password: "password",
+    },
+  ];
+  user.map(async (user) => {
+    await prisma.user.upsert({
+      where: {
+        phone: user.phone_number,
+      },
+      update: {
+        // bcrypt.hashSync("3114", 10),
+        phone: user.phone_number,
+        password: user.password,
+        idCard: user.id_card,
+        name: "pateint",
+      },
+      create: {
+        phone: user.phone_number,
+        password: user.password,
+        idCard: user.id_card,
+        name: "pateint",
+      },
+    });
   });
+
+  const doctor = [
+    {
+      phone_number: "0845678901",
+      id_card: "3456789012345",
+      password: "password",
+    },
+    {
+      phone_number: "0861234567",
+      id_card: "6789012345678",
+      password: "password",
+    },
+    {
+      phone_number: "0834567890",
+      id_card: "9012345678901",
+      password: "password",
+    },
+    {
+      phone_number: "0823456789",
+      id_card: "0123456789012",
+      password: "password",
+    },
+    {
+      phone_number: "0889012345",
+      id_card: "2345678901234",
+      password: "password",
+    },
+    {
+      phone_number: "0812345678",
+      id_card: "4567890123456",
+      password: "password",
+    },
+    {
+      phone_number: "0845678901",
+      id_card: "5678901234567",
+      password: "password",
+    },
+    {
+      phone_number: "0861234567",
+      id_card: "7890123456789",
+      password: "password",
+    },
+    {
+      phone_number: "0834567890",
+      id_card: "2345678901234",
+      password: "password",
+    },
+    {
+      phone_number: "0823456789",
+      id_card: "5678901234567",
+      password: "password",
+    },
+  ];
 
   await prisma.user.upsert({
     where: {
@@ -115,16 +228,31 @@ async function main() {
     },
   });
 
-  await prisma.hospital.upsert({
-    where: {
-      name: "โรงพยาบาลเชียงใหม่",
-    },
-    update: {
-      name: "โรงพยาบาลเชียงใหม่",
-    },
-    create: {
-      name: "โรงพยาบาลเชียงใหม่",
-    },
+  const hospital = [
+    { name: "Bangkok Hospital" },
+    { name: "Siriraj Hospital" },
+    { name: "Chulalongkorn Hospital" },
+    { name: "Bumrungrad International Hospital" },
+    { name: "Ramathibodi Hospital" },
+    { name: "Vibhavadi Hospital" },
+    { name: "Phyathai 2 Hospital" },
+    { name: "Samitivej Hospital" },
+    { name: "Bangkok Christian Hospital" },
+    { name: "Rajavithi Hospital" },
+  ];
+
+  hospital.map(async (hospital) => {
+    await prisma.hospital.upsert({
+      where: {
+        name: hospital.name,
+      },
+      update: {
+        name: hospital.name,
+      },
+      create: {
+        name: hospital.name,
+      },
+    });
   });
 }
 
