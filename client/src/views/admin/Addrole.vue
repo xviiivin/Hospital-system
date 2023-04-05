@@ -2,7 +2,7 @@
   <div class="w-full">
     <adminnav />
     <card :open="open" :setOpen="setOpen" :getDoctor="getDoctor" />
-    <div class="w-full max-w-5xl w-5xl flex flex-col items-center border">
+    <div class="w-full px-20 flex flex-col items-center border">
       <div class="w-full mt-16 flex items-center justify-between border-black border-b border-t mx-10">
         <p class="text-2xl text-bold my-10">Add Role</p>
         <button class="flex rounded-lg text-lg bg-black text-white px-4 py-2" @click="setOpen(true)">Add doctor</button>
@@ -41,20 +41,15 @@ export default {
     open: false,
     doctors: [],
   }),
-  computed() {
-    console.log(doctors);
-  },
 
   mounted() {
     this.getDoctor();
-    console.log(this.doctors);
   },
 
   methods: {
     async getDoctor() {
       try {
         const res = await axios.get("http://localhost:8080/api/user/role/doctor");
-        console.log(res.data);
         this.doctors = res.data;
       } catch (error) {
         console.log(error);
@@ -74,7 +69,7 @@ export default {
           })
           .then((result) => {
             if (result.isConfirmed) {
-              const res = axios.patch(`http://localhost:8080/api/user/role/${doctorId}`, {
+              axios.patch(`http://localhost:8080/api/user/role/${doctorId}`, {
                 role: "USER",
               });
               this.getDoctor();

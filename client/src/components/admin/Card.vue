@@ -50,8 +50,7 @@ export default {
         if (this.name === "" || this.idCard === "") {
           throw new Error("กรุกรอกข้อมูลให้ครบถ้วน");
         }
-        console.log(this.idCard);
-        const res = await axios.patch(`http://localhost:8080/api/user/role/${this.idCard}`, {
+        await axios.patch(`http://localhost:8080/api/user/role/${this.idCard}`, {
           role: "DOCTOR",
         });
         this.getDoctor();
