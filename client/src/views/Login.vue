@@ -70,18 +70,19 @@ export default {
           idCard: this.idcard,
           password: this.password,
         });
-        
+
         localStorage.setItem("user", JSON.stringify(res.data));
 
-        if (res.data.role == "admin") {
+        if (res.data.role == "ADMIN") {
           this.$router.push("/admin");
-        } else if (res.data.role == "doctor") {
-          this.$router.push("/doctor");
-        } else if (res.data.role == "patient") {
+        } else if (res.data.role == "DOCTOR") {
+          this.$router.push("/doctor/");
+        } else if (res.data.role == "PATIENT") {
           this.$router.push("/patient");
         }
         await this.showAlert();
       } catch (error) {
+        console.log(error);
         if (error.message === "Please fill in all fields") {
           this.$swal.fire({
             icon: "error",
@@ -92,7 +93,7 @@ export default {
             icon: "error",
             text: "รหัสผ่านผิดพลาด",
           });
-        } else {
+        } else if (error?.response?.data?.message === "User not found") {
           this.$swal.fire({
             icon: "error",
             text: "คุณยังไม่ได้ทำการสมัครโปรดลองอีกครั้ง",
