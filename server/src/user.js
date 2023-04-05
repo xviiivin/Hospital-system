@@ -5,6 +5,15 @@ const prisma = new PrismaClient();
 const router = express.Router();
 import exeptionError from "./Error.js";
 
+const findUserById = async (id) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      idCard: id,
+    },
+  });
+  return user;
+};
+
 // get all users
 router.get("/", async (req, res) => {
   try {
@@ -15,14 +24,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-// get all users by id
+// get all users by id card
 router.get("/:id", async (req, res) => {
   try {
-    const user = await prisma.user.findUnique({
-      where: {
-        idCard: req.params.id,
-      },
-    });
+    const user = await findUserById(req.params.idCard);
     res.json(user);
   } catch (error) {
     exeptionError(error, res);
@@ -46,6 +51,10 @@ router.get("/role/:role", async (req, res) => {
 //update user
 router.patch("/role/:id", async (req, res) => {
   try {
+    const findUser = await findUserById(req.params.id);
+    if (findUser == null) {
+      throw new Error("user id not found");
+    }
     const user = await prisma.user.update({
       where: {
         idCard: req.params.id,
@@ -54,6 +63,7 @@ router.patch("/role/:id", async (req, res) => {
         role: req.body.role,
       },
     });
+
     res.json(user);
   } catch (error) {
     exeptionError(error, res);

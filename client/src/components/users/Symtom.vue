@@ -6,7 +6,8 @@
             </div>
             <div class="flex">
                 <h2 class="text-xl mr-2 text-[#B6B6B6]">22/02/2566</h2>
-                <a href="" class="text-xl text-black  font-medium underline">นายแพท พิทักษ์</a>
+                <router-link style="cursor: pointer; text-decoration: none" to="/user/doctor">
+                    <a class="text-xl text-black  font-medium underline">นายแพท พิทักษ์</a></router-link> 
             </div>
         </div>
 

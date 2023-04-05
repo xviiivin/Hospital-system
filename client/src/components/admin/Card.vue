@@ -48,15 +48,20 @@ export default {
     async addRole() {
       try {
         if (this.name === "" || this.idCard === "") {
-          throw new Error("กรุกรอกข้อมูลให้ครบถ้วน");
+          throw new Error("please fill all data");
         }
+
+
         await axios.patch(`http://localhost:8080/api/user/role/${this.idCard}`, {
           role: "DOCTOR",
         });
+
+
         this.getDoctor();
         this.setOpen(false);
         this.$swal.fire("Add role done!", "You clicked the button!", "success");
       } catch (error) {
+        console.log(error)
         this.$swal.fire("Error!", error.message, "error");
       }
     },

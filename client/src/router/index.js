@@ -46,7 +46,7 @@ const routes = [
     component: () => import("../views/user/DocInfo1.vue"),
   },
   {
-    path: "/user/hospital/:id",
+    path: "/user/hospital",
     name: "hospitalrecord",
     component: () => import("../views/user/HospitalRecord.vue"),
   },

@@ -10,7 +10,8 @@
       <div class="w-full mx-auto mt-10 flex flex-wrap gap-2 gap-y-12">
         <div v-for="(value, index) in doctors" :key="index">
           <div class="text-justify justify-center w-fit">
-            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 drop-shadow-xl">
+            <div
+              class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 drop-shadow-xl">
               <div class="px-5 pb-5">
                 <h5 class="text-2xl py-3 underline font-semibold tracking-tight text-gray-900">{{ value.name }}</h5>
                 <span class="text-lg font-bold text-gray-900">Id: {{ value.idCard }}</span>
@@ -76,7 +77,9 @@ export default {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
             }
           });
-      } catch (error) {}
+      } catch (error) {
+        console.log(error)
+      }
     },
     setDoctors(doctors) {
       this.doctors = doctors;

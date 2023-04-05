@@ -11,12 +11,12 @@
 <script>
 
 import search from "../../components/doctor/Search.vue"
-import Docnav from "../../components/doctor/Docnav.vue";
+
 import DocNav1 from "../../components/doctor/Navbarch1.vue"
 export default {
   components: {
 
-    Docnav,
+    
     search, DocNav1
   },
   data() {
