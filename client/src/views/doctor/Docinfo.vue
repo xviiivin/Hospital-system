@@ -1,6 +1,13 @@
 <template>
   <div class="w-full mx-auto">
     <DocNav1 />
+    <div class="bg-[#111727]">
+      <div class="h-24 p-4 container mx-auto">
+        <router-link style="cursor: pointer; text-decoration: none" to="/doctor/">
+          <img src="../../assets/back 1@2x.png" alt="" class="w-8 cursor-pointer" />
+        </router-link>
+      </div>
+    </div>
 
     <div class="grid grid-cols-12 mt-24">
       <div class="col-start-2 col-end-6">

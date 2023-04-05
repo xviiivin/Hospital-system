@@ -8,13 +8,13 @@
           <p class="text-[#6F6565] mt-10 text-2xl mr-5">Welcome, <span class="font-medium">Justin</span></p>
 
           <div class="flex justify-center w-full space-x-10 mt-12">
-            <router-link class="cursor-pointer underline-none" to="/payment1">
+            <router-link class="cursor-pointer underline-none" to="/detail">
               <div class="flex bg-[#202C4B] w-[100px] h-[100px] rounded-full shadow-lg">
                 <img class="w-15 h-15 mx-7 self-center" src="../../assets/wallet.png" />
               </div>
               <p class="mt-2 font-light">รายการชำระเงิน</p>
             </router-link>
-            <router-link class="cursor-pointer underline-none" to="/hospitalrecord">
+            <router-link class="cursor-pointer underline-none" to="/user/hospital">
               <div class="flex bg-[#202C4B] w-[100px] h-[100px] rounded-full">
                 <img class="w-15 h-15 self-center mx-6" src="../../assets/medical-record.png" />
               </div>
