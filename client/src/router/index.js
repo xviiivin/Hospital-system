@@ -21,12 +21,12 @@ const routes = [
     component: () => import("../views/Register.vue"),
   },
   {
-    path: "/payment1",
+    path: "/payment/1",
     name: "payment1",
     component: () => import("../views/user/Payment1.vue"),
   },
   {
-    path: "/payment2",
+    path: "/payment/2",
     name: "payment2",
     component: () => import("../views/user/Payment2.vue"),
   },
@@ -41,28 +41,28 @@ const routes = [
     component: () => import("../views/user/AllDoctor.vue"),
   },
   {
-    path: "/docinfo1",
+    path: "/user/docinfo",
     name: "docinfo1",
     component: () => import("../views/user/DocInfo1.vue"),
   },
   {
-    path: "/hospitalrecord",
+    path: "/user/hospital/:id",
     name: "hospitalrecord",
     component: () => import("../views/user/HospitalRecord.vue"),
   },
   {
-    path: "/userinfo",
+    path: "/user/info",
     name: "userinfo",
     component: () => import("../views/user/UserInfo.vue"),
   },
 
   {
-    path: "/adminrole",
+    path: "/admin/role",
     name: "admin",
     component: () => import("../views/admin/Addrole.vue"),
   },
   {
-    path: "/alluser",
+    path: "/admin/users",
     name: "alluser",
     component: () => import("../views/admin/Alluser.vue"),
   },
