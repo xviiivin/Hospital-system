@@ -6,7 +6,7 @@
         <div>
           {{ value.data }}
         </div>
-        <router-link style="cursor: pointer; text-decoration: none" to="/payment2">
+        <router-link style="cursor: pointer; text-decoration: none" to="/payment">
           <button class="underline-offset-2">Check out</button>
         </router-link>
 

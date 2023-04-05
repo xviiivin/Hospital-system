@@ -72,12 +72,12 @@ onMounted(() => {
           </li>
           <li>
             <p class="block py-2 pl-3 pr-4 rounded font-bold md:p-0 md:hover:bg-transparent hover:underline ease-linear duration-[10000]">
-              <router-link style="cursor: pointer; text-decoration: none" to="/payment1"> Payment </router-link>
+              <router-link style="cursor: pointer; text-decoration: none" to="/pending"> Payment </router-link>
             </p>
           </li>
           <li>
             <p class="block py-2 pl-3 pr-4 rounded font-bold md:p-0 md:hover:bg-transparent hover:underline">
-              <router-link style="cursor: pointer; text-decoration: none" to="/userinfo">Account</router-link>
+              <router-link style="cursor: pointer; text-decoration: none" to="/user/info">Account</router-link>
             </p>
           </li>
         </ul>

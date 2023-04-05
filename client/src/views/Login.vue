@@ -77,8 +77,8 @@ export default {
           this.$router.push("/admin");
         } else if (res.data.role == "DOCTOR") {
           this.$router.push("/doctor/");
-        } else if (res.data.role == "PATIENT") {
-          this.$router.push("/patient");
+        } else if (res.data.role == "USER") {
+          this.$router.push("/");
         }
         await this.showAlert();
       } catch (error) {

@@ -28,6 +28,9 @@ router.get("/:id", async (req, res) => {
       where: {
         id: req.params.id,
       },
+      include: {
+        userInfo: true,
+      },
     });
     doctor.password = undefined;
     res.json(doctor);

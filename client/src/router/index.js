@@ -21,13 +21,13 @@ const routes = [
     component: () => import("../views/Register.vue"),
   },
   {
-    path: "/payment/1",
-    name: "payment1",
+    path: "/pending",
+    name: "pending",
     component: () => import("../views/user/Payment1.vue"),
   },
   {
-    path: "/payment/2",
-    name: "payment2",
+    path: "/payment",
+    name: "payment",
     component: () => import("../views/user/Payment2.vue"),
   },
   {
@@ -41,7 +41,7 @@ const routes = [
     component: () => import("../views/user/AllDoctor.vue"),
   },
   {
-    path: "/user/docinfo",
+    path: "/user/doctor",
     name: "docinfo1",
     component: () => import("../views/user/DocInfo1.vue"),
   },
