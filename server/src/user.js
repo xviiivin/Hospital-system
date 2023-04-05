@@ -10,6 +10,9 @@ const findUserById = async (id) => {
     where: {
       idCard: id,
     },
+    include:{
+      userInfo:true
+    }
   });
   return user;
 };
@@ -28,6 +31,55 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const user = await findUserById(req.params.idCard);
+    res.json(user);
+  } catch (error) {
+    exeptionError(error, res);
+  }
+});
+
+//update user
+router.patch("/:id", async (req, res) => {
+  console.log(req.body)
+  try {
+    const findUser = await findUserById(req.params.id);
+    if (findUser == null) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+    const user = await prisma.user.update({
+      where: {
+        idCard: req.params.id,
+      },
+      data: req.body,
+    });
+    res.json(user);
+  } catch (error) {
+    exeptionError(error, res);
+  }
+});
+
+//update userInfo
+router.patch("/:id/info", async (req, res) => {
+  try {
+    const findUser = await findUserById(req.params.id);
+    if (findUser == null) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+    const user = await prisma.userInfo.update({
+      where: {
+        idCard: findUser.userInfo.idCard,
+      },
+
+      data: {
+        userInfo: {
+          update: req.body,
+        },
+      },
+    });
+
     res.json(user);
   } catch (error) {
     exeptionError(error, res);

@@ -1,8 +1,15 @@
 <template>
   <div class="flex justify-center">
-    <div v-if="!image">
+    <div v-if="!image" @submit.prevent="uploadFile">
       <div class="rounded-lg w-[250px] h-[250px] flex items-center">
-        <input type="file" name="" id="" @change="onFileChange(userId)" />
+        <input
+          type="file"
+          @change="
+            (event) => {
+              uploadFile(event);
+            }
+          "
+        />
       </div>
     </div>
 
@@ -10,7 +17,7 @@
       <div class="w-[350px] h-[350px]">
         <img :src="image" class="w-full h-full block object-cover rounded-lg" />
         <div class="flex justify-end p-2">
-          <button src="../../assets/cancel.png" @click="removeFile()" class="border boder-black bg-[#FF5757] text-white p-2 rounded-lg">
+          <button src="../../assets/cancel.png" @click="removeFile(userId)" class="border boder-black bg-[#FF5757] text-white p-2 rounded-lg">
             Remove
           </button>
         </div>
@@ -19,8 +26,10 @@
   </div>
 </template>
 <script>
-import { ref as storageRef, getDownloadURL, listAll, deleteObject } from "firebase/storage";
+import { ref as storageRef, getDownloadURL, listAll, deleteObject, uploadBytes } from "firebase/storage";
 import { useFirebaseStorage } from "vuefire";
+const storage = useFirebaseStorage();
+
 export default {
   data() {
     return {
@@ -36,9 +45,18 @@ export default {
     }
   },
   methods: {
+    async uploadFile(event) {
+      try {
+        const file = event.target.files[0];
+        const starsRef = storageRef(storage, `users/${this.userId}/${file.name}`);
+        await uploadBytes(starsRef, file);
+        this.getFile(this.userId);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async getFile(userId) {
       try {
-        const storage = useFirebaseStorage();
         const starsRef = storageRef(storage, "users/" + userId);
         const search = await listAll(starsRef);
         const download = (await getDownloadURL(search.items[0])).toString();
@@ -49,11 +67,10 @@ export default {
     },
     async removeFile(userId) {
       try {
-        const storage = useFirebaseStorage();
         const starsRef = storageRef(storage, "users/" + userId);
         const search = await listAll(starsRef);
         const remove = await deleteObject(search.items[0]);
-        console.log(remove)
+        console.log(remove);
         this.image = "";
       } catch (error) {
         console.log(error);

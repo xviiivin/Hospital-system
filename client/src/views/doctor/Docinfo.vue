@@ -132,14 +132,19 @@ export default {
     async getDotorInfo() {
       const doctorId = JSON.parse(localStorage.getItem("user")).id;
       const doctor = await axios.get(`http://localhost:8080/api/doctor/${doctorId}`);
-      console.log(doctor.data);
       this.doctorInfo = doctor.data;
     },
     async saveDoctorInfo() {
-      const doctorId = JSON.parse(localStorage.getItem("user")).id;
-      const doctor = await axios.patch(`http://localhost:8080/api/doctor/${doctorId}`, this.doctorInfo);
-      console.log(doctor.data);
-      this.doctorInfo = doctor.data;
+      try {
+        const doctorId = JSON.parse(localStorage.getItem("user")).id;
+        const user = await axios.patch(`http://localhost:8080/api/user/${doctorId}`, this.doctorInfo.userInfo);
+        delete this.doctorInfo.userInfo;
+        const info = await axios.patch(`http://localhost:8080/api/user/${doctorId}/info`, this.doctorInfo);
+        console.log(user, info);
+        this.getDotorInfo();
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
