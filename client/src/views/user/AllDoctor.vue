@@ -17,7 +17,7 @@
 
             <div class="mt-3 flex justify-between" v-for="(val, index) in DocInfo" :key="index">
               <div class="rounded-xl w-[180px] h-[calc(100%+2rem)] mr-5 group shadow-lg overflow-hidden cursor-pointer">
-                <img class="h-full w-full group-hover:scale-110 ease-in duration-300" :src="`${imageUrl(val.id)}`" />
+                <img class="h-full w-full group-hover:scale-110 ease-in duration-300" :src="val.image" />
               </div>
 
               <div class="justify-items-end self-center cursor-pointer">
@@ -36,16 +36,8 @@
 import AppLayout from "../../components/AppLayout.vue";
 import Nav from "../../components/users/MainNav.vue";
 import axios from "axios";
-import firebase from "firebase/app";
-import "firebase/storage";
-
-const storage = useFirebaseStorage();
-const mountainFileRef = storageRef(storage, "images/mountains.jpg");
-const {
-  url,
-  // refresh the url if the file changes
-  refresh,
-} = useStorageFileUrl(mountainFileRef);
+import { ref as storageRef, getDownloadURL, listAll } from "firebase/storage";
+import { useFirebaseStorage, useStorageFile } from "vuefire";
 
 export default {
   components: {
@@ -66,22 +58,14 @@ export default {
   methods: {
     async getDocInfo(id) {
       const res = await axios.get(`http://localhost:8080/api/hospital/${id}/doctors`);
-      console.table(res.data);
       this.DocInfo = res.data;
-    },
-
-    async imageUrl(id) {
-      // Get a reference to the image file
-      const storageRef = firebase.storage().ref().child(`doctors/${"2fafbe6e-f0b7-4e4c-9b49-6f974861c945"}/`);
-      // Get a list of all the files in the folder
-      const folderList = await storageRef.listAll();
-
-      // Get the first file in the list
-      const firstFile = folderList.items[0];
-
-      // Get the download URL of the first file
-      return firstFile.getDownloadURL();
-      // Get the download URL of the image
+      this.DocInfo.map(async (val) => {
+        const storage = useFirebaseStorage();
+        const starsRef = storageRef(storage, "doctors/" + val.id);
+        const search = await listAll(starsRef);
+        const download = (await getDownloadURL(search.items[0])).toString();
+        val.image = download;
+      });
     },
   },
 };

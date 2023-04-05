@@ -1,20 +1,25 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection } from "firebase/firestore";
-// ... other firebase imports
+import { initializeApp,  } from "firebase/app";
+import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
-export const firebaseApp = initializeApp({
-  // your application settings
-  apiKey: "AIzaSyAQ_Nj7ctbW5-_EfDmVIFINy3UcXea42HU",
-  authDomain: "win-hospital.firebaseapp.com",
-  projectId: "win-hospital",
-  storageBucket: "win-hospital.appspot.com",
-  messagingSenderId: "56435903997",
-  appId: "1:56435903997:web:fa68f96d5bc9cf546b5d94",
-  measurementId: "G-0BWM8W7NW6",
-});
+// TODO: Replace the following with your app's Firebase project configuration
+// See: https://firebase.google.com/docs/web/learn-more#config-object
+const firebaseConfig = {
+  // ...
+  apiKey: "AIzaSyAUJgCTgMTCiQ1pqzrLkJ-73tXDOHsTD4A",
+  authDomain: "win-hospital-5bcf7.firebaseapp.com",
+  projectId: "win-hospital-5bcf7",
+  storageBucket: "win-hospital-5bcf7.appspot.com",
+  messagingSenderId: "891470099793",
+  appId: "1:891470099793:web:cd8c7264d049d47a82cf70",
+  measurementId: "G-X7B6QTNYEE",
+};
 
-// used for the firestore refs
-const db = getFirestore(firebaseApp);
+export const firebaseApp = initializeApp(firebaseConfig);
 
-// here we can export reusable database references
-export const todosRef = collection(db, "todos");
+// Initialize Firebase
+
+// Initialize Cloud Storage and get a reference to the service
+const storage = getStorage(firebaseApp);
+
+export { storage };
