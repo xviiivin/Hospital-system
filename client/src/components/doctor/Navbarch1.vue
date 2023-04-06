@@ -23,7 +23,11 @@ onMounted(() => {
           id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdownuser1"
           data-dropdown-placement="bottom">
           <span class="sr-only">Open user menu</span>
-          <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo" />
+          <img class="w-8 h-8 rounded-full" :src="image" alt="user photo" @change="
+            (event) => {
+              uploadFile(event);
+            }
+          " />
         </button>
         <!-- Dropdown menu -->
         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
@@ -52,12 +56,38 @@ onMounted(() => {
 </template>
 
 <script>
+import { ref as storageRef, getDownloadURL, listAll, deleteObject, uploadBytes } from "firebase/storage";
+import { useFirebaseStorage } from "vuefire";
+const storage = useFirebaseStorage();
 export default {
+  data() {
+    return {
+      image: "",
+    }
+  },
   methods: {
     logout() {
       localStorage.removeItem("user");
       this.$router.push("/login");
     },
+    async getFile(userId) {
+      try {
+        const starsRef = storageRef(storage, "users/" + userId);
+        const search = await listAll(starsRef);
+        const download = (await getDownloadURL(search.items[0])).toString();
+        this.image = download;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+  },
+  mounted() {
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    if (userId) {
+      this.userId = userId;
+      this.getFile(this.userId);
+    }
   },
 };
 </script>

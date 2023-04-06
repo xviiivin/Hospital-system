@@ -81,6 +81,11 @@ export default {
   data: () => ({
     left: ["Name", "Age", "Genders", "Weight", "Height"]
   }),
+  methods:{
+    saveelement(){
+
+    },
+  }
 };
 </script>
       

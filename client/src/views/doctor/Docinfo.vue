@@ -26,42 +26,28 @@
           </div>
           <div>
             <div class="pb-4">
-              <input
-                class="w-full"
-                type="text"
-                @input="
-                  (event) => {
-                    doctorInfo.name = event.target.value;
-                  }
-                "
-                :value="doctorInfo?.name || ''"
-              />
+              <input class="w-full" type="text" @input="
+                (event) => {
+                  doctorInfo.name = event.target.value;
+                }
+              " :value="doctorInfo?.name || ''" />
             </div>
             <div class="pb-4">
-              <input
-                class="w-full"
-                type="number"
-                @input="
-                  (event) => {
-                    doctorInfo.userInfo.age = event.target.value;
-                  }
-                "
-                :value="doctorInfo?.userInfo?.age || 0"
-              />
+              <input class="w-full" type="number" @input="
+                (event) => {
+                  doctorInfo.userInfo.age = event.target.value;
+                }
+              " :value="doctorInfo?.userInfo?.age || 0" />
             </div>
             <div class="pb-4">
-              <select
-                id="underline_select"
-                :value="doctorInfo?.userInfo?.sex || ''"
-                @input="
-                  (event) => {
-                    if (doctorInfo && doctorInfo.userInfo) {
-                      doctorInfo.userInfo.sex = event.target.value;
-                    }
+              <select id="underline_select" :value="doctorInfo?.userInfo?.sex || ''" @input="
+                (event) => {
+                  if (doctorInfo && doctorInfo.userInfo) {
+                    doctorInfo.userInfo.sex = event.target.value;
                   }
-                "
-                class="py-2.5 px-2 w-full text-sm text-black bg-white border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-black"
-              >
+                }
+              "
+                class="py-2.5 px-2 w-full text-sm text-black bg-white border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-black">
                 <option value="" disabled>Choose your gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -70,37 +56,25 @@
             </div>
 
             <div class="pb-4">
-              <input
-                class="w-full"
-                type="text"
-                @input="
-                  (event) => {
-                    doctorInfo.userInfo.expert = event.target.value;
-                  }
-                "
-                :value="doctorInfo?.userInfo?.expert || ''"
-              />
+              <input class="w-full" type="text" @input="
+                (event) => {
+                  doctorInfo.userInfo.expert = event.target.value;
+                }
+              " :value="doctorInfo?.userInfo?.expert || ''" />
             </div>
             <div>
-              <textarea
-                name=""
-                class="w-full"
-                id=""
-                cols="30"
-                rows="3"
-                @input="
-                  (event) => {
-                    doctorInfo.userInfo.description = event.target.value;
-                  }
-                "
-                :value="doctorInfo?.userInfo?.description || ''"
-              ></textarea>
+              <textarea name="" class="w-full" id="" cols="30" rows="3" @input="
+                (event) => {
+                  doctorInfo.userInfo.description = event.target.value;
+                }
+              " :value="doctorInfo?.userInfo?.description || ''"></textarea>
             </div>
           </div>
         </div>
       </div>
       <div class="col-start-11 col-end-13">
-        <button @click="saveDoctorInfo()" class="bg-[#111727] border-2 boder-black text-white p-4 rounded-lg">Save All</button>
+        <button @click="saveDoctorInfo()" class="bg-[#111727] border-2 boder-black text-white p-4 rounded-lg">Save
+          All</button>
       </div>
     </div>
   </div>
@@ -133,17 +107,26 @@ export default {
       const doctorId = JSON.parse(localStorage.getItem("user")).id;
       const doctor = await axios.get(`http://localhost:8080/api/doctor/${doctorId}`);
       this.doctorInfo = doctor.data;
+      
     },
     async saveDoctorInfo() {
       try {
+        this.$swal.fire(
+          'You info has been saved!',
+          'You clicked the button!',
+          'success'
+        )
         const doctorId = JSON.parse(localStorage.getItem("user")).id;
         const user = await axios.patch(`http://localhost:8080/api/user/${doctorId}`, this.doctorInfo.userInfo);
         delete this.doctorInfo.userInfo;
         const info = await axios.patch(`http://localhost:8080/api/user/${doctorId}/info`, this.doctorInfo);
         console.log(user, info);
+       
         this.getDotorInfo();
+        
       } catch (error) {
         console.log(error);
+        
       }
     },
   },
