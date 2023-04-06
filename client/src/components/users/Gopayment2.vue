@@ -71,7 +71,7 @@
           <label class="block mb-2 text-sm font-semibold text-[#6B6868]" for="file_input">Money transfer slip
           </label>
           <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-            id="file_input" type="file" />
+            id="file_input" ref="fileInput" type="file" />
         </div>
       </form>
 
@@ -102,13 +102,23 @@ export default {
   },
   methods: {
     payment() {
+      if (this.$refs.fileInput.files != null && this.$refs.fileInput.files.length > 0){
       this.$swal.fire(
         'thank you!',
         'You clicked the button!',
         'success'
       )
       this.$router.push("/");
-
+      }
+      else{
+        this.$swal.fire(
+        'error',
+        'Please fill all info',
+        'error'
+      )
+      }
+      
+  
 
     }
   }
