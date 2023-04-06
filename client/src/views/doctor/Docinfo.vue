@@ -135,6 +135,7 @@ export default {
         delete this.doctorInfo.userInfo;
         await axios.patch(`http://localhost:8080/api/user/${doctorId}`, this.doctorInfo);
         this.getDotorInfo();
+        this.$swal.fire("You info has been saved!", "You clicked the button!", "success");
       } catch (error) {
         console.log(error);
       }
