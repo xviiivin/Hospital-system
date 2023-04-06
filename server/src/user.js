@@ -6,13 +6,14 @@ const router = express.Router();
 import exeptionError from "./Error.js";
 
 const findUserById = async (id) => {
+  console.log(id)
   const user = await prisma.user.findUnique({
     where: {
       idCard: id,
     },
-    include:{
-      userInfo:true
-    }
+    include: {
+      userInfo: true,
+    },
   });
   return user;
 };
@@ -39,7 +40,6 @@ router.get("/:id", async (req, res) => {
 
 //update user
 router.patch("/:id", async (req, res) => {
-  console.log(req.body)
   try {
     const findUser = await findUserById(req.params.id);
     if (findUser == null) {
@@ -70,18 +70,15 @@ router.patch("/:id/info", async (req, res) => {
     }
     const user = await prisma.userInfo.update({
       where: {
-        idCard: findUser.userInfo.idCard,
+        id: findUser.userInfo.id
       },
 
-      data: {
-        userInfo: {
-          update: req.body,
-        },
-      },
+      data: req.body,
     });
 
     res.json(user);
   } catch (error) {
+    console.log(error)
     exeptionError(error, res);
   }
 });
