@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 // get all users by id card
 router.get("/:id", async (req, res) => {
   try {
-    const user = await findUserById(req.params.idCard);
+    const user = await findUserById(req.params.id);
     res.json(user);
   } catch (error) {
     exeptionError(error, res);
