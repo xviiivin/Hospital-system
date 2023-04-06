@@ -23,7 +23,7 @@ onMounted(() => {
           id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdownuser1"
           data-dropdown-placement="bottom">
           <span class="sr-only">Open user menu</span>
-          <img class="w-8 h-8 rounded-full" :src="image" alt="user photo" @change="
+          <img class="w-8 h-8 rounded-full object-cover" :src="image" alt="user photo" @change="
             (event) => {
               uploadFile(event);
             }

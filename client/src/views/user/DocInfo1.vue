@@ -21,7 +21,11 @@
             </div>
             <div class="mx-5 lg:mx-10 mb-3 flex justify-center">
               <div class="rounded-xl w-2/3 h-[calc(100%+2rem)] group shadow-lg overflow-hidden">
-                <img class=" w-full group-hover:scale-110 ease-in duration-300" :src="val.image" />
+                <img class=" w-full group-hover:scale-110 ease-in duration-300" :src="image" @change="
+                  (event) => {
+                    uploadFile(event);
+                  }
+                " />
               </div>
             </div>
             <div class="mt-5">
@@ -57,14 +61,16 @@
 import AppLayout from "../../components/AppLayout.vue";
 import Nav from "../../components/users/MainNav.vue";
 import pic1 from "../../assets/doctorPic1.png";
-import pic2 from "../../assets/doctorPic2.png";
-
+import { ref as storageRef, getDownloadURL, listAll, deleteObject, uploadBytes } from "firebase/storage";
+import { useFirebaseStorage } from "vuefire";
+const storage = useFirebaseStorage();
 export default {
   components: {
     AppLayout,
     Nav,
   },
   data: () => ({
+    image: '',
     hosName: "Hallaluya Hospital",
     DocInfo: [
       {
@@ -78,6 +84,26 @@ export default {
       },
     ],
   }),
+  mounted() {
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    if (userId) {
+      this.userId = userId;
+      this.getFile(this.userId);
+    }
+  },
+  methods: {
+    async getFile(userId) {
+      try {
+        const starsRef = storageRef(storage, "users/" + userId);
+        const search = await listAll(starsRef);
+        const download = (await getDownloadURL(search.items[0])).toString();
+        this.image = download;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+
 };
 </script>
 

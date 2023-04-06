@@ -26,10 +26,10 @@ onMounted(() => {
             }
           " :src="image" alt="user photo" />
           <!-- @change="
-                    (event) => {
-                      uploadFile(event);
-                    }
-                  " -->
+                      (event) => {
+                        uploadFile(event);
+                      }
+                    " -->
         </button>
         <!-- Dropdown menu -->
         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"

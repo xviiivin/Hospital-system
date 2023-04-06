@@ -3,7 +3,7 @@
         <Nav />
         <div class="bg-[#111727]">
             <div class="h-24 p-4 container mx-auto">
-                <router-link style="cursor: pointer; text-decoration: none" to="/payment1">
+                <router-link style="cursor: pointer; text-decoration: none" to="/pending">
                     <img src="../../assets/back 1@2x.png" alt="" class="w-8 cursor-pointer" />
                 </router-link>
             </div>
