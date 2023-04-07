@@ -6,7 +6,6 @@ const router = express.Router();
 import exeptionError from "./Error.js";
 
 const findUserById = async (id) => {
-  console.log(id)
   const user = await prisma.user.findUnique({
     where: {
       idCard: id,
@@ -55,6 +54,7 @@ router.patch("/:id", async (req, res) => {
     });
     res.json(user);
   } catch (error) {
+    console.log(error)
     exeptionError(error, res);
   }
 });
