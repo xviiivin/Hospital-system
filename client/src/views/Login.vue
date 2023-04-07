@@ -82,7 +82,6 @@ export default {
         }
         await this.showAlert();
       } catch (error) {
-        console.log(error);
         if (error.message === "Please fill in all fields") {
           this.$swal.fire({
             icon: "error",

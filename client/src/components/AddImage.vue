@@ -15,17 +15,15 @@
       </div>
 
       <div v-else class="mb-12">
-        <div class="w-[250px] h-[250px]">
-          <div class="flex justify-end relative">
-            <img :src="image" class="w-full h-full block object-cover rounded-lg" />
-            <button
-              class="absolute top-2 right-2 text-white p-2 rounded-lg material-icons-outlined border w-8 h-8 flex items-center justify-center hover:bg-slate-600"
-              src="../../assets/cancel.png"
-              @click="removeFile(userId)"
-            >
-              delete
-            </button>
-          </div>
+        <div class="w-[250px] h-[250px] overflow-hidden relative">
+          <img :src="image" class="w-full h-full block object-cover object-center rounded-lg" />
+          <button
+            class="absolute top-2 right-2 text-white p-2 rounded-lg material-icons-outlined border w-8 h-8 flex items-center justify-center hover:bg-slate-600"
+            src="../../assets/cancel.png"
+            @click="removeFile(userId)"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>

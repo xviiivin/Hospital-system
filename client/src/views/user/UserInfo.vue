@@ -18,18 +18,35 @@
         <div class="flex flex-col item-center mb-6">
           <table class="w-full justify-center">
             <tbody class="w-full flex flex-col xl:w-1/3 xl:mx-auto xl:justify-center gap-y-3">
-              <tr class="flex justify-between items-center">
+              <tr class="flex justify-between items-center gap-x-2">
                 <td>Name</td>
-                <td><input type="text" class="rounded-md py-1" :value="userInfo?.name" /></td>
+                <td><input type="text" class="rounded-md py-1" :value="userInfo?.name" @input="userInfo.name = $event.target.value" /></td>
               </tr>
-              <tr class="flex justify-between items-center">
+              <tr class="flex justify-between items-center gap-x-2">
                 <td>Age</td>
-                <td><input type="number" class="rounded-md py-1" :value="userInfo?.userInfo?.age" /></td>
+                <td>
+                  <input
+                    type="number"
+                    class="rounded-md py-1"
+                    :value="userInfo?.userInfo?.age || ''"
+                    @input="userInfo.userInfo.age = $event.target.value"
+                  />
+                </td>
               </tr>
-              <tr class="flex justify-between items-center">
+              <tr class="flex justify-between items-center gap-x-2">
                 <td>Gender</td>
                 <td>
-                  <select class="w-full text-sm text-black bg-white border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-black">
+                  <select
+                    :value="userInfo?.userInfo?.sex"
+                    @input="
+                      (event) => {
+                        if (userInfo && userInfo.userInfo) {
+                          userInfo.userInfo.sex = event.target.value;
+                        }
+                      }
+                    "
+                    class="w-full text-sm text-black bg-white border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-black"
+                  >
                     <option value="" disabled>Choose your gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -37,17 +54,38 @@
                   </select>
                 </td>
               </tr>
-              <tr class="flex justify-between items-center">
+              <tr class="flex justify-between items-center gap-x-2">
                 <td>Weight</td>
-                <td><input type="number" class="rounded-md py-1" /></td>
+                <td>
+                  <input
+                    type="number"
+                    class="rounded-md py-1"
+                    @input="userInfo.userInfo.weight = $event.target.value"
+                    :value="userInfo?.userInfo?.weight"
+                  />
+                </td>
               </tr>
-              <tr class="flex justify-between items-center">
+              <tr class="flex justify-between items-center gap-x-2">
                 <td>Height</td>
-                <td><input type="number" class="rounded-md py-1" /></td>
+                <td>
+                  <input
+                    type="number"
+                    class="rounded-md py-1"
+                    @input="userInfo.userInfo.height = $event.target.value"
+                    :value="userInfo?.userInfo?.height"
+                  />
+                </td>
               </tr>
-              <tr class="flex justify-between items-center">
+              <tr class="flex justify-between items-center gap-x-2">
                 <td>Blood type</td>
-                <td><input type="text" class="rounded-md py-1" /></td>
+                <td>
+                  <input
+                    type="text"
+                    class="rounded-md py-1"
+                    @input="userInfo.userInfo.bloodType = $event.target.value"
+                    :value="userInfo?.userInfo?.bloodType"
+                  />
+                </td>
               </tr>
             </tbody>
           </table>
@@ -55,8 +93,7 @@
         <!-- button group -->
         <div class="w-full flex flex-col xl:w-1/3 xl:mx-auto xl:justify-center">
           <div class="space-x-5 text-white flex justify-end">
-            <button class="rounded-lg p-2 bg-rose-500">Cancel</button>
-            <button class="rounded-lg bg-slate-900 p-2 px-5">Save</button>
+            <button @click="saveUserInfo()" class="rounded-lg bg-slate-900 p-2 px-5">Save</button>
           </div>
         </div>
       </div>
@@ -86,8 +123,23 @@ export default {
     async getUserInfo() {
       const userId = JSON.parse(localStorage.getItem("user")).idCard;
       const res = await axios.get(`http://localhost:8080/api/user/${userId}`);
-      console.log(res.data)
-      this.userInfo = res.data
+      console.log(res.data);
+      this.userInfo = res.data;
+    },
+    async saveUserInfo() {
+      try {
+        const usrId = JSON.parse(localStorage.getItem("user")).idCard;
+        this.userInfo.userInfo.age = parseInt(this.userInfo.userInfo.age);
+        this.userInfo.userInfo.weight = parseFloat(this.userInfo.userInfo.weight);
+        this.userInfo.userInfo.height = parseFloat(this.userInfo.userInfo.height);
+        await axios.patch(`http://localhost:8080/api/user/${usrId}/info`, this.userInfo.userInfo);
+        delete this.userInfo.userInfo;
+        await axios.patch(`http://localhost:8080/api/user/${usrId}`, this.userInfo);
+        this.getUserInfo();
+        this.$swal.fire("You info has been saved!", "You clicked the button!", "success");
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
