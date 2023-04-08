@@ -54,12 +54,10 @@ onMounted(() => {
           id="dropdownuser1"
         >
           <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900 dark:text-white"
-              >Bonnie Green</span
-            >
+            
             <span
               class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400"
-              >name@flowbite.com</span
+              >Name: {{ userInfo?.name }}</span
             >
           </div>
           <ul class="py-2" aria-labelledby="user-menu-button">
@@ -153,11 +151,13 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { useFirebaseStorage } from "vuefire";
+import axios from "axios";
 const storage = useFirebaseStorage();
 export default {
   data() {
     return {
       image: "",
+      userInfo: {},
     };
   },
   computed: {},
@@ -177,8 +177,15 @@ export default {
         console.log(error);
       }
     },
+    async getUserInfo() {
+      const userId = JSON.parse(localStorage.getItem("user")).idCard;
+      const res = await axios.get(`http://localhost:8080/api/user/${userId}`);
+      console.log(res.data);
+      this.userInfo = res.data;
+    }
   },
   mounted() {
+    this.getUserInfo();
     const userId = JSON.parse(localStorage.getItem("user")).id;
     if (userId) {
       this.userId = userId;

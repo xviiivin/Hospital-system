@@ -54,11 +54,21 @@ onMounted(() => {
         >
           <div class="px-4 py-3">
             <span class="block text-sm text-gray-900 dark:text-white" 
-              >{{ doctorInfo?.name }}</span
+              >Name: {{ doctorInfo?.name }}</span
             >
           </div>
 
           <div>
+            <router-link
+              style="cursor: pointer; text-decoration: none"
+              to="/doctor/"
+            >
+              <button
+                class="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Home
+              </button>
+            </router-link>
             <router-link
               style="cursor: pointer; text-decoration: none"
               to="/doctor/info"

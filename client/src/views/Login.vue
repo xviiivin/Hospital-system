@@ -47,7 +47,7 @@ export default {
         toast: true,
         position: "top-end",
         showConfirmButton: false,
-        timer: 3000,
+        timer: 2000,
         timerProgressBar: true,
         didOpen: (toast) => {
           toast.addEventListener("mouseenter", this.$swal.stopTimer);
@@ -87,17 +87,17 @@ export default {
         if (error.message === "Please fill in all fields") {
           this.$swal.fire({
             icon: "error",
-            text: "โปรดกรอกข้อมูลให้ครบถ้วน",
+            text: "plase type all!",
           });
         } else if (error?.response?.data?.message === "Wrong password") {
           this.$swal.fire({
             icon: "error",
-            text: "รหัสผ่านผิดพลาด",
+            text: "Wrong password!",
           });
         } else if (error?.response?.data?.message === "User not found") {
           this.$swal.fire({
             icon: "error",
-            text: "คุณยังไม่ได้ทำการสมัครโปรดลองอีกครั้ง",
+            text: "User not found!",
           });
         }
       }
