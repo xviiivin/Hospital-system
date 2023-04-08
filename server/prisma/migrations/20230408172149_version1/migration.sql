@@ -32,9 +32,9 @@ CREATE TABLE "user_info" (
     "occupation" TEXT,
     "address" TEXT,
     "religion" TEXT,
+    "expert" TEXT,
     "description" TEXT,
     "department" TEXT,
-    "metadata" JSONB,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -44,6 +44,7 @@ CREATE TABLE "user_info" (
 -- CreateTable
 CREATE TABLE "Payment" (
     "id" TEXT NOT NULL,
+    "treatmentId" TEXT,
     "userId" TEXT,
     "status" "PaymentStatus" NOT NULL DEFAULT 'PENDING',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -55,10 +56,10 @@ CREATE TABLE "Payment" (
 -- CreateTable
 CREATE TABLE "Treatment" (
     "id" TEXT NOT NULL,
-    "amount" DOUBLE PRECISION NOT NULL,
+    "totalPrice" DOUBLE PRECISION NOT NULL,
     "userId" TEXT NOT NULL,
+    "doctorId" TEXT NOT NULL,
     "description" TEXT,
-    "paymentId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -66,7 +67,7 @@ CREATE TABLE "Treatment" (
 );
 
 -- CreateTable
-CREATE TABLE "medicine_payment" (
+CREATE TABLE "medicine_treatment" (
     "id" TEXT NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "medicineId" TEXT,
@@ -74,7 +75,7 @@ CREATE TABLE "medicine_payment" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "medicine_payment_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "medicine_treatment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -108,7 +109,7 @@ CREATE UNIQUE INDEX "User_idCard_key" ON "User"("idCard");
 CREATE UNIQUE INDEX "user_info_userId_key" ON "user_info"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Treatment_paymentId_key" ON "Treatment"("paymentId");
+CREATE UNIQUE INDEX "Payment_treatmentId_key" ON "Payment"("treatmentId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Medicine_name_key" ON "Medicine"("name");
@@ -123,16 +124,19 @@ ALTER TABLE "User" ADD CONSTRAINT "User_hospitalId_fkey" FOREIGN KEY ("hospitalI
 ALTER TABLE "user_info" ADD CONSTRAINT "user_info_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_treatmentId_fkey" FOREIGN KEY ("treatmentId") REFERENCES "Treatment"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Payment" ADD CONSTRAINT "Payment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Treatment" ADD CONSTRAINT "Treatment_paymentId_fkey" FOREIGN KEY ("paymentId") REFERENCES "Payment"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Treatment" ADD CONSTRAINT "Treatment_doctorId_fkey" FOREIGN KEY ("doctorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Treatment" ADD CONSTRAINT "Treatment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "medicine_payment" ADD CONSTRAINT "medicine_payment_medicineId_fkey" FOREIGN KEY ("medicineId") REFERENCES "Medicine"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "medicine_treatment" ADD CONSTRAINT "medicine_treatment_medicineId_fkey" FOREIGN KEY ("medicineId") REFERENCES "Medicine"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "medicine_payment" ADD CONSTRAINT "medicine_payment_treatmentId_fkey" FOREIGN KEY ("treatmentId") REFERENCES "Treatment"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "medicine_treatment" ADD CONSTRAINT "medicine_treatment_treatmentId_fkey" FOREIGN KEY ("treatmentId") REFERENCES "Treatment"("id") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -19,33 +19,15 @@
           </div>
           <div>
             <div class="pb-4">
-              <input
-                class="w-full"
-                type="text"
-                @input="
-                  (event) => {
-                    doctorInfo.name = event.target.value;
-                  }
-                "
-                :value="doctorInfo?.name || ''"
-              />
+              <input class="w-full" type="text" @input="doctorInfo.name = $event.target.value" :value="doctorInfo?.name || ''" />
             </div>
             <div class="pb-4">
-              <input
-                class="w-full"
-                type="number"
-                @input="
-                  (event) => {
-                    doctorInfo.userInfo.age = event.target.value;
-                  }
-                "
-                :value="doctorInfo?.userInfo?.age || 0"
-              />
+              <input class="w-full" type="number" :value="doctorInfo?.userInfo?.age" @input="doctorInfo.userInfo.age = $event.target.value" />
             </div>
             <div class="pb-4">
               <select
                 id="underline_select"
-                :value="doctorInfo?.userInfo?.sex || ''"
+                :value="doctorInfo?.userInfo?.sex"
                 @input="
                   (event) => {
                     if (doctorInfo && doctorInfo.userInfo) {
@@ -66,11 +48,7 @@
               <input
                 class="w-full"
                 type="text"
-                @input="
-                  (event) => {
-                    doctorInfo.userInfo.expert = event.target.value;
-                  }
-                "
+                @input="doctorInfo.userInfo.expert = $event.target.value"
                 :value="doctorInfo?.userInfo?.expert || ''"
               />
             </div>
@@ -125,17 +103,16 @@ export default {
     async getDotorInfo() {
       const doctorId = JSON.parse(localStorage.getItem("user")).id;
       const doctor = await axios.get(`http://localhost:8080/api/doctor/${doctorId}`);
+      console.log(doctor.data.userInfo)
       this.doctorInfo = doctor.data;
     },
     async saveDoctorInfo() {
       try {
         const doctorId = JSON.parse(localStorage.getItem("user")).idCard;
-
-        if (this.doctorInfo.userInfo.age) {
+        if (this.doctorInfo.userInfo?.age) {
           this.doctorInfo.userInfo.age = parseInt(this.doctorInfo.userInfo.age);
         }
 
-        this.doctorInfo.userInfo.age = parseInt(this.doctorInfo.userInfo.age);
         await axios.patch(`http://localhost:8080/api/user/${doctorId}/info`, this.doctorInfo.userInfo);
         delete this.doctorInfo.userInfo;
         await axios.patch(`http://localhost:8080/api/user/${doctorId}`, this.doctorInfo);
