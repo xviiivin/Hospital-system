@@ -236,6 +236,7 @@ export default {
         console.log(error);
       }
     },
+   
   },
   computed: {},
 };

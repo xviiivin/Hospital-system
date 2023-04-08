@@ -53,8 +53,8 @@ onMounted(() => {
           id="dropdownuser1"
         >
           <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900 dark:text-white"
-              >wiwat liangkobkit</span
+            <span class="block text-sm text-gray-900 dark:text-white" 
+              >{{ doctorInfo?.name }}</span
             >
           </div>
 
@@ -99,11 +99,13 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { useFirebaseStorage } from "vuefire";
+import axios from "axios";
 const storage = useFirebaseStorage();
 export default {
   data() {
     return {
       image: "",
+      doctorInfo:{}
     };
   },
   methods: {
@@ -122,12 +124,19 @@ export default {
         console.log(error);
       }
     },
+    async getDotorInfo() {
+      const doctorId = JSON.parse(localStorage.getItem("user")).id;
+      const doctor = await axios.get(`http://localhost:8080/api/doctor/${doctorId}`);
+      this.doctorInfo = doctor.data;
+    },
   },
   mounted() {
+    this.getDotorInfo()
     const userId = JSON.parse(localStorage.getItem("user")).id;
     if (userId) {
       this.userId = userId;
       this.getFile(this.userId);
+
     }
   },
 };
