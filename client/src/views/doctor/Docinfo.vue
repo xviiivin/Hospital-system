@@ -130,6 +130,11 @@ export default {
     async saveDoctorInfo() {
       try {
         const doctorId = JSON.parse(localStorage.getItem("user")).idCard;
+
+        if (this.doctorInfo.userInfo.age) {
+          this.doctorInfo.userInfo.age = parseInt(this.doctorInfo.userInfo.age);
+        }
+
         this.doctorInfo.userInfo.age = parseInt(this.doctorInfo.userInfo.age);
         await axios.patch(`http://localhost:8080/api/user/${doctorId}/info`, this.doctorInfo.userInfo);
         delete this.doctorInfo.userInfo;

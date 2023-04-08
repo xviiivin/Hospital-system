@@ -129,9 +129,15 @@ export default {
     async saveUserInfo() {
       try {
         const usrId = JSON.parse(localStorage.getItem("user")).idCard;
-        this.userInfo.userInfo.age = parseInt(this.userInfo.userInfo.age);
-        this.userInfo.userInfo.weight = parseFloat(this.userInfo.userInfo.weight);
-        this.userInfo.userInfo.height = parseFloat(this.userInfo.userInfo.height);
+        if (this.userInfo.userInfo.age) {
+          this.userInfo.userInfo.age = parseInt(this.userInfo.userInfo.age);
+        }
+        if (this.userInfo.userInfo.weight) {
+          this.userInfo.userInfo.weight = parseFloat(this.userInfo.userInfo.weight);
+        }
+        if (this.userInfo.userInfo.height) {
+          this.userInfo.userInfo.height = parseFloat(this.userInfo.userInfo.height);
+        }
         await axios.patch(`http://localhost:8080/api/user/${usrId}/info`, this.userInfo.userInfo);
         delete this.userInfo.userInfo;
         await axios.patch(`http://localhost:8080/api/user/${usrId}`, this.userInfo);
