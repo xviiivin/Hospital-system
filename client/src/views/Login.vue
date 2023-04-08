@@ -75,7 +75,7 @@ export default {
         localStorage.setItem("token", res.data.accessToken);
 
         if (user.role == "ADMIN") {
-          this.$router.push("/admin");
+          this.$router.push("/admin/users");
         } else if (user.role == "DOCTOR") {
           this.$router.push("/doctor/");
         } else if (user.role == "USER") {
