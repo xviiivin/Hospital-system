@@ -68,6 +68,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
       this.$router.push("/login");
     },
     async getFile(userId) {

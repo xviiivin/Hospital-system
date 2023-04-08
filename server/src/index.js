@@ -8,6 +8,7 @@ import user from "./user.js";
 import doctor from "./doctor.js";
 import hospital from "./hospital.js";
 import treatment from "./treatment.js";
+import loggin from "./middleware/loggin.js";
 
 const router = express.Router();
 const app = express();
@@ -17,6 +18,8 @@ app.use(cors({ origin: "*" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
+
+app.use(loggin);
 
 app.use(
   "/api",

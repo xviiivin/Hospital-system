@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 const router = express.Router();
 import exeptionError from "./Error.js";
+import auth from "./middleware/auth.js";
 
 //get all medicine
 router.get("/", async (req, res) => {

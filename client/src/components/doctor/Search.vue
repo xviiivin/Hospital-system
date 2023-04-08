@@ -153,6 +153,7 @@ export default {
       amount: 0,
       symptom: "",
       doctorId: JSON.parse(localStorage.getItem("user")).id,
+      token: localStorage.getItem("token"),
     };
   },
   mounted() {
@@ -177,7 +178,11 @@ export default {
           totalPrice: this.medicineSelect.reduce((a, b) => a + b.price, 0),
           doctorId: this.doctorId,
         };
-        const treatment = await axios.post("http://localhost:8080/api/treatment", data);
+        const treatment = await axios.post("http://localhost:8080/api/treatment", data, {
+          headers: {
+            authorization: `Bearer ${this.token}`,
+          },
+        });
         //   add medicine
         this.medicineSelect.map(async (i) => {
           const data = {
@@ -185,7 +190,11 @@ export default {
             medicineId: i.medicineId,
             amount: i.amount,
           };
-          await axios.post("http://localhost:8080/api/treatment/medicine", data);
+          await axios.post("http://localhost:8080/api/treatment/medicine", data, {
+            headers: {
+              authorization: `Bearer ${this.token}`,
+            },
+          });
         });
         //   alert success
       } catch (error) {

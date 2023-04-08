@@ -4,8 +4,9 @@ import { Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 const router = express.Router();
 import exeptionError from "./Error.js";
+import auth from "./middleware/auth.js";
 
-router.post("/", async (req, res) => {
+router.post("/", auth.doctorAuthorize, async (req, res) => {
   try {
     const { description, doctorId, userId, totalPrice } = req.body;
     const treatment = await prisma.treatment.create({
@@ -23,7 +24,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/medicine", async (req, res) => {
+router.post("/medicine", auth.doctorAuthorize, async (req, res) => {
   try {
     const { amount, medicineId, treatmentId } = req.body;
     const medicine = await prisma.medicineTreatment.create({

@@ -70,18 +70,20 @@ export default {
           idCard: this.idcard,
           password: this.password,
         });
+        const user = res.data.user;
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", res.data.accessToken);
 
-        localStorage.setItem("user", JSON.stringify(res.data));
-
-        if (res.data.role == "ADMIN") {
+        if (user.role == "ADMIN") {
           this.$router.push("/admin");
-        } else if (res.data.role == "DOCTOR") {
+        } else if (user.role == "DOCTOR") {
           this.$router.push("/doctor/");
-        } else if (res.data.role == "USER") {
+        } else if (user.role == "USER") {
           this.$router.push("/");
         }
         await this.showAlert();
       } catch (error) {
+        console.log(error);
         if (error.message === "Please fill in all fields") {
           this.$swal.fire({
             icon: "error",
