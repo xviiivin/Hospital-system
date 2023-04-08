@@ -177,6 +177,7 @@ export default {
           description: this.symptom,
           totalPrice: this.medicineSelect.reduce((a, b) => a + b.price, 0),
           doctorId: this.doctorId,
+          
         };
         const treatment = await axios.post("http://localhost:8080/api/treatment", data, {
           headers: {

@@ -8,7 +8,9 @@
       <!-- card -->
       <div class="card purple my-8 sm:my-2 w-full">
         <div class="max-w-sm w-full lg:max-w-full">
-          <div class="rounded-b lg:rounded-b-none lg:rounded-r p-2 flex flex-col justify-between leading-normal">
+          <div
+            class="rounded-b lg:rounded-b-none lg:rounded-r p-2 flex flex-col justify-between leading-normal"
+          >
             <div>
               <p class="text-white text-xl font-bold leading-none mb-16">
                 wiwat liangkobkit
@@ -30,35 +32,54 @@
         <!-- name -->
 
         <div class="mb-8">
-          <label for="first_name" class="block mb-2 text-sm font-semibold text-[#6B6868]">
-            Name</label>
-          <input type="text" id="first_name"
+          <label
+            for="first_name"
+            class="block mb-2 text-sm font-semibold text-[#6B6868]"
+          >
+            Name</label
+          >
+          <input
+            type="text"
+            id="first_name"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#212D50] focus:border-[#212D50] block w-full p-2.5"
-            placeholder="John" required />
+            placeholder="John"
+            required
+          />
         </div>
 
         <!-- email -->
-        <div>
-          <label for="input-group-1" class="block mb-2 text-sm font-semibold text-[#6B6868]">E-mail</label>
-          <div class="relative mb-8">
-            <div class="absolute inset-y-0 flex items-center pl-3 pointer-events-none">
-              <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-              </svg>
-            </div>
-            <input type="text" id="input-group-1"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#212D50] focus:border-[#212D50] block w-full pl-10 p-2.5"
-              placeholder="name@gmail.com" />
+        <div class="mb-8">
+          <label
+            for="website-admin"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Phonenumber</label
+          >
+          <div class="flex">
+            <span
+              class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600"
+            >
+              @
+            </span>
+            <input
+              type="text"
+              id="website-admin"
+              class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="086-412-2323"
+            />
           </div>
         </div>
 
         <!-- bank -->
         <div class="mb-8">
-          <label for="countries" class="block mb-2 text-sm font-semibold text-[#6B6868]">Select an option</label>
-          <select id="countries"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#212D50] focus:border-[#212D50] block w-full p-2.5">
+          <label
+            for="countries"
+            class="block mb-2 text-sm font-semibold text-[#6B6868]"
+            >Select an bank to pay</label
+          >
+          <select
+            id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#212D50] focus:border-[#212D50] block w-full p-2.5"
+          >
             <option selected>Choose a bank</option>
             <option v-for="(value, index) in bank" :key="index">
               {{ value }}
@@ -68,19 +89,27 @@
 
         <!-- silp -->
         <div class="mb-8">
-          <label class="block mb-2 text-sm font-semibold text-[#6B6868]" for="file_input">Money transfer slip
+          <label
+            class="block mb-2 text-sm font-semibold text-[#6B6868]"
+            for="file_input"
+            >Money transfer slip
           </label>
-          <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-            id="file_input" ref="fileInput" type="file" />
+          <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+            id="file_input"
+            ref="fileInput"
+            type="file"
+          />
         </div>
       </form>
 
       <div class="flex justify-end mb-36">
-
-        <button class="bg-[#111727]  text-white py-4 px-6 rounded-xl" @click='payment()'>
+        <button
+          class="bg-[#111727] text-white py-4 px-6 rounded-xl"
+          @click="payment()"
+        >
           Confirm
         </button>
-
       </div>
     </div>
   </div>
@@ -94,34 +123,25 @@ export default {
       dataofbirth: "18/01/46",
       tel: "086-412-2323",
       bank: {
-        "K-bank1": "K-bank1 :1-0112-3123-1235",
-        "K-bank2": "K-bank2 :1-0112-3123-1235",
+        "K-bank": "K-bank :057-1-67963-9",
+        "Promptpay": "Promptpay :086-412-2323",
         "K-bank3": "K-bank3 :1-0112-3123-1235",
       },
     };
   },
   methods: {
     payment() {
-      if (this.$refs.fileInput.files != null && this.$refs.fileInput.files.length > 0){
-      this.$swal.fire(
-        'thank you!',
-        'You clicked the button!',
-        'success'
-      )
-      this.$router.push("/");
+      if (
+        this.$refs.fileInput.files != null &&
+        this.$refs.fileInput.files.length > 0
+      ) {
+        this.$swal.fire("thank you!", "You clicked the button!", "success");
+        this.$router.push("/");
+      } else {
+        this.$swal.fire("error", "Please fill all info", "error");
       }
-      else{
-        this.$swal.fire(
-        'error',
-        'Please fill all info',
-        'error'
-      )
-      }
-      
-  
-
-    }
-  }
+    },
+  },
 };
 </script>
 
