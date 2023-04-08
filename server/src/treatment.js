@@ -6,6 +6,90 @@ const router = express.Router();
 import exeptionError from "./Error.js";
 import auth from "./middleware/auth.js";
 
+// get detail treatments by treatment id
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const treatment = await prisma.treatment.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+        doctor: {
+          select: {
+            name: true,
+          },
+        },
+        medicine: {
+          select: {
+            amount: true,
+            medicine: {
+              select: {
+                name: true,
+                price: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    const result = [];
+
+    const medicine = treatment.medicine.map((medicine) => {
+      return {
+        name: medicine.medicine.name,
+        price: medicine.medicine.price,
+        amount: medicine.amount,
+      };
+    });
+
+    result.push({
+      id: treatment.id,
+      description: treatment.description,
+      doctor: treatment.doctor.name,
+      user: treatment.user.name,
+      totalPrice: treatment.totalPrice,
+      medicine: medicine,
+      user: {
+        name: treatment.user.name,
+      },
+      doctor: {
+        name: treatment.doctor.name,
+      },
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    exeptionError(error, res);
+  }
+});
+
+//get treatment of each user
+router.get("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const treatmentByUser = await prisma.treatment.findMany({
+      where: {
+        userId: id,
+      },
+      select: {
+        id: true,
+        description: true,
+      },
+    });
+    res.json(treatmentByUser);
+  } catch (error) {
+    console.log(error);
+    exeptionError(error, res);
+  }
+});
+
 router.post("/", auth.doctorAuthorize, async (req, res) => {
   try {
     const { description, doctorId, userId, totalPrice } = req.body;

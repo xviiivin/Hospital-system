@@ -196,6 +196,12 @@ export default {
             },
           });
         });
+        
+        console.log(treatment.data.id)
+        await axios.post("http://localhost:8080/api/payment", {
+          treatmentId: treatment.data.id,
+          userId: this.filteredUsers.id,
+        });
         //   alert success
       } catch (error) {
         console.log(error);

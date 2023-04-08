@@ -62,12 +62,12 @@ model UserInfo {
 }
 
 model Payment {
-  id         String        @id @default(uuid())
-  teatmentId String?       @unique
-  userId     String?
-  status     PaymentStatus @default(PENDING)
+  id          String        @id @default(uuid())
+  treatmentId String?       @unique
+  userId      String?
+  status      PaymentStatus @default(PENDING)
 
-  treatment Treatment? @relation(fields: [teatmentId], references: [id])
+  treatment Treatment? @relation(fields: [treatmentId], references: [id])
   User      User?      @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
@@ -81,18 +81,18 @@ enum PaymentStatus {
 }
 
 model Treatment {
-  id          String              @id @default(uuid())
+  id          String   @id @default(uuid())
   totalPrice  Float
   userId      String
   doctorId    String
   description String?
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
-  medicine    MedicineTreatment[]
-  Payment     Payment?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  doctor User @relation("doctor", fields: [doctorId], references: [id])
-  user   User @relation("user", fields: [userId], references: [id])
+  medicine MedicineTreatment[]
+  Payment  Payment?
+  doctor   User                @relation("doctor", fields: [doctorId], references: [id])
+  user     User                @relation("user", fields: [userId], references: [id])
 }
 
 model MedicineTreatment {
@@ -104,8 +104,8 @@ model MedicineTreatment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  medicine Medicine?  @relation(fields: [medicineId], references: [id])
-  treatment  Treatment? @relation(fields: [treatmentId], references: [id])
+  medicine  Medicine?  @relation(fields: [medicineId], references: [id])
+  treatment Treatment? @relation(fields: [treatmentId], references: [id])
 
   @@map("medicine_treatment")
 }
