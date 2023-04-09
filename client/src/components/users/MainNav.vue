@@ -42,11 +42,6 @@ onMounted(() => {
           <span v-else class="material-icons-outlined text-white w-8 h-8">
             account_circle
           </span>
-          <!-- @change="
-                      (event) => {
-                        uploadFile(event);
-                      }
-                    " -->
         </button>
         <!-- Dropdown menu -->
         <div
