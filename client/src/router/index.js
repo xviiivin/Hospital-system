@@ -67,12 +67,12 @@ const routes = [
     component: () => import("../views/admin/Alluser.vue"),
   },
   {
-    path: "/detail",
+    path: "/detail/:id",
     name: "detail",
     component: () => import("../views/user/detail.vue"),
   },
   {
-    path: "/symptomrecord",
+    path: "/symptomrecord/:id",
     name: "symptom",
     component: () => import("../views/user/SymptomRecord.vue"),
   },

@@ -61,6 +61,7 @@ router.get("/:id", async (req, res) => {
       doctor: {
         name: treatment.doctor.name,
       },
+      createdAt: treatment.createdAt,
     });
 
     res.json(result);
@@ -70,20 +71,71 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//get treatment of each user
-router.get("/user/:id", async (req, res) => {
+//get treatment by hospital id
+router.get("/all/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const treatmentByUser = await prisma.treatment.findMany({
+    const treatment = await prisma.treatment.findMany({
       where: {
-        userId: id,
+        doctor: {
+          hospitalId: id,
+        },
       },
-      select: {
-        id: true,
-        description: true,
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+        doctor: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
-    res.json(treatmentByUser);
+    const result = [];
+    treatment.map((treatment) => {
+      result.push({
+        id: treatment.id,
+        description: treatment.description,
+        doctor: treatment.doctor.name,
+        user: treatment.user.name,
+        totalPrice: treatment.totalPrice,
+        createdAt: treatment.createdAt,
+      });
+    });
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    exeptionError(error, res);
+  }
+});
+
+//get hospital where doctor work and user have treatment
+router.get("/hospital/:id", async (req, res) => {
+  try {
+    const hospital = await prisma.treatment.findMany({
+      where: {
+        userId: req.params.id,
+      },
+      select: {
+        doctor: {
+          include: {
+            Hospital: true,
+          },
+        },
+      },
+    });
+    const result = [];
+    hospital.map((hospital) => {
+      result.push({
+        id: hospital.doctor.Hospital.id,
+        name: hospital.doctor.Hospital.name,
+        hospitalId: hospital.doctor.Hospital.id,
+      });
+    });
+    res.json(result);
   } catch (error) {
     console.log(error);
     exeptionError(error, res);
