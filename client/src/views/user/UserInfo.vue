@@ -17,36 +17,30 @@
 
         <div class="flex flex-col item-center mb-6">
           <table class="w-full justify-center">
-            <tbody class="w-full flex flex-col xl:w-1/3 xl:mx-auto xl:justify-center gap-y-3">
+            <tbody class="w-full flex flex-col  xl:mx-auto xl:justify-center gap-y-3">
               <tr class="flex justify-between items-center gap-x-2">
                 <td>Name</td>
-                <td><input type="text" class="rounded-md py-1" :value="userInfo?.name" @input="userInfo.name = $event.target.value" /></td>
+                <td><input type="text" class="rounded-md py-1" :value="userInfo?.name"
+                    @input="userInfo.name = $event.target.value" /></td>
               </tr>
               <tr class="flex justify-between items-center gap-x-2">
                 <td>Age</td>
                 <td>
-                  <input
-                    type="number"
-                    class="rounded-md py-1"
-                    :value="userInfo?.userInfo?.age || ''"
-                    @input="userInfo.userInfo.age = $event.target.value"
-                  />
+                  <input type="number" class="rounded-md py-1" :value="userInfo?.userInfo?.age || ''"
+                    @input="userInfo.userInfo.age = $event.target.value" />
                 </td>
               </tr>
               <tr class="flex justify-between items-center gap-x-2">
                 <td>Gender</td>
                 <td>
-                  <select
-                    :value="userInfo?.userInfo?.sex"
-                    @input="
-                      (event) => {
-                        if (userInfo && userInfo.userInfo) {
-                          userInfo.userInfo.sex = event.target.value;
-                        }
+                  <select :value="userInfo?.userInfo?.sex" @input="
+                    (event) => {
+                      if (userInfo && userInfo.userInfo) {
+                        userInfo.userInfo.sex = event.target.value;
                       }
-                    "
-                    class="w-full text-sm text-black bg-white border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-black"
-                  >
+                    }
+                  "
+                    class="w-full text-sm text-black bg-white border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-black">
                     <option value="" disabled>Choose your gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -57,34 +51,22 @@
               <tr class="flex justify-between items-center gap-x-2">
                 <td>Weight</td>
                 <td>
-                  <input
-                    type="number"
-                    class="rounded-md py-1"
-                    @input="userInfo.userInfo.weight = $event.target.value"
-                    :value="userInfo?.userInfo?.weight"
-                  />
+                  <input type="number" class="rounded-md py-1" @input="userInfo.userInfo.weight = $event.target.value"
+                    :value="userInfo?.userInfo?.weight" />
                 </td>
               </tr>
               <tr class="flex justify-between items-center gap-x-2">
                 <td>Height</td>
                 <td>
-                  <input
-                    type="number"
-                    class="rounded-md py-1"
-                    @input="userInfo.userInfo.height = $event.target.value"
-                    :value="userInfo?.userInfo?.height"
-                  />
+                  <input type="number" class="rounded-md py-1" @input="userInfo.userInfo.height = $event.target.value"
+                    :value="userInfo?.userInfo?.height" />
                 </td>
               </tr>
               <tr class="flex justify-between items-center gap-x-2">
                 <td>Blood type</td>
                 <td>
-                  <input
-                    type="text"
-                    class="rounded-md py-1"
-                    @input="userInfo.userInfo.bloodType = $event.target.value"
-                    :value="userInfo?.userInfo?.bloodType"
-                  />
+                  <input type="text" class="rounded-md py-1" @input="userInfo.userInfo.bloodType = $event.target.value"
+                    :value="userInfo?.userInfo?.bloodType" />
                 </td>
               </tr>
             </tbody>
@@ -117,7 +99,8 @@ export default {
     userInfo: {},
   }),
   mounted() {
-    this.getUserInfo();
+    this.
+      this.getUserInfo();
   },
   methods: {
     async getUserInfo() {
@@ -129,15 +112,9 @@ export default {
     async saveUserInfo() {
       try {
         const usrId = JSON.parse(localStorage.getItem("user")).idCard;
-        if (this.userInfo.userInfo.age) {
-          this.userInfo.userInfo.age = parseInt(this.userInfo.userInfo.age);
-        }
-        if (this.userInfo.userInfo.weight) {
-          this.userInfo.userInfo.weight = parseFloat(this.userInfo.userInfo.weight);
-        }
-        if (this.userInfo.userInfo.height) {
-          this.userInfo.userInfo.height = parseFloat(this.userInfo.userInfo.height);
-        }
+        this.userInfo.userInfo.age = parseInt(this.userInfo.userInfo.age);
+        this.userInfo.userInfo.weight = parseFloat(this.userInfo.userInfo.weight);
+        this.userInfo.userInfo.height = parseFloat(this.userInfo.userInfo.height);
         await axios.patch(`http://localhost:8080/api/user/${usrId}/info`, this.userInfo.userInfo);
         delete this.userInfo.userInfo;
         await axios.patch(`http://localhost:8080/api/user/${usrId}`, this.userInfo);

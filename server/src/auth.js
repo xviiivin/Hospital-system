@@ -15,6 +15,7 @@ router.post("/login", async(req, res) => {
                 idCard: req.body.idCard,
             },
         });
+        console.log(user)
         if (user) {
             if (await bcrypt.compare(req.body.password, user.password)) {
                 user.password = undefined;
