@@ -4,7 +4,8 @@ const adminAuthorize = async (req, res, next) => {
   try {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
-    if (!token) return res.status(401).send("Access denied. No token provided.");
+    if (!token)
+      return res.status(401).send("Access denied. No token provided.");
 
     if (token) {
       const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
@@ -23,7 +24,8 @@ const doctorAuthorize = async (req, res, next) => {
   try {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
-    if (!token) return res.status(401).send("Access denied. No token provided.");
+    if (!token)
+      return res.status(401).send("Access denied. No token provided.");
 
     if (token) {
       const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
