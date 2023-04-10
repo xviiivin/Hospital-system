@@ -17,10 +17,11 @@
             <div class="w-full mb-5 cursor-pointer" v-for="(val, index) in hosRecord" :key="index">
               <router-link style="cursor: pointer; text-decoration: none" :to="`/symptomrecord/${val.hospitalId}`">
                 <div class="rounded-xl group drop-shadow-xl overflow-hidden">
-                  <img class="h-full w-full group-hover:scale-110 ease-in duration-300 group-hover:opacity-[80%]" :src="val.image" />
+                  <img class="h-full w-full group-hover:scale-110 ease-in duration-300 group-hover:opacity-[80%]"
+                    :src="val.image" />
                   <div
-                    class="bg-black opacity-[65%] h-full absolute w-full bottom-0 group-hover:bg-black group-hover:opacity-[30%] ease-out duration-300"
-                  ></div>
+                    class="bg-black opacity-[65%] h-full absolute w-full bottom-0 group-hover:bg-black group-hover:opacity-[30%] ease-out duration-300">
+                  </div>
                   <div class="bottom-3 absolute ml-5">
                     <p class="text-md text-bold text-white group-hover:text-white font-semibold">{{ val.name }}</p>
                   </div>
@@ -88,6 +89,9 @@ export default {
         console.log(error);
       }
     },
+    async addstatement() {
+      const res = await axios.get(``);
+    }
   },
 };
 </script>
