@@ -6,9 +6,8 @@
       </div>
       <div class="flex">
         <h2 class="text-xl mr-2 text-[#B6B6B6]">{{ new Date(treatment?.createdAt).toLocaleDateString("TH") }}</h2>
-        <router-link style="cursor: pointer; text-decoration: none" to="/user/doctor">
-          <a class="text-xl text-black font-medium underline">{{ treatment?.doctor?.name }}</a></router-link
-        >
+        <router-link style="cursor: pointer; text-decoration: none" to="/user/:id">
+          <a class="text-xl text-black font-medium underline">{{ treatment?.doctor?.name }}</a></router-link>
       </div>
     </div>
 
@@ -51,8 +50,16 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      docid: ''
+    }
+  },
   props: {
     treatment: Object,
+  },
+  mounted() {
+    this.docid = this.$route.params.id;
   },
 };
 </script>

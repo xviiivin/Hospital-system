@@ -127,17 +127,21 @@ router.get("/hospital/:id", async(req, res) => {
                 },
             },
         });
+        const namehospital = [];
         const result = [];
-        hospital.map((hospital) => {
-            if (hospital.doctor.Hospital) {
+      
+        hospital.map((hospital1) => {
+            if (hospital1.doctor.Hospital && !namehospital.includes(hospital1.doctor.Hospital.name)) {
                 result.push({
-                    id: hospital.doctor.Hospital.id,
-                    name: hospital.doctor.Hospital.name,
-                    hospitalId: hospital.doctor.Hospital.id,
+                    id: hospital1.doctor.Hospital.id,
+                    name: hospital1.doctor.Hospital.name,
+                    hospitalId: hospital1.doctor.Hospital.id,
                 });
+                namehospital.push(hospital1.doctor.Hospital.name)
             }
-
         });
+
+        console.log(result)
         res.json(result);
     } catch (error) {
         console.log(error);

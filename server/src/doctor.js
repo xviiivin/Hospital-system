@@ -31,6 +31,7 @@ router.get("/:id", async (req, res) => {
       include: {
         userInfo: true,
       },
+      
     });
     doctor.password = undefined;
     res.json(doctor);

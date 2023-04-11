@@ -42,7 +42,13 @@
               </select>
             </div>
             <div class="pb-4">
-              <select id="underline_select"
+              <select id="underline_select" :value="doctorInfo?.userInfo?.hospitalId" @input="
+                (event) => {
+                  if (doctorInfo && doctorInfo.hospitalId) {
+                    doctorInfo.hospitalId.sex = event.target.value;
+                  }
+                }
+              "
                 class="py-2.5 px-2 w-full text-sm text-black bg-white border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-black">
                 <option value="" disabled>Choose your hospital</option>
                 <option value="Bangkok">Bangkok</option>
@@ -96,7 +102,7 @@ export default {
       isActive: true,
       doctorInfo: {},
       userId: "",
-      left: ["Name", "Age", "Genders","Hospital", "Expert", "Discription"],
+      left: ["Name", "Age", "Genders", "Hospital", "Expert", "Discription"],
     };
   },
   mounted() {

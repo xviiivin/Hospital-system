@@ -99,7 +99,7 @@ async function main() {
   doctor.map(async (doctor) => {
     const idCard = faker.datatype.number(10000000000000).toString();
     const phone = faker.phone.number("501######");
-    const userData =await prisma.user.upsert({
+    const userData = await prisma.user.upsert({
       where: {
         idCard: idCard,
       },
@@ -109,6 +109,7 @@ async function main() {
         idCard: idCard,
         name: "doctor",
         role: "DOCTOR",
+        
       },
       create: {
         phone: phone,
@@ -116,6 +117,7 @@ async function main() {
         idCard: idCard,
         name: "doctor",
         role: "DOCTOR",
+        
       },
     });
     await prisma.userInfo.upsert({
