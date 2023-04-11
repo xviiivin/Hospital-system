@@ -53,6 +53,25 @@ router.get("/user/:id", async (req, res) => {
   }
 });
 
+router.patch("/status/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const payment = await prisma.payment.update({
+      where: {
+        id: id,
+      },
+      data: {
+        status: status,
+      },
+    });
+    res.json(payment);
+  } catch (error) {
+    console.log(error);
+    exeptionError(error, res);
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const { treatmentId, userId } = req.body;

@@ -2,9 +2,7 @@
   <div>
     <div class="">
       <!-- paymentid -->
-      <p class="font-bold text-md xl:text-xl lg:text-xl md:text-lg p-3">
-        Payment - {{ paymentid }}
-      </p>
+      <p class="font-bold text-md xl:text-xl lg:text-xl md:text-lg p-3">Payment - {{ paymentId }}</p>
       <!-- card -->
       <div class="card purple my-8 sm:my-2 w-full">
         <div class="max-w-sm w-full lg:max-w-full">
@@ -16,9 +14,7 @@
             </div>
             <div class="flex items-center">
               <div class="text-sm">
-                <p class="text-gray-100 text-lg mb-2">
-                  Hospitalid: {{ dataofbirth }}
-                </p>
+                <p class="text-gray-100 text-lg mb-2">Hospitalid: {{ dataofbirth }}</p>
                 <p class="text-gray-100">tel: {{ tel }}</p>
               </div>
             </div>
@@ -27,12 +23,13 @@
       </div>
 
       <form action="">
-
         <!-- bank -->
         <div class="mb-8">
           <label for="countries" class="block mb-2 text-sm font-semibold text-[#6B6868]">Select an bank to pay</label>
-          <select id="countries"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#212D50] focus:border-[#212D50] block w-full p-2.5">
+          <select
+            id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#212D50] focus:border-[#212D50] block w-full p-2.5"
+          >
             <option selected>Choose a bank</option>
             <option v-for="(value, index) in bank" :key="index">
               {{ value }}
@@ -42,54 +39,73 @@
 
         <!-- silp -->
         <div class="mb-8">
-          <label class="block mb-2 text-sm font-semibold text-[#6B6868]" for="file_input">Money transfer slip
-          </label>
-          <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-            id="file_input" ref="fileInput" type="file" />
+          <label class="block mb-2 text-sm font-semibold text-[#6B6868]" for="file_input">Money transfer slip </label>
+          <input
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+            id="file_input"
+            ref="fileInput"
+            type="file"
+            @change="addImage"
+          />
         </div>
       </form>
 
       <div class="flex justify-end mb-36">
-        <button class="bg-[#111727] text-white py-4 px-6 rounded-xl" @click="payment()">
-          Confirm
-        </button>
+        <button class="bg-[#111727] text-white py-4 px-6 rounded-xl" @click="payment()">Confirm</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { ref as storageRef, uploadBytes } from "firebase/storage";
+import { useFirebaseStorage } from "vuefire";
+const storage = useFirebaseStorage();
+import axios from "axios";
 export default {
   data() {
     return {
-      name: 'wiwat liangkobkit',
+      name: "wiwat liangkobkit",
       paymentid: "#3132313(paymentid)",
       dataofbirth: "18/01/46",
       tel: "086-412-2323",
       bank: {
         "K-bank": "K-bank :057-1-67963-9",
-        "Promptpay": "Promptpay :086-412-2323",
+        Promptpay: "Promptpay :086-412-2323",
         "K-bank3": "K-bank3 :1-0112-3123-1235",
       },
+      slipImage: "",
     };
   },
+  props: {
+    paymentId: String,
+  },
   methods: {
-    payment() {
-      if (
-        this.$refs.fileInput.files != null &&
-        this.$refs.fileInput.files.length > 0
-      ) {
-        this.$swal.fire("thank you!", "You clicked the button!", "success");
-        this.$router.push("/");
-      } else {
-        this.$swal.fire("error", "Please fill all info", "error");
+    async addImage(event) {
+      this.slipImage = event.target.files[0];
+      console.log(this.slipImage);
+    },
+    async payment() {
+      try {
+        const file = this.slipImage;
+        const starsRef = storageRef(storage, `slips/${this.paymentId}/${file.name}`);
+        await uploadBytes(starsRef, file);
+
+        const res = await axios.patch(`http://localhost:8080/api/payment/status/${this.paymentId}`, {
+          status: "SUCCESS",
+        });
+
+        
+
+      } catch (error) {
+        console.log(error);
       }
     },
   },
 };
 </script>
 
-<style  scoped >
+<style scoped>
 .card {
   box-sizing: border-box;
   padding: 2em;

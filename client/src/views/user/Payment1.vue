@@ -9,88 +9,82 @@
       </div>
     </div>
     <div class="w-full h-full flex flex-col items-center flex-grow bg-[#111727]">
-
       <!-- body -->
       <div class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white">
         <div class="w-full h-full p-7">
-          <div class="">
+          <div class="flex flex-col mb-8">
             <p class="text-lg underline mb-4">Waiting for payment</p>
-
-            <div class=""></div>
-            <div>
-              <nextpayment />
+            <div class="flex flex-col gap-y-2">
+              <div
+                class="w-full hover:scale-105 transition-all delay-100 ease-in-out duration-300 border-2 rounded-lg"
+                v-for="(value, index) in payment"
+                :key="index"
+              >
+                <div class="flex justify-between p-3 items-center" v-if="value.status == 'PENDING'">
+                  <div class="flex flex-col justify-between gap-y-2 flex-grow">
+                    <p>
+                      {{ new Date(value.createdAt).toLocaleString("th") }}
+                    </p>
+                    <p>ราคา {{ value.treatment.totalPrice }}</p>
+                  </div>
+                  <router-link style="cursor: pointer; text-decoration: none" :to="`/payment/${value.id}`">
+                    <button class="underline-offset-2">Check out</button>
+                  </router-link>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="">
+          <div class="flex flex-col mb-8">
             <p class="text-lg underline mb-4">Paid</p>
-            <div>
-              <paid />
+            <div class="flex flex-col gap-y-2">
+              <div class="w-full border-2 rounded-lg" v-for="(value, index) in payment" :key="index">
+                <div class="w-full flex justify-between p-3 items-center" v-if="value.status == 'SUCCESS'">
+                  <p>
+                    {{ new Date(value.createdAt).toLocaleString("th") }}
+                  </p>
+                  <p>{{ value.treatment.totalPrice }}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <!-- <div class="w-fit flex flex-col items-center">
-          <p class="text-center text-4xl">Register</p>
-          <div
-            class="bg-gradient-to-r w-full from-[#111727] to-[#FF5757] h-1 rounded-full mt-2"
-          ></div>
-        </div>
-        <div class="flex flex-col w-2/3 xl:w-1/3 mt-10 gap-y-5">
-          <input
-            type="text"
-            class="border border-black rounded-full p-2 px-4 text-lg"
-            placeholder="Name"
-          />
-          <input
-            type="text"
-            class="border border-black rounded-full p-2 px-4 text-lg"
-            placeholder="Id-card"
-          />
-          <input
-            type="text"
-            class="border border-black rounded-full p-2 px-4 text-lg"
-            placeholder="password"
-          />
-          <input
-            type="number"
-            class="border border-black rounded-full p-2 px-4 text-lg"
-            placeholder="phone number"
-          />
-
-          <button
-            class="w-full bg-primary text-white text-lg font-semibold py-2 rounded-md mt-10"
-          >
-            Register
-          </button>
-        </div>-->
       </div>
-
     </div>
   </AppLayout>
 </template>
-  
+
 <script>
 import AppLayout from "../../components/AppLayout.vue";
 import Nav from "../../components/users/MainNav.vue";
-import nextpayment from "../../components/users/Gopayment.vue";
-import paid from "../../components/users/Paid.vue"
+import axios from "axios";
 
 export default {
   components: {
     AppLayout,
     Nav,
-    nextpayment,
-    paid
+  },
+  data() {
+    return {
+      payment: [],
+      usreId: JSON.parse(localStorage.getItem("user")).id,
+    };
+  },
+  mounted() {
+    this.addstatement();
   },
   methods: {
-    async addstatement(){
-      const res = await axios.get(``);
-    }
+    async addstatement() {
+      try {
+        const res = await axios.get(`http://localhost:8080/api/payment/user/${this.usreId}`);
+        console.log(res.data);
+        this.payment = res.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
-}
-
+};
 </script>
-  
+
 <style></style>
-  

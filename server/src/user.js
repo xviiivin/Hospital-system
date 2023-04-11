@@ -54,7 +54,7 @@ router.patch("/:id", async (req, res) => {
     });
     res.json(user);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     exeptionError(error, res);
   }
 });
@@ -70,7 +70,7 @@ router.patch("/:id/info", async (req, res) => {
     }
     const user = await prisma.userInfo.update({
       where: {
-        id: findUser.userInfo.id
+        id: findUser.userInfo.id,
       },
 
       data: req.body,
@@ -78,7 +78,7 @@ router.patch("/:id/info", async (req, res) => {
 
     res.json(user);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     exeptionError(error, res);
   }
 });
