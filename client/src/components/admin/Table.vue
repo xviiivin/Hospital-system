@@ -65,7 +65,7 @@
                             {{ value.role }}
                         </td>
                         <!-- :to="{{  }}" -->
-                        <router-link style="cursor: pointer; text-decoration: none" to="/slip">
+                        <router-link style="cursor: pointer; text-decoration: none" :to="`/slip/${value.id}`">
                             <td v-if='value.role !== "DOCTOR"'
                                 class="px-6 py-4 underline underline-offset-2 hover:cursor-pointer">
                                 click

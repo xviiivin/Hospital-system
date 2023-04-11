@@ -74,6 +74,7 @@ export default {
     async getSymptomRecord() {
       try {
         const res = await axios.get("http://localhost:8080/api/treatment/all/" + this.hospitalId);
+        console.log(res.data)
         this.symptomRecord = res.data;
       } catch (error) {
         console.log(error);
