@@ -42,25 +42,15 @@
               </select>
             </div>
             <div class="pb-4">
-              <select id="underline_select" :value="doctorInfo?.userInfo?.hospitalId" @input="
+              <select id="underline_select" :value="doctorInfo?.hospitalId" @input="
                 (event) => {
-                  if (doctorInfo && doctorInfo.hospitalId) {
-                    doctorInfo.hospitalId.sex = event.target.value;
-                  }
+                  doctorInfo.hospitalId = event.target.value;
                 }
               "
                 class="py-2.5 px-2 w-full text-sm text-black bg-white border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-black">
                 <option value="" disabled>Choose your hospital</option>
-                <option value="Bangkok">Bangkok</option>
-                <option value="Siriraj">Siriraj</option>
-                <option value="Chulalongkorn">Chulalongkorn</option>
-                <option value="Bumrungrad">Bumrungrad</option>
-                <option value="Ramathibodi">Ramathibodi</option>
-                <option value="Vibhavadi">Vibhavadi</option>
-                <option value="Phyathai">Phyathai</option>
-                <option value="Samitivej">Samitivej</option>
-                <option value="BangkokChristian">Bangkok Christian</option>
-                <option value="Rajavithi">Rajavithi</option>
+                <option v-for="(value, index) in hospital" :key="index" :value="value.id">{{ value.name }}</option>
+
               </select>
             </div>
 
@@ -103,16 +93,18 @@ export default {
       doctorInfo: {},
       userId: "",
       left: ["Name", "Age", "Genders", "Hospital", "Expert", "Discription"],
+      hospital: [],
     };
   },
   mounted() {
     this.getDotorInfo();
+    this.getHospital();
   },
   methods: {
     async getDotorInfo() {
       const doctorId = JSON.parse(localStorage.getItem("user")).id;
       const doctor = await axios.get(`http://localhost:8080/api/doctor/${doctorId}`);
-      console.log(doctor.data.userInfo)
+      console.log(doctor.data)
       this.doctorInfo = doctor.data;
     },
     async saveDoctorInfo() {
@@ -121,7 +113,7 @@ export default {
         if (this.doctorInfo.userInfo?.age) {
           this.doctorInfo.userInfo.age = parseInt(this.doctorInfo.userInfo.age);
         }
-
+        console.log(this.doctorInfo.hospitalId)
         await axios.patch(`http://localhost:8080/api/user/${doctorId}/info`, this.doctorInfo.userInfo);
         delete this.doctorInfo.userInfo;
         await axios.patch(`http://localhost:8080/api/user/${doctorId}`, this.doctorInfo);
@@ -131,6 +123,15 @@ export default {
         console.log(error);
       }
     },
+    async getHospital() {
+      try {
+        const hospital = await axios.get(`http://localhost:8080/api/hospital`);
+        this.hospital = hospital.data
+      }
+      catch (error) {
+        console.log(error)
+      }
+    }
   },
 };
 </script>

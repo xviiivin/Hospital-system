@@ -88,6 +88,7 @@ import AppLayout from "../../components/AppLayout.vue";
 import Nav from "../../components/users/MainNav.vue";
 import Image from "../../components/AddImage.vue";
 import axios from "axios";
+
 export default {
   components: {
     AppLayout,
@@ -110,6 +111,7 @@ export default {
     },
     async saveUserInfo() {
       try {
+
         const usrId = JSON.parse(localStorage.getItem("user")).idCard;
         if (this.userInfo.userInfo.age) {
           this.userInfo.userInfo.age = parseInt(this.userInfo.userInfo.age);
@@ -120,11 +122,13 @@ export default {
         if (this.userInfo.userInfo.height) {
           this.userInfo.userInfo.height = parseFloat(this.userInfo.userInfo.height);
         }
+
         await axios.patch(`http://localhost:8080/api/user/${usrId}/info`, this.userInfo.userInfo);
         delete this.userInfo.userInfo;
         await axios.patch(`http://localhost:8080/api/user/${usrId}`, this.userInfo);
         this.getUserInfo();
         this.$swal.fire("You info has been saved!", "You clicked the button!", "success");
+
       } catch (error) {
         console.log(error);
       }
