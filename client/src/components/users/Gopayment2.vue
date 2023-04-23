@@ -9,7 +9,7 @@
           <div class="rounded-b lg:rounded-b-none lg:rounded-r p-2 flex flex-col justify-between leading-normal">
             <div>
               <p class="text-white text-xl font-bold leading-none mb-16">
-                {{ name }}
+                Name: {{ userInfo?.name }}
               </p>
             </div>
             <div class="flex items-center">
@@ -26,10 +26,8 @@
         <!-- bank -->
         <div class="mb-8">
           <label for="countries" class="block mb-2 text-sm font-semibold text-[#6B6868]">Select an bank to pay</label>
-          <select
-            id="countries"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#212D50] focus:border-[#212D50] block w-full p-2.5"
-          >
+          <select id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#212D50] focus:border-[#212D50] block w-full p-2.5">
             <option selected>Choose a bank</option>
             <option v-for="(value, index) in bank" :key="index">
               {{ value }}
@@ -40,13 +38,8 @@
         <!-- silp -->
         <div class="mb-8">
           <label class="block mb-2 text-sm font-semibold text-[#6B6868]" for="file_input">Money transfer slip </label>
-          <input
-            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-            id="file_input"
-            ref="fileInput"
-            type="file"
-            @change="addImage"
-          />
+          <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+            id="file_input" ref="fileInput" type="file" @change="addImage" />
         </div>
       </form>
 
@@ -75,6 +68,7 @@ export default {
         "K-bank3": "K-bank3 :1-0112-3123-1235",
       },
       slipImage: "",
+      userInfo: {}
     };
   },
   props: {
@@ -94,14 +88,27 @@ export default {
         const res = await axios.patch(`http://localhost:8080/api/payment/status/${this.paymentId}`, {
           status: "SUCCESS",
         });
+        this.$swal.fire(
+          'Your payment successful!',
+          'Thank you 😍',
+          'success'
+        )
+        this.$router.push('/pending');
 
-        
 
       } catch (error) {
         console.log(error);
       }
     },
-  },
+    async getUserInfo() {
+      const userId = JSON.parse(localStorage.getItem("user")).idCard;
+      const res = await axios.get(`http://localhost:8080/api/user/${userId}`);
+      console.log(res.data);
+      this.userInfo = res.data;
+    }
+  }, mounted() {
+    this.getUserInfo();
+  }
 };
 </script>
 

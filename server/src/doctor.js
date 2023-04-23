@@ -31,8 +31,6 @@ router.get("/:id", async (req, res) => {
       include: {
         userInfo: true,
       },
-      
-      
     });
     doctor.password = undefined;
     res.json(doctor);
@@ -44,7 +42,8 @@ router.get("/:id", async (req, res) => {
 //update doctor
 router.patch("/:id", async (req, res) => {
   try {
-    if (req.body.password) req.body.password = await bcrypt.hash(req.body.password, 10);
+    if (req.body.password)
+      req.body.password = await bcrypt.hash(req.body.password, 10);
     const doctor = await prisma.user.update({
       where: {
         id: req.params.id,
