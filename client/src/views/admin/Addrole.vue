@@ -73,8 +73,9 @@ export default {
               axios.patch(`http://localhost:8080/api/user/role/${doctorId}`, {
                 role: "USER",
               });
-              this.getDoctor();
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              this.getDoctor();
+            
             }
           });
       } catch (error) {
