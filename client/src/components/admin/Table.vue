@@ -13,7 +13,7 @@
                     </div>
                     <input type="text" id="table-search" v-model="input"
                         class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-black focus:border-black "
-                        placeholder="Search for items">
+                        placeholder="Search to find people">
                 </div>
             </div>
             <table class="w-full text-sm text-left text-gray-500 ">
