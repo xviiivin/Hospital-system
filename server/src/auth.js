@@ -17,7 +17,7 @@ const schema = joi.object({
     .required(),
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -42,8 +42,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res) => {
+router.post("/register", async (req, res, next) => {
   try {
+    const result = schema.validate(req.body);
+   
     const checkidcard = await prisma.user.findFirst({
       where: {
         OR: [{ idCard: req.body.idCard }],
@@ -57,9 +59,9 @@ router.post("/register", async (req, res) => {
     });
 
     if (checkidcard) {
-      res.status(500).json({ status: "errorid", message: "accounterror" });
+      res.status(500).json({ status: "errorid", message: "Account error" });
     } else if (checkphone) {
-      res.status(500).json({ status: "errorphone", message: "phoneerror" });
+      res.status(500).json({ status: "errorphone", message: "Phone rror" });
     } else {
       const user = await prisma.user.create({
         data: {

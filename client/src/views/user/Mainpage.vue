@@ -33,7 +33,7 @@
             <router-link v-for="(data, index) in datas" :key="index" :to="`/alldoctor/${data.id}`"
               class="rounded-2xl w-[150px] h-[150px] bg-white group drop-shadow-xl overflow-hidden mx-auto">
               <div class="text-justify justify-center h-full w-full">
-                <img class="h-full w-full group-hover:scale-110 ease-in duration-300" :src="data.image" />
+                <img class="h-full w-full object-cover	group-hover:scale-110 ease-in duration-300" :src="data.image" />
               </div>
               <div
                 class="rounded-b-xl bg-[#202C4B] opacity-[90%] h-10 absolute flex items-center justify-center w-full bottom-0 group-hover:scale-110 ease-out duration-300">
