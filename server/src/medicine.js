@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // create medicine
-router.post("/", async (req, res) => {
+router.post("/", auth.doctorAuthorize, async (req, res) => {
   try {
     const medicine = await prisma.medicine.create({
       data: {
@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
 });
 
 // update medicine
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", auth.doctorAuthorize, async (req, res) => {
   try {
     console.log(req.body);
     if (req.body) {
@@ -65,7 +65,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // delete medicine
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth.doctorAuthorize, async (req, res) => {
   try {
     const medicine = await prisma.medicine.delete({
       where: {

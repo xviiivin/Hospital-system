@@ -2,85 +2,92 @@ import express from "express";
 import { PrismaClient } from "@prisma/client";
 import { Prisma } from "@prisma/client";
 import jwt from "jsonwebtoken";
-import joi from "joi";
+import { object, string, number, date } from "yup";
 const prisma = new PrismaClient();
 const router = express.Router();
 import exeptionError from "./Error.js";
 import bcrypt from "bcryptjs";
 
-const schema = joi.object({
-  name: joi.string().required(),
-  phone: joi
-    .string()
-    .regex(/^[0-9]{10}$/)
-    .messages({ "string.pattern.base": `Phone number must have 10 digits.` })
-    .required(),
+const Register = object({
+  name: string().required(),
+  phone: string().required(),
+  password: string().required(),
+  idCard: string().required(),
+});
+
+const Login = object({
+  idCard: string().required(),
+  password: string().required(),
 });
 
 router.post("/login", async (req, res, next) => {
   try {
+    await Login.validate(req.body);
     const user = await prisma.user.findUnique({
       where: {
         idCard: req.body.idCard,
       },
     });
-    console.log(user);
-    if (user) {
-      if (await bcrypt.compare(req.body.password, user.password)) {
-        user.password = undefined;
-        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN);
-        res.json({ user, accessToken });
-      } else {
-        res.status(401).json({ message: "Wrong password" });
-      }
-    } else {
+
+    if (!user) {
       res.status(404).json({ message: "User not found" });
     }
+
+    if (!await bcrypt.compare(req.body.password, user.password)) {
+      res.status(401).json({ message: "Wrong password" });
+    }
+
+    user.password = undefined;
+
+    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN);
+    
+    res.json({ user, accessToken });
   } catch (error) {
-    console.log(error);
-    exeptionError(error, res);
+    exeptionError(error.message, res);
   }
 });
 
 router.post("/register", async (req, res, next) => {
   try {
-    const result = schema.validate(req.body);
-   
-    const checkidcard = await prisma.user.findFirst({
+    await Register.validate(req.body);
+
+    const checkidcard = await prisma.user.findUnique({
       where: {
-        OR: [{ idCard: req.body.idCard }],
+        idCard: req.body.idCard,
       },
     });
 
-    const checkphone = await prisma.user.findFirst({
+    const checkphone = await prisma.user.findUnique({
       where: {
-        OR: [{ phone: req.body.phone }],
+        phone: req.body.phone,
       },
     });
 
     if (checkidcard) {
-      res.status(500).json({ status: "errorid", message: "Account error" });
+      res.status(500).json({ status: "errorid", message: "ID card is already" });
     } else if (checkphone) {
-      res.status(500).json({ status: "errorphone", message: "Phone rror" });
-    } else {
-      const user = await prisma.user.create({
+      res.status(500).json({ status: "errorphone", message: "Phone is already" });
+    }
+
+    const user = await prisma.$transaction([
+      prisma.user.create({
         data: {
           name: req.body.name,
           phone: req.body.phone,
           password: await bcrypt.hash(req.body.password, 10),
           idCard: req.body.idCard,
+          userInfo: { create: {} },
         },
-      });
-      await prisma.userInfo.create({
-        data: {
-          userId: user.id,
-        },
-      });
-      user.password = undefined;
-      res.json(user);
-    }
+      }),
+    ]);
+
+    user.password = undefined;
+
+    res.json(user);
   } catch (error) {
-    exeptionError(error, res);
+    exeptionError(error.message, res);
+  } finally {
+    await prisma.$disconnect();
   }
 });
 export default router;

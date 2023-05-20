@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 const router = express.Router();
 import exeptionError from "./Error.js";
 import bcrypt from "bcryptjs";
+import auth from "./middleware/auth.js";
 
 // get all doctors
 router.get("/", async (req, res) => {
@@ -40,10 +41,9 @@ router.get("/:id", async (req, res) => {
 });
 
 //update doctor
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", auth.adminAuthorize, async (req, res) => {
   try {
-    if (req.body.password)
-      req.body.password = await bcrypt.hash(req.body.password, 10);
+    if (req.body.password) req.body.password = await bcrypt.hash(req.body.password, 10);
     const doctor = await prisma.user.update({
       where: {
         id: req.params.id,
@@ -58,7 +58,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 //delete doctor
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth.adminAuthorize, async (req, res) => {
   try {
     const doctor = await prisma.user.delete({
       where: {

@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 const prisma = new PrismaClient();
 const router = express.Router();
 import exeptionError from "./Error.js";
+import auth from "./middleware/auth.js";
 
 const findUserById = async (id) => {
   const user = await prisma.user.findUnique({
@@ -28,7 +29,7 @@ router.get("/", async (req, res) => {
 });
 
 // get all users by id card
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth.doctorAuthorize ,async (req, res) => {
   try {
     const user = await findUserById(req.params.id);
     res.json(user);
