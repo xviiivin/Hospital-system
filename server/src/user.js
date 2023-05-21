@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 });
 
 // get all users by id card
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth.doctorAuthorize, async (req, res) => {
   try {
     const user = await findUserById(req.params.id);
     res.json(user);

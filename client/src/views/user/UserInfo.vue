@@ -33,13 +33,12 @@
               <tr class="flex justify-between items-center gap-x-2">
                 <td>Gender</td>
                 <td>
-                  <select :value="userInfo?.userInfo?.sex" @input="
-                    (event) => {
+                  <select :value="userInfo?.userInfo?.sex" @input="(event) => {
                       if (userInfo && userInfo.userInfo) {
                         userInfo.userInfo.sex = event.target.value;
                       }
                     }
-                  "
+                    "
                     class="w-full text-sm text-black bg-white border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-black">
                     <option value="" disabled>Choose your gender</option>
                     <option value="Male">Male</option>
@@ -98,6 +97,7 @@ export default {
   data: () => ({
     left: ["Name", "Age", "Genders", "Weight", "Height"],
     userInfo: {},
+    token: localStorage.getItem("token"),
   }),
   mounted() {
     this.getUserInfo();
@@ -105,7 +105,11 @@ export default {
   methods: {
     async getUserInfo() {
       const userId = JSON.parse(localStorage.getItem("user")).idCard;
-      const res = await axios.get(`http://localhost:8080/api/user/${userId}`);
+      const res = await axios.get(`http://localhost:8080/api/user/${userId}`, {
+        headers: {
+          authorization: `Bearer ${this.token}`,
+        },
+      });
       console.log(res.data);
       this.userInfo = res.data;
     },
@@ -123,9 +127,17 @@ export default {
           this.userInfo.userInfo.height = parseFloat(this.userInfo.userInfo.height);
         }
 
-        await axios.patch(`http://localhost:8080/api/user/${usrId}/info`, this.userInfo.userInfo);
+        await axios.patch(`http://localhost:8080/api/user/${usrId}/info`, this.userInfo.userInfo), {
+          headers: {
+            authorization: `Bearer ${this.token}`,
+          },
+        };
         delete this.userInfo.userInfo;
-        await axios.patch(`http://localhost:8080/api/user/${usrId}`, this.userInfo);
+        await axios.patch(`http://localhost:8080/api/user/${usrId}`, this.userInfo), {
+          headers: {
+            authorization: `Bearer ${this.token}`,
+          },
+        };
         this.getUserInfo();
         this.$swal.fire("You info has been saved!", "You clicked the button!", "success");
 

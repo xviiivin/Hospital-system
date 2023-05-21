@@ -221,7 +221,11 @@ export default {
     },
     async filteredUsefrs() {
 
-      const pateint = await axios.get(`http://localhost:8080/api/user/${this.input.toLowerCase()}`);
+      const pateint = await axios.get(`http://localhost:8080/api/user/${this.input.toLowerCase()}`, {
+        headers: {
+          authorization: `Bearer ${this.token}`,
+        },
+      });
       if (pateint.data.role === "DOCTOR" || pateint.data.role === "ADMIN") {
         this.filteredUsers = false;
         this.$swal.fire({
