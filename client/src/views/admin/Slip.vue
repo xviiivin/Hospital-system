@@ -7,9 +7,9 @@
           <div
             class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 drop-shadow-xl">
             <div class="px-5 pb-5">
-              <img :src="image" alt="" />
+            
               <div class="flex flex-col items-center justify-between">
-                <img :src="value.image" class="py-4" />
+                <img :src="value.image" class="py-4 w-1/2 h-1/2" />
                 <p>Paymentid:<span>{{ value.id }}</span> </p>
               </div>
               <p>Name : {{ value.User.name }}</p>

@@ -69,13 +69,13 @@ export default {
             confirmButtonText: "Yes, delete it!",
           })
           .then((result) => {
+            this.$swal.fire("delete doctor!", "You clicked the button!", "success");
             if (result.isConfirmed) {
               axios.patch(`http://localhost:8080/api/user/role/${doctorId}`, {
                 role: "USER",
               });
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
               this.getDoctor();
-            
+
             }
           });
       } catch (error) {

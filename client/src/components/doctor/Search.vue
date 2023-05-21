@@ -179,7 +179,6 @@ export default {
           },
         });
         //   add medicine
-
         this.medicineSelect.map(async (i) => {
           const data = {
             treatmentId: treatment.data.id,
@@ -212,11 +211,16 @@ export default {
       }
     },
     async getMedicine() {
-      const medicine = await axios.get("http://localhost:8080/api/medicine");
+      const medicine = await axios.get("http://localhost:8080/api/medicine", {
+        headers: {
+          authorization: `Bearer ${this.token}`,
+        },
+      });
       this.medicine = medicine.data;
       console.log(this.medicine);
     },
     async filteredUsefrs() {
+
       const pateint = await axios.get(`http://localhost:8080/api/user/${this.input.toLowerCase()}`);
       if (pateint.data.role === "DOCTOR" || pateint.data.role === "ADMIN") {
         this.filteredUsers = false;
