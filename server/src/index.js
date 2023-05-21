@@ -22,17 +22,18 @@ app.use(bodyParser.raw());
 
 app.use(loggin);
 
+// ตัวอย่างในการยิง post man http://localhost:8080/api/auth/....
 app.use(
-  "/api",
-  router.use("/medicine", medicine),
-  router.use("/auth", auth),
-  router.use("/user", user),
-  router.use("/doctor", doctor),
-  router.use("/hospital", hospital),
-  router.use("/treatment", treatment),
-  router.use("/payment", payment)
+    "/api",
+    router.use("/medicine", medicine),
+    router.use("/auth", auth),
+    router.use("/user", user),
+    router.use("/doctor", doctor),
+    router.use("/hospital", hospital),
+    router.use("/treatment", treatment),
+    router.use("/payment", payment)
 );
 
 app.listen(process.env.PORT_SERVER, () => {
-  console.log(`Server is running on port ${process.env.PORT_SERVER}`);
+    console.log(`Server is running on port ${process.env.PORT_SERVER}`);
 });

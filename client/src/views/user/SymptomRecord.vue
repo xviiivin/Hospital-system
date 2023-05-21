@@ -13,7 +13,7 @@
       <div class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white">
         <div class="w-full h-full px-8">
           <div class="mt-5">
-            <p class="text-2xl font-extrabold my-8 text-[#111727]">{{ hosName }}</p>
+            <p class="text-2xl font-extrabold my-8 text-[#111727]">{{ hospitalInfo.name }}</p>
             <div class="w-full mb-6 cursor-pointer" v-for="(val, index) in symptomRecord" :key="index">
               <div class="">
                 <p class="mb-2">
@@ -62,14 +62,15 @@ export default {
     Nav,
   },
   data: () => ({
-    hosName: "Hallaluya Hospital",
     userId: JSON.parse(localStorage.getItem("user")).id,
     symptomRecord: [],
     hospitalId: "",
+    hospitalInfo:{}
   }),
   mounted() {
     this.hospitalId = this.$route.params.id;
     this.getSymptomRecord();
+    this.getDownloadURL(this.hospitalId)
   },
   methods: {
     async getSymptomRecord() {
@@ -81,6 +82,10 @@ export default {
         console.log(error);
       }
     },
+    async getDownloadURL(id){
+      const check1 = await axios.get(`http://localhost:8080/api/hospital/${id}`)
+      this.hospitalInfo = check1.data;
+    }
   },
 };
 </script>

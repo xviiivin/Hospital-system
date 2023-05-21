@@ -13,7 +13,8 @@
         <!-- body -->
         <div class="relative h-full w-full md:w-2/3 xl:w-1/3 flex items-center rounded-t-3xl bg-white overflow-hidden">
           <div class="w-full h-full p-8 mx-2 md:mx-8">
-            <p class="text-xl font-bold mb-8">{{ hosName }}</p>
+            <p class="text-xl font-bold mb-8">{{ hospitalInfo.name }}</p>
+            
 
             <div class="mt-3 flex justify-between mb-8" v-for="(val, index) in DocInfo" :key="index">
               <div class="rounded-xl w-[180px] h-[calc(100%+2rem)] mr-5 group shadow-lg overflow-hidden cursor-pointer">
@@ -45,17 +46,20 @@ export default {
     Nav,
   },
   data: () => ({
-    hosName: "Hallaluya Hospital",
     DocInfo: [],
     hospitalId: "",
+    hospitalInfo:{}
   }),
-
+// พอเวลาเปิดมาเราจะได้ใช้ได้เลย
   mounted() {
     this.hospitalId = this.$route.params.id;
     this.getDocInfo(this.hospitalId);
+    this.getDownloadURL(this.hospitalId);
   },
 
+
   methods: {
+    // เอาค่าinfoของหมอมา
     async getDocInfo(id) {
       const res = await axios.get(`http://localhost:8080/api/hospital/${id}/doctors`);
       this.DocInfo = res.data;
@@ -67,6 +71,13 @@ export default {
         val.image = download;
       });
     },
+    // this.hospitalId = this.$route.params.id;
+    // this.getDownloadURL(this.hospitalId);
+    // เอาโรงพยาบาลมาจากid
+    async getDownloadURL(id){
+      const check1 = await axios.get(`http://localhost:8080/api/hospital/${id}`)
+      this.hospitalInfo = check1.data;
+    }
   },
 };
 </script>

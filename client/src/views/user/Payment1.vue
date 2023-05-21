@@ -36,7 +36,7 @@
                     <p>
                       {{ new Date(value.createdAt).toLocaleString("th") }}
                     </p>
-                    <p>ราคา {{ value.treatment.totalPrice }}</p>
+                    <p>ราคา {{ value.treatment.totalPrice }} บาท</p>
                   </div>
                   <router-link
                     style="cursor: pointer; text-decoration: none"
@@ -64,7 +64,7 @@
                   <p>
                     {{ new Date(value.createdAt).toLocaleString("th") }}
                   </p>
-                  <p>{{ value.treatment.totalPrice }}</p>
+                  <p>{{ value.treatment.totalPrice }} บาท</p>
                 </div>
               </div>
             </div>

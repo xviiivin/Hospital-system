@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     async getTreatmentId() {
-      
       try {
         const res = await axios.get("http://localhost:8080/api/treatment/" + this.treatmentId);
         console.log(res.data)
