@@ -23,6 +23,7 @@ router.get("/:id", async (req, res) => {
         doctor: {
           select: {
             name: true,
+            id:true,
           },
         },
         medicine: {
@@ -52,15 +53,14 @@ router.get("/:id", async (req, res) => {
       id: treatment.id,
       description: treatment.description,
       doctor: treatment.doctor.name,
+      doctorId:treatment.doctor.id,
       user: treatment.user.name,
       totalPrice: treatment.totalPrice,
       medicine: medicine,
       user: {
         name: treatment.user.name,
       },
-      doctor: {
-        name: treatment.doctor.name,
-      },
+      
       createdAt: treatment.createdAt,
     });
 
@@ -90,6 +90,7 @@ router.get("/all/:id", async (req, res) => {
         doctor: {
           select: {
             name: true,
+            id:true,
           },
         },
       },
@@ -97,9 +98,11 @@ router.get("/all/:id", async (req, res) => {
     const result = [];
     treatment.map((treatment) => {
       result.push({
+        
         id: treatment.id,
         description: treatment.description,
         doctor: treatment.doctor.name,
+        doctorId:treatment.doctor.id,
         user: treatment.user.name,
         totalPrice: treatment.totalPrice,
         createdAt: treatment.createdAt,

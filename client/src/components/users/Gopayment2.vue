@@ -126,7 +126,7 @@ export default {
         if (error.message === "Please select all input") {
           this.$swal.fire({
             icon: "error",
-            text: "Please select all input!",
+            text: "Please select all!",
           });
         }
 

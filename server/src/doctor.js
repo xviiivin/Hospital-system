@@ -25,6 +25,7 @@ router.get("/", async (req, res) => {
 // get doctor by id
 router.get("/:id", async (req, res) => {
   try {
+    console.log(req.params.id);
     const doctor = await prisma.user.findUnique({
       where: {
         id: req.params.id,
@@ -33,17 +34,21 @@ router.get("/:id", async (req, res) => {
         userInfo: true,
       },
     });
-    doctor.password = undefined;
+    // doctor.password = undefined;
+    // delete doctor.password;
     res.json(doctor);
   } catch (error) {
+    console.log(error);
     exeptionError(error, res);
+  
   }
 });
 
 //update doctor
 router.patch("/:id", auth.adminAuthorize, async (req, res) => {
   try {
-    if (req.body.password) req.body.password = await bcrypt.hash(req.body.password, 10);
+    if (req.body.password)
+      req.body.password = await bcrypt.hash(req.body.password, 10);
     const doctor = await prisma.user.update({
       where: {
         id: req.params.id,

@@ -15,17 +15,17 @@
           <div class="mt-3">
             <p class="text-md text-[#918f8f] ml-8">ประวัติคุณหมอ</p>
           </div>
-          <div v-for="(val, index) in DocInfo" :key="index">
+          <div >
             <div class="mb-3">
-              <p class="text-xl font-bold mb-8 underline underline-offset-4 ml-8">{{ val.docname }}</p>
+              <p class="text-xl font-bold mb-8 underline underline-offset-4 ml-8">{{ doctorInfo?.name }}</p>
             </div>
+        
             <div class="mx-5 lg:mx-10 mb-3 flex justify-center">
               <div class="rounded-xl w-2/3 h-[calc(100%+2rem)] group shadow-lg overflow-hidden">
-                <img class=" w-full group-hover:scale-110 ease-in duration-300" :src="image" @change="
-                  (event) => {
+                <img class=" w-full group-hover:scale-110 ease-in duration-300" :src="image" @change="(event) => {
                     uploadFile(event);
                   }
-                " />
+                  " />
               </div>
             </div>
             <div class="mt-5">
@@ -33,19 +33,19 @@
               <div class="text-[#111727] ml-16">
                 <ul class="list-disc break-words font-semibold">
                   <li>
-                    Name <span class="font-light text-[#111727] ml-10"> {{ val.docname }} </span>
+                    Name <span class="font-light text-[#111727] ml-10"> {{ doctorInfo?.name }} </span>
                   </li>
                   <li>
-                    Expert <span class="font-light text-[#111727] ml-5"> {{ val.specialist }} </span>
+                    Expert <span class="font-light text-[#111727] ml-5"> {{ doctorInfo?.userInfo?.expert }} </span>
                   </li>
                   <li>
-                    Age <span class="font-light text-[#111727] ml-12">{{ val.age }}</span>
+                    Age <span class="font-light text-[#111727] ml-12">{{ doctorInfo?.userInfo?.age }}</span>
                   </li>
                   <li>
-                    Gender <span class="font-light text-[#111727] ml-5">{{ val.gender }}</span>
+                    Gender <span class="font-light text-[#111727] ml-5">{{ doctorInfo?.userInfo?.sex }}</span>
                   </li>
                   <li>
-                    Description <span class="font-light text-[#111727] ml-5"><br /> {{ val.description }}</span>
+                    Description <span class="font-light text-[#111727] ml-5"> {{ doctorInfo?.userInfo?.description }}</span>
                   </li>
                 </ul>
               </div>
@@ -63,6 +63,7 @@ import Nav from "../../components/users/MainNav.vue";
 import pic1 from "../../assets/doctorPic1.png";
 import { ref as storageRef, getDownloadURL, listAll, deleteObject, uploadBytes } from "firebase/storage";
 import { useFirebaseStorage } from "vuefire";
+import axios from 'axios';
 const storage = useFirebaseStorage();
 export default {
   components: {
@@ -72,29 +73,34 @@ export default {
   data: () => ({
     image: '',
     hosName: "Hallaluya Hospital",
-    DocInfo: [
-      {
-        id: "1",
-        docname: "Wiranyupa Petchin",
-        age: "19",
-        gender: "female",
-        specialist: "Otolaryngologist",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing .",
-        image: pic1,
-      },
-    ],
+    docid: '',
+    doctorInfo: {},
+    userId: "",
   }),
+  created() {
+    this.docid = this.$route.params.id;
+  },
   mounted() {
-    const userId = JSON.parse(localStorage.getItem("user")).id;
-    if (userId) {
-      this.userId = userId;
-      this.getFile(this.userId);
-    }
+    this.getDocinfo();
+    // 
+    this.getFile();
   },
   methods: {
-    async getFile(userId) {
+    async getDocinfo() {
       try {
-        const starsRef = storageRef(storage, "users/" + userId);
+        // const doctorId = JSON.parse(localStorage.getItem("user")).id;
+        const doctor = await axios.get(`http://localhost:8080/api/doctor/${this.docid}`)
+        console.log(doctor.data)
+        this.doctorInfo = doctor.data;
+        console.log(this.doctorInfo)
+      }
+      catch (err) {
+        console.log(err);
+      }
+    },
+    async getFile() {
+      try {
+        const starsRef = storageRef(storage, "users/" + this.docid);
         const search = await listAll(starsRef);
         const download = (await getDownloadURL(search.items[0])).toString();
         this.image = download;
@@ -102,6 +108,9 @@ export default {
         console.log(error);
       }
     },
+  },
+  props: {
+    treatment: Object,
   },
 
 };

@@ -28,7 +28,8 @@
                     })
                   }}
                 </p>
-                <div class="group w-full rounded-xl bg-[#111727] group-hover:bg-black ease-out duration-300 overflow-hidden">
+                <div
+                  class="group w-full rounded-xl bg-[#111727] group-hover:bg-black ease-out duration-300 overflow-hidden">
                   <div class="rounded-xl bg-[#FBFBFF] w-full h-1/3 top-0 border border-[#000000] border-opacity-[33%]">
                     <div class="p-3 ml-3 text-[#202C4B]">
                       <p class="font-semibold text-lg mb-3">Symptom</p>
