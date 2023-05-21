@@ -25,8 +25,8 @@
       <form action="">
         <!-- bank -->
         <div class="mb-8">
-          <label for="countries" class="block mb-2 text-sm font-semibold text-[#6B6868]">Select an bank to pay</label>
-          <select id="countries"
+          <label for="slip" class="block mb-2 text-sm font-semibold text-[#6B6868]">Select an bank to pay</label>
+          <select id="selectslip" v-model="selectslip"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#212D50] focus:border-[#212D50] block w-full p-2.5">
             <option selected>Choose a bank</option>
             <option v-for="(value, index) in bank" :key="index">
@@ -39,7 +39,7 @@
         <div class="mb-8">
           <label class="block mb-2 text-sm font-semibold text-[#6B6868]" for="file_input">Money transfer slip </label>
           <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-            id="file_input" ref="fileInput" type="file" @change="addImage" />
+            id="file_input" ref="fileInput" type="file" @change="addImage" v-on="file_input"/>
         </div>
       </form>
 
@@ -58,6 +58,8 @@ import axios from "axios";
 export default {
   data() {
     return {
+      selectslip: '',
+      file_input: '',
       name: "wiwat liangkobkit",
       paymentid: "#3132313(paymentid)",
       dataofbirth: "18/01/46",
@@ -85,6 +87,15 @@ export default {
         const starsRef = storageRef(storage, `slips/${this.paymentId}/${file.name}`);
         await uploadBytes(starsRef, file);
 
+        if (this.selectslip === "" && this.slipImage == '') {
+          throw new Error("Please select all input");
+        }
+        if (this.selectslip === "") {
+          throw new Error("Please select a bank");
+        }
+        if (this.slipImage == '') {
+          throw new Error("Please select an image");
+        }
         const res = await axios.patch(`http://localhost:8080/api/payment/status/${this.paymentId}`, {
           status: "SUCCESS",
         });
@@ -98,7 +109,28 @@ export default {
 
       } catch (error) {
         console.log(error);
-      }
+        if (error.message === "Please select a bank") {
+          this.$swal.fire({
+            icon: "error",
+            text: "Please select a bank!",
+          });
+        }
+
+        if (error.message === "Please select an image") {
+          this.$swal.fire({
+            icon: "error",
+            text: "Please select an image!",
+          });
+        }
+
+        if (error.message === "Please select all input") {
+          this.$swal.fire({
+            icon: "error",
+            text: "Please select all input!",
+          });
+        }
+
+     }
     },
     async getUserInfo() {
       const userId = JSON.parse(localStorage.getItem("user")).idCard;
