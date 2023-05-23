@@ -43,9 +43,18 @@ export default {
       idcard: "",
       password: "",
       phone: "",
+      check:''
     };
   },
+  mounted(){
+    this.getuserinfo()
+  },
   methods: {
+    async getuserinfo(){
+      const user=  await axios.get(`http://localhost:8080/api/user/`)
+      this.check = user
+      console.log(user.data)
+    },
     // ifelse condition
     async showAlert() {
       // Use sweetalert2

@@ -67,6 +67,9 @@ export default {
         const storage = useFirebaseStorage();
         const starsRef = storageRef(storage, "users/" + val.id);
         const search = await listAll(starsRef);
+        console.log(search);
+        console.log((search.items[0]).toString());
+        console.log(1)
         const download = (await getDownloadURL(search.items[0])).toString();
         val.image = download;
       });

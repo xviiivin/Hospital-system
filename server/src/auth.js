@@ -8,7 +8,7 @@ const router = express.Router();
 import exeptionError from "./Error.js";
 import bcrypt from "bcryptjs";
 
-// ใช้ yupในการ validate ข้อมูลแทน joi การเขียนคล้ายๆกับ joiเลย
+
 const Register = object({
     name: string().required(),
     phone: string().required(),
@@ -34,7 +34,7 @@ router.post("/login", async(req, res, next) => {
         if (!user) {
             res.status(404).json({ message: "User not found" });
         }
-        // bcrypt ใช้สำหรับ ฟังก์ชันแฮชรหัสผ่าน ใช้ compare ในการเปรียบเทียบข้อมูลได้
+
         if (!await bcrypt.compare(req.body.password, user.password)) {
             res.status(401).json({ message: "Wrong password" });
         }
@@ -59,6 +59,12 @@ router.post("/register", async(req, res, next) => {
                 idCard: req.body.idCard,
             },
         });
+        // const checkName = await prisma.user.findUnique({
+        //     where: {
+        //         idCard: req.body.idCard,
+        //         name: req.body.name
+        //     }
+        // });
         const checkphone = await prisma.user.findUnique({
             where: {
                 phone: req.body.phone,
@@ -69,6 +75,9 @@ router.post("/register", async(req, res, next) => {
         } else if (checkphone) {
             res.status(500).json({ status: "errorphone", message: "Phone is already" });
         }
+        // } else if (checkName) {
+        //     res.status(500).json({ status: "errorname", message: "Name and id card is already taken" })
+        // }
         const user = await prisma.$transaction([
             prisma.user.create({
                 data: {

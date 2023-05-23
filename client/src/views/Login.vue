@@ -100,6 +100,12 @@ export default {
             text: "User not found!",
           });
         }
+        else if (error?.response?.data?.message === "Name and id card is already taken"){
+          this.$swal.fire({
+            icon: "error",
+            text: "Name and id card is already taken"
+          })
+        }
       }
     },
   },
